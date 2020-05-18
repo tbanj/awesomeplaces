@@ -16,7 +16,7 @@ class DashboardScreen extends Component {
 DashboardScreen.options = {
     topBar: {
         title: {
-            text: 'DashboardScreen',
+            text: 'Dashboard',
             color: 'white',
         },
         background: {
@@ -24,7 +24,7 @@ DashboardScreen.options = {
         },
     },
     bottomTab: {
-        text: 'DashboardScreen',
+        text: 'Dashboard',
     },
 };
 

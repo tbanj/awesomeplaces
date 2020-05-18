@@ -3,6 +3,7 @@ import { Navigation } from 'react-native-navigation';
 import AuthScreen from './src/screens/Auth';
 // import DashboardScreen from './src/screens/maintabs/Dashboard';
 import SettingScreen from './src/screens/maintabs/Setting';
+import DashboardScreen from './src/screens/maintabs/Dashboard';
 
 // Navigation.setDefaultOptions({
 //     statusBar: {
@@ -26,31 +27,31 @@ import SettingScreen from './src/screens/maintabs/Setting';
 // });
 
 //  Register Screen
-Navigation.registerComponent('AuthScreen', () => AuthScreen);
-// Navigation.registerComponent('DashboardScreen', () => DashboardScreen);
-Navigation.registerComponent('SettingScreen', () => SettingScreen);
+// Navigation.registerComponent('AuthScreen', () => AuthScreen);
+// // Navigation.registerComponent('DashboardScreen', () => DashboardScreen);
+// Navigation.registerComponent('SettingScreen', () => SettingScreen);
 
-Navigation.events().registerAppLaunchedListener(async () => {
-    Navigation.setRoot({
-        root: {
-            bottomTabs: {
-                children: [
-                    {
-                        stack: {
-                            children: [
-                                {
-                                    component: {
-                                        name: 'AuthScreen',
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                ],
-            },
-        },
-    });
-});
+// Navigation.events().registerAppLaunchedListener(async () => {
+//     Navigation.setRoot({
+//         root: {
+//             bottomTabs: {
+//                 children: [
+//                     {
+//                         stack: {
+//                             children: [
+//                                 {
+//                                     component: {
+//                                         name: 'AuthScreen',
+//                                     },
+//                                 },
+//                             ],
+//                         },
+//                     },
+//                 ],
+//             },
+//         },
+//     });
+// });
 
 //  Register Screens
 /* Navigation.registerComponent('DashboardScreen', () => DashboardScreen);
@@ -97,3 +98,22 @@ Navigation.events().registerAppLaunchedListener(async () => {
 //       backgroundColor: 'whitesmoke'
 //     }
 //   });
+
+
+
+Navigation.registerComponent('AuthScreen', () => AuthScreen);
+Navigation.registerComponent('Settings', () => SettingScreen);
+Navigation.registerComponent('Dashboard', () => DashboardScreen);
+
+const loginRoot = {
+    root: {
+        component: {
+            name: 'AuthScreen',
+        },
+    },
+};
+
+
+Navigation.events().registerAppLaunchedListener(async () => {
+    Navigation.setRoot(loginRoot);
+});

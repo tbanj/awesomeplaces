@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import SettingScreen from './maintabs/Setting';
-// import startMainTabs from './maintabs/startMainTabs';
+// import SettingScreen from './maintabs/Setting';
+import startMainTabs from './maintabs/startMainTabs';
 class AuthScreen extends Component {
     constructor(props) {
         ;
@@ -17,10 +17,10 @@ class AuthScreen extends Component {
     render() {
         return (
             // <View> <Text>Auth Screenl</Text> </View>
-            <View >
+            <View style={styles.root}>
                 <Text>Auth Screen</Text>
                 {/* <Button title="Login" onPress={this.loginHandler} /> */}
-                <Button title="Login"
+                {/* <Button title="Login"
                     onPress={() => Navigation.push(this.props.componentId, {
                         component: {
                             name: 'SettingScreen',
@@ -32,10 +32,10 @@ class AuthScreen extends Component {
                                 },
                             },
                         },
-                    })} />
+                    })} /> */}
 
-                {/* <Button title="Login"
-                    onPress={() => Navigation.registerComponent('SettingScreen', () => SettingScreen)} /> */}
+                <Button title="Login"
+                    onPress={() => Navigation.setRoot(startMainTabs)} />
             </View>
         );
     }
@@ -55,5 +55,14 @@ AuthScreen.options = {
         text: 'AuthScreen',
     },
 };
+
+const styles = StyleSheet.create({
+    root: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'whitesmoke'
+    }
+});
 
 export default AuthScreen;
