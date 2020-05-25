@@ -12,4 +12,20 @@ class FindPlaceScreen extends Component {
     }
 }
 
+
+FindPlaceScreen.options = {
+    topBar: {
+        title: {
+            text: 'Find Place',
+            color: 'white',
+        },
+        background: {
+            color: '#4d089a',
+        },
+    },
+    bottomTab: {
+        text: 'Find Place',
+    },
+};
+
 export default FindPlaceScreen;

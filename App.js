@@ -2,8 +2,9 @@
 import { Navigation } from 'react-native-navigation';
 import AuthScreen from './src/screens/Auth';
 // import DashboardScreen from './src/screens/maintabs/Dashboard';
-import SettingScreen from './src/screens/maintabs/Setting';
-import DashboardScreen from './src/screens/maintabs/Dashboard';
+
+import SharePlace from './src/screens/shareplace/SharePlace';
+import FindPlace from './src/screens/findplace/FindPlace';
 
 // Navigation.setDefaultOptions({
 //     statusBar: {
@@ -102,8 +103,8 @@ Navigation.events().registerAppLaunchedListener(async () => {
 
 
 Navigation.registerComponent('AuthScreen', () => AuthScreen);
-Navigation.registerComponent('Settings', () => SettingScreen);
-Navigation.registerComponent('Dashboard', () => DashboardScreen);
+Navigation.registerComponent('Share Place', () => SharePlace);
+Navigation.registerComponent('Find Place', () => FindPlace);
 
 const loginRoot = {
     root: {

@@ -12,4 +12,19 @@ class SharePlaceScreen extends Component {
     }
 }
 
+SharePlaceScreen.options = {
+    topBar: {
+        title: {
+            text: 'Share Place',
+            color: 'white',
+        },
+        background: {
+            color: '#4d089a',
+        },
+    },
+    bottomTab: {
+        text: 'Share Place',
+    },
+};
+
 export default SharePlaceScreen;

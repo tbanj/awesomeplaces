@@ -8,7 +8,7 @@ const mainRoot = {
                         children: [
                             {
                                 component: {
-                                    name: 'Dashboard',
+                                    name: 'Find Place',
                                 },
                             },
                         ],
@@ -19,7 +19,7 @@ const mainRoot = {
                         children: [
                             {
                                 component: {
-                                    name: 'Settings',
+                                    name: 'Share Place',
                                 },
                             },
                         ],
