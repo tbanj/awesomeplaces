@@ -1,111 +1,44 @@
 /* eslint-disable prettier/prettier */
+import React from 'react';
 import { Navigation } from 'react-native-navigation';
+import { Provider, connect } from 'react-redux';
 import AuthScreen from './src/screens/Auth';
+import startMainTabs from './src/screens/maintabs/startMainTabs';
 // import DashboardScreen from './src/screens/maintabs/Dashboard';
-
+import PlaceDetail from './src/screens/placedetail/PlaceDetail';
 import SharePlace from './src/screens/shareplace/SharePlace';
 import FindPlace from './src/screens/findplace/FindPlace';
 
-// Navigation.setDefaultOptions({
-//     statusBar: {
-//         backgroundColor: '#4d089a',
-//     },
-//     topBar: {
-//         title: {
-//             color: 'white',
-//         },
-//         backButton: {
-//             color: 'white',
-//         },
-//         background: {
-//             color: '#4d089a',
-//         },
-//     },
-//     bottomTab: {
-//         fontSize: 14,
-//         selectedFontSize: 14,
-//     },
-// });
+import configureStore from './src/store/configureStore';
 
-//  Register Screen
-// Navigation.registerComponent('AuthScreen', () => AuthScreen);
-// // Navigation.registerComponent('DashboardScreen', () => DashboardScreen);
-// Navigation.registerComponent('SettingScreen', () => SettingScreen);
+const store = configureStore();
 
-// Navigation.events().registerAppLaunchedListener(async () => {
-//     Navigation.setRoot({
-//         root: {
-//             bottomTabs: {
-//                 children: [
-//                     {
-//                         stack: {
-//                             children: [
-//                                 {
-//                                     component: {
-//                                         name: 'AuthScreen',
-//                                     },
-//                                 },
-//                             ],
-//                         },
-//                     },
-//                 ],
-//             },
-//         },
-//     });
-// });
+// Register screens: below are components which u can only attach redux state to
+Navigation.registerComponent('AuthScreen', () => (props) => (
+    <Provider store={store}>
+        <AuthScreen {...props} />
+    </Provider>
+), () => AuthScreen);
 
-//  Register Screens
-/* Navigation.registerComponent('DashboardScreen', () => DashboardScreen);
-Navigation.registerComponent('Settings', () => SettingScreen); */
-/* multiple screens
-Navigation.events().registerAppLaunchedListener(async () => {
-    Navigation.setRoot({
-        root: {
-            bottomTabs: {
-                children: [
-                    {
-                        stack: {
-                            children: [
-                                {
-                                    component: {
-                                        name: 'DashboardScreen',
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                    {
-                        stack: {
-                            children: [
-                                {
-                                    component: {
-                                        name: 'Settings',
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                ],
-            },
-        },
-    });
-}); */
+Navigation.registerComponent('awesome-places.Share Place', () => (props) => (
+    <Provider store={store}>
+        <SharePlace {...props} />
+    </Provider>
+), () => SharePlace);
 
-//   const styles = StyleSheet.create({
-//     root: {
-//       flex: 1,
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//       backgroundColor: 'whitesmoke'
-//     }
-//   });
+Navigation.registerComponent('awesome-places.Find Place', () => (props) => (
+    <Provider store={store}>
+        <FindPlace {...props} />
+    </Provider>
+), () => FindPlace);
 
+Navigation.registerComponent('awesome-places.Place Detail', () => (props) => (
+    <Provider store={store}>
+        <PlaceDetail {...props} />
+    </Provider>
+), () => PlaceDetail);
 
-
-Navigation.registerComponent('AuthScreen', () => AuthScreen);
-Navigation.registerComponent('Share Place', () => SharePlace);
-Navigation.registerComponent('Find Place', () => FindPlace);
-
+// Navigation.setRoot(startMainTabs);
 const loginRoot = {
     root: {
         component: {
@@ -115,6 +48,94 @@ const loginRoot = {
 };
 
 
+
 Navigation.events().registerAppLaunchedListener(async () => {
     Navigation.setRoot(loginRoot);
+    // Navigation.setRoot(startMainTabs);
+    // Navigation.setDefaultOptions({
+    //     bottomTab: {
+    //         selectedFontSize: 14,
+    //         selectedTextColor: 'blue',
+    //     },
+    // });
+
+    // Navigation.mergeOptions('root', {
+    //     bottomTab: {
+    //         animateBadge: true,
+    //         dotIndicator: {
+    //             animate: true, visible: true,
+    //         },
+    //     },
+    //     // bottomTabs: {
+    //     //     animate: true,
+    //     // },
+    // });
+
+    Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[0].stack.id, {
+        bottomTab: {
+            iconColor: '#FF1493',
+            textColor: 'red',
+            animateBadge: true,
+            dotIndicator: {
+                animate: true,
+                visible: true,
+            },
+        },
+        bottomTabs: {
+            animate: true,
+        },
+    });
+
+    Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[1].stack.id, {
+
+        bottomTab: {
+            // textColor: 'red',
+            animateBadge: true,
+            dotIndicator: {
+                animate: true,
+                visible: true,
+            },
+        },
+        bottomTabs: {
+            animate: true,
+        },
+    });
+
 });
+
+Navigation.events().registerAppLaunchedListener(async () => {
+    // Navigation.setRoot(startMainTabs);
+    // Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[0].stack.id, {
+    //     bottomTab: {
+    //         iconColor: '#FF1493',
+    //         textColor: 'red',
+    //         animateBadge: true,
+    //         dotIndicator: {
+    //             animate: true,
+    //             visible: true,
+    //         },
+    //     },
+    //     bottomTabs: {
+    //         animate: true,
+    //     },
+    // });
+
+    // Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[1].stack.id, {
+
+    //     bottomTab: {
+    //         // textColor: 'red',
+    //         animateBadge: true,
+    //         dotIndicator: {
+    //             animate: true,
+    //             visible: true,
+    //         },
+    //     },
+    //     bottomTabs: {
+    //         animate: true,
+    //     },
+    // });
+});
+
+
+
+

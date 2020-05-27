@@ -6,7 +6,7 @@ import { Navigation } from 'react-native-navigation';
 import startMainTabs from './maintabs/startMainTabs';
 class AuthScreen extends Component {
     constructor(props) {
-        ;
+
         super(props);
     }
 
@@ -35,7 +35,9 @@ class AuthScreen extends Component {
                     })} /> */}
 
                 <Button title="Login"
-                    onPress={() => Navigation.setRoot(startMainTabs)} />
+                    onPress={() => {
+                        Navigation.setRoot(startMainTabs);
+                    }} />
             </View>
         );
     }
@@ -61,8 +63,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'whitesmoke'
-    }
+        backgroundColor: 'whitesmoke',
+    },
 });
 
 export default AuthScreen;

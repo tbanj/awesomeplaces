@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
         case DELETE_PLACE:
             return {
                 ...state,
-                places: state.places.filter((plac, ind) => plac.key !== action.placeName),
+                places: state.places.filter((plac, ind) => plac.key !== action.key),
                 // setPlaces(removeText),
                 // setModalVisible(false);
             };

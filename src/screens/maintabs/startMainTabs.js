@@ -1,28 +1,68 @@
 /* eslint-disable prettier/prettier */
 const mainRoot = {
     root: {
+        id: 'root',
         bottomTabs: {
             children: [
                 {
                     stack: {
+                        id: 'tab-1',
                         children: [
                             {
                                 component: {
-                                    name: 'Find Place',
+                                    name: 'awesome-places.Find Place',
                                 },
                             },
                         ],
+                        options: {
+
+                            bottomTab: {
+                                iconColor: '#FF1493',
+                                textColor: '#000',
+                            },
+                            bottomTabs: {
+                                animate: true,
+                            },
+                            // bottomTab: {
+                            //     animateBadge: true,
+                            //     dotIndicator: {
+                            //         animate: true, visible: true,
+                            //     },
+                            // },
+                            // bottomTabs: {
+                            //     animate: true,
+                            // },
+                        },
                     },
                 },
                 {
                     stack: {
+                        id: 'tab-2',
                         children: [
                             {
                                 component: {
-                                    name: 'Share Place',
+                                    name: 'awesome-places.Share Place',
                                 },
                             },
                         ],
+                        options: {
+                            bottomTab: {
+                                iconColor: '#FF1493',
+                                textColor: '#000',
+                            },
+                            bottomTabs: {
+                                animate: true,
+                            },
+                            // bottomTab: {
+                            //     animateBadge: true,
+                            //     dotIndicator: {
+                            //         animate: true, visible: true,
+                            //     },
+                            // },
+                            // bottomTabs: {
+                            //     animate: true,
+                            // },
+                        },
                     },
                 },
             ],
