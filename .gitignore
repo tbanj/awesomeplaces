@@ -1,7 +1,9 @@
 # OSX
 #
 .DS_Store
-
+android/java_pid18048.hprof
+android/app/build/
+ios/Pods/
 
 # Xcode
 #
