@@ -21,6 +21,7 @@ const PlaceDetail = (props) => {
     // delete with key assigned to it
     const deletePlaceHandler = (key) => {
         dispatch(deletePlace(key));
+        // is use to return to previous component or route which takes us to this present component
         Navigation.pop(props.componentId);
     };
 
@@ -40,7 +41,6 @@ const PlaceDetail = (props) => {
                         </TouchableHighlight> */}
 
                         <TouchableHighlight
-                            style={{}}
                             onPress={() => deletePlaceHandler(props.selectedPlace.key)}
                         >
                             <Text>
