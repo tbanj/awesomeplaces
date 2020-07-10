@@ -3,22 +3,66 @@ import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
-import startMainTabs from './maintabs/startMainTabs';
-class AuthScreen extends Component {
+class MenuScreen extends Component {
     constructor(props) {
 
         super(props);
+        // this.navigationEventListener = Navigation.events().bindComponent(this);
+        Navigation.events().bindComponent(this);
+        // const navigationButtonEventListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+
+        // });
     }
+
+
+    componentDidMount() {
+
+    }
+    // CommandListener = ((name, params) => {
+    //     console.warn('how are you');
+
+    // })
+
+
+
+
+    // navigationButtonPressed({ buttonId }) {
+    //     console.warn('sideMenu bbb', buttonId);
+    //     if (buttonId === 'sideMenu') {
+    //         console.log('sideMenu', buttonId);
+    //         console.warn('sideMenu', buttonId);
+
+    //         Navigation.mergeOptions(this, {
+    //             sideMenu: {
+    //                 left: {
+    //                     visible: true
+    //                 },
+    //             },
+    //         });
+    //     }
+    // }
+
+    // navigationButtonPressed({ buttonId }) {
+    //     console.warn('button');
+    // }
 
     loginHandler = () => {
         //  initialiaze next screen
         // startMainTabs();
     }
+
+    componentWillUnmount() {
+        // Not mandatory
+        // if (this.navigationEventListener) {
+        //     this.navigationEventListener.remove();
+        // }
+    }
     render() {
         return (
             // <View> <Text>Auth Screenl</Text> </View>
             <View style={styles.root}>
-                <Text>Auth Screen</Text>
+                <Text>Menu Screen</Text>
+                {/* <Text>How are you</Text> */}
                 {/* <Button title="Login" onPress={this.loginHandler} /> */}
                 {/* <Button title="Login"
                     onPress={() => Navigation.push(this.props.componentId, {
@@ -34,20 +78,16 @@ class AuthScreen extends Component {
                         },
                     })} /> */}
 
-                <Button title="Login"
-                    onPress={() => {
-                        Navigation.setRoot(startMainTabs);
-                    }} />
 
             </View>
         );
     }
 }
 
-AuthScreen.options = {
+MenuScreen.options = {
     topBar: {
         title: {
-            text: 'AuthScreen',
+            text: 'MENU_SCREEN',
             color: 'white',
         },
         background: {
@@ -55,7 +95,7 @@ AuthScreen.options = {
         },
     },
     bottomTab: {
-        text: 'AuthScreen',
+        text: 'MENU_SCREEN',
     },
 };
 
@@ -68,4 +108,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AuthScreen;
+export default MenuScreen;

@@ -5,11 +5,13 @@ import { Provider, connect } from 'react-redux';
 import AuthScreen from './src/screens/Auth';
 import startMainTabs from './src/screens/maintabs/startMainTabs';
 // import DashboardScreen from './src/screens/maintabs/Dashboard';
+import SideDrawer from './src/screens/sideDrawer/SideDrawer';
 import PlaceDetail from './src/screens/placedetail/PlaceDetail';
 import SharePlace from './src/screens/shareplace/SharePlace';
 import FindPlace from './src/screens/findplace/FindPlace';
 
 import configureStore from './src/store/configureStore';
+import MenuScreen from './src/screens/menu/MenuScreen';
 
 const store = configureStore();
 
@@ -38,12 +40,30 @@ Navigation.registerComponent('awesome-places.Place Detail', () => (props) => (
     </Provider>
 ), () => PlaceDetail);
 
+Navigation.registerComponent('awesome-places.MenuScreen', () => (props) => (
+    <Provider store={store}>
+        <MenuScreen {...props} />
+    </Provider>
+), () => MenuScreen);
+
+// registering sideDrawer without redux store
+// Navigation.registerComponent('awesome-places.SideDrawer',
+//     () => SideDrawer);
+
+// registering sideDrawer with redux store
+// Navigation.registerComponent('awesome-places.SideDrawer', () => (props) => (
+//     <Provider store={store}>
+//         <SideDrawer {...props} />
+//     </Provider>
+// ), () => SideDrawer);
+
 // Navigation.setRoot(startMainTabs);
 const loginRoot = {
     root: {
         component: {
             name: 'AuthScreen',
         },
+
     },
 };
 
@@ -71,10 +91,11 @@ Navigation.events().registerAppLaunchedListener(async () => {
     //     // },
     // });
 
-    Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[0].stack.id, {
+    // startMainTabs.root.bottomTabs.children[0].stack.id,
+    Navigation.mergeOptions(startMainTabs.root.sideMenu.center.bottomTabs.children[0].stack.id, {
         bottomTab: {
-            iconColor: '#FF1493',
-            textColor: 'red',
+            // iconColor: '#FF1493',
+            // textColor: 'red',
             animateBadge: true,
             dotIndicator: {
                 animate: true,
@@ -86,7 +107,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
         },
     });
 
-    Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[1].stack.id, {
+    Navigation.mergeOptions(startMainTabs.root.sideMenu.center.bottomTabs.children[1].stack.id, {
 
         bottomTab: {
             // textColor: 'red',
@@ -101,9 +122,19 @@ Navigation.events().registerAppLaunchedListener(async () => {
         },
     });
 
+
+    Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+
+        sideMenu: {
+            left: {
+                visible: true,
+            },
+        },
+    });
+
 });
 
-Navigation.events().registerAppLaunchedListener(async () => {
+// Navigation.events().registerAppLaunchedListener(async () => {
     // Navigation.setRoot(startMainTabs);
     // Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[0].stack.id, {
     //     bottomTab: {
@@ -134,7 +165,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
     //         animate: true,
     //     },
     // });
-});
+// });
 
 
 
