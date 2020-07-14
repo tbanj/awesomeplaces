@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PlaceList from '../../components/placeList/PlaceList';
 import startMainTabs from '../maintabs/startMainTabs';
 
+
 const FindPlaceScreen = (props) => {
 
     // call state from redux store
@@ -15,33 +16,43 @@ const FindPlaceScreen = (props) => {
         places: state.places.places,
     }));
 
-    const bottomTabEventListener = Navigation.events().registerBottomTabSelectedListener(({ selectedTabIndex, unselectedTabIndex }) => {
-        if (selectedTabIndex === 0) {
-            console.log('find place', selectedTabIndex, unselectedTabIndex);
-            console.warn('find place', selectedTabIndex, unselectedTabIndex);
-            Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-                if (buttonId === 'sideDrawer_findPlace') {
-                    console.warn('findPlace buttonId', buttonId);
-                    if (buttonId === 'sideDrawer_findPlace') {
-                        console.warn('findPlace buttonId', buttonId);
-                        Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                            sideMenu: {
-                                left: {
-                                    visible: true
-                                },
-                            },
-                        });
-                    }
-                }
-            })
+    // showSideBar is use to control when to close or open the sideBar
+    let showSidebar = true;
+
+    Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+        if (buttonId === 'sideDrawer_findPlace') {
+            if (showSidebar) {
+
+                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                    sideMenu: {
+                        left: {
+                            visible: true,
+                            enabled: true,
+                        },
+                    },
+                });
+                showSidebar = false;
+            }
+            else {
+
+                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                    sideMenu: {
+                        left: {
+                            visible: false,
+                            enabled: false,
+                        },
+                    },
+                });
+                showSidebar = true;
+            }
+
+
         }
     });
-    useEffect(() => {
 
-        return () => {
-            bottomTabEventListener.remove();
-        };
-    }, [bottomTabEventListener]);
+
+
+
 
 
     const itemSelectedHandler = (data) => {

@@ -18,34 +18,32 @@ const SharePlaceScreen = (props) => {
 
     const dispatch = useDispatch();
     const placeAddedHandler = (data) => { dispatch(addPlace(data)); };
-
-
-    useEffect(() => {
-        const bottomTabEventListene = Navigation.events().registerBottomTabSelectedListener(({ selectedTabIndex, unselectedTabIndex }) => {
-
-            if (selectedTabIndex === 1) {
-                console.log('share place', selectedTabIndex, unselectedTabIndex);
-                Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-                    console.warn('sharePlace buttonId', buttonId);
-                    if (buttonId === 'sideDrawer_sharePlace') {
-                        console.warn('sharePlace buttonId', buttonId);
-                        Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                            sideMenu: {
-                                left: {
-                                    visible: true
-                                },
-                            },
-                        });
-                    }
+    let showSidebar = true;
+    Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+        if (buttonId === 'sideDrawer') {
+            if (showSidebar) {
+                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                    sideMenu: {
+                        left: {
+                            visible: true,
+                        },
+                    },
                 });
+                showSidebar = false;
+            } else {
+                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                    sideMenu: {
+                        left: {
+                            visible: false,
+                        },
+                    },
+                });
+                showSidebar = true;
             }
-        });
-        return () => {
-            bottomTabEventListene.remove();
 
-        };
-    }, []);
 
+        }
+    });
 
     return (
         <View>
@@ -82,7 +80,7 @@ Promise.all([
             /* to make button open a sideMenu Screen, we need to listen to Navigation
             events */
             leftButtons: {
-                id: 'sideDrawer_sharePlace',
+                id: 'sideDrawer',
                 icon: sources[1],
                 color: 'white',
             },

@@ -5,7 +5,7 @@ import { Provider, connect } from 'react-redux';
 import AuthScreen from './src/screens/Auth';
 import startMainTabs from './src/screens/maintabs/startMainTabs';
 // import DashboardScreen from './src/screens/maintabs/Dashboard';
-import SideDrawer from './src/screens/sideDrawer/SideDrawer';
+// import SideDrawer from './src/screens/sideDrawer/SideDrawer';
 import PlaceDetail from './src/screens/placedetail/PlaceDetail';
 import SharePlace from './src/screens/shareplace/SharePlace';
 import FindPlace from './src/screens/findplace/FindPlace';
@@ -59,12 +59,7 @@ Navigation.registerComponent('awesome-places.MenuScreen', () => (props) => (
 
 // Navigation.setRoot(startMainTabs);
 const loginRoot = {
-    root: {
-        component: {
-            name: 'AuthScreen',
-        },
-
-    },
+    root: { component: { name: 'AuthScreen' } },
 };
 
 

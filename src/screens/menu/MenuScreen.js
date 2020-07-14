@@ -1,23 +1,43 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import startMainTabs from '../maintabs/startMainTabs';
 // import SettingScreen from './maintabs/Setting';
 class MenuScreen extends Component {
     constructor(props) {
 
         super(props);
+        // Navigation.events().bindComponent(this);
+        // Navigation.events().bindComponent(this);
         // this.navigationEventListener = Navigation.events().bindComponent(this);
-        Navigation.events().bindComponent(this);
-        // const navigationButtonEventListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-
+        // Navigation.events().bindComponent(this);
+        // Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+        //     console.log('buttonId  DDD', buttonId);
+        //     // if (buttonId === 'sideDrawer_findPlace') {
+        //     //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+        //     //         sideMenu: {
+        //     //             left: {
+        //     //                 visible: false
+        //     //             },
+        //     //         },
+        //     //     });
+        //     // }
         // });
     }
 
 
     componentDidMount() {
+        // this.navigationEventListener = Navigation.events().bindComponent(this);
 
     }
+
+
+
+    // navigationEventListener = (({ componentId, componentName, passProps }) => {
+    //     console.log('dddd', componentId, componentName, passProps);
+    // });
+
     // CommandListener = ((name, params) => {
     //     console.warn('how are you');
 
@@ -26,20 +46,9 @@ class MenuScreen extends Component {
 
 
 
-    // navigationButtonPressed({ buttonId }) {
-    //     console.warn('sideMenu bbb', buttonId);
-    //     if (buttonId === 'sideMenu') {
-    //         console.log('sideMenu', buttonId);
-    //         console.warn('sideMenu', buttonId);
+    // registerComponentDidAppearListener({ componentId, componentName, passProps }) {
+    //     console.warn('sideMenu bbb', componentId, componentName, passProps);
 
-    //         Navigation.mergeOptions(this, {
-    //             sideMenu: {
-    //                 left: {
-    //                     visible: true
-    //                 },
-    //             },
-    //         });
-    //     }
     // }
 
     // navigationButtonPressed({ buttonId }) {
@@ -60,43 +69,35 @@ class MenuScreen extends Component {
     render() {
         return (
             // <View> <Text>Auth Screenl</Text> </View>
-            <View style={styles.root}>
+            // <View style={styles.root}>
+            //     <Text>Menu Screen</Text>
+            // </View>
+            <View style={[styles.container, { width: Dimensions.get('window').width * 0.8 }]}>
                 <Text>Menu Screen</Text>
-                {/* <Text>How are you</Text> */}
-                {/* <Button title="Login" onPress={this.loginHandler} /> */}
-                {/* <Button title="Login"
-                    onPress={() => Navigation.push(this.props.componentId, {
-                        component: {
-                            name: 'SettingScreen',
-                            options: {
-                                topBar: {
-                                    title: {
-                                        text: 'SettingScreen',
-                                    },
-                                },
-                            },
-                        },
-                    })} /> */}
-
-
             </View>
         );
     }
 }
 
 MenuScreen.options = {
-    topBar: {
-        title: {
-            text: 'MENU_SCREEN',
-            color: 'white',
-        },
-        background: {
-            color: '#4d089a',
-        },
-    },
-    bottomTab: {
-        text: 'MENU_SCREEN',
-    },
+    // topBar: {
+    //     title: {
+    //         text: 'MENU_SCREEN',
+    //         color: 'white',
+    //     },
+    //     background: {
+    //         color: '#4d089a',
+    //     },
+    // },
+    // bottomTab: {
+    //     text: 'MENU_SCREEN',
+    // },
+    sideMenu: {
+        left: {
+            visible: false,
+            enabled: false
+        }
+    }
 };
 
 const styles = StyleSheet.create({
@@ -106,6 +107,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'whitesmoke',
     },
+    container: {
+        paddingTop: 22, backgroundColor: 'white',
+        flex: 1,
+    }
 });
 
 export default MenuScreen;
