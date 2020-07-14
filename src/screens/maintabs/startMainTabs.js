@@ -1,63 +1,152 @@
-// /* eslint-disable prettier/prettier */
-// import { Navigation } from 'react-native-navigation';
-
-// import DashboardScreen from './Dashboard';
-// import SettingScreen from './Setting';
-// // Navigation.startTabBasedApp({
-// //     tabs: [
-// //         {
-// //             screen: 'SettingScreen',
-// //             screen: 'SettingScreen',
-// //         },
-// //     ],
-// // });
-
-// //  Register Screens
-// Navigation.registerComponent('DashboardScreen', () => DashboardScreen);
-// Navigation.registerComponent('SettingScreen', () => SettingScreen);
-// // multiple screens
-// Navigation.events().registerAppLaunchedListener(async () => {
-//     Navigation.setRoot({
-//         root: {
-//             bottomTabs: {
-//                 children: [
-//                     {
-//                         stack: {
-//                             children: [
-//                                 {
-//                                     component: {
-//                                         name: 'SettingScreen',
-//                                     },
+/* eslint-disable prettier/prettier */
+// for tabs only without sideMenu
+// const checkRoot = {
+//     root: {
+//         id: 'root',
+//         bottomTabs: {
+//             children: [
+//                 {
+//                     stack: {
+//                         id: 'tab-1',
+//                         children: [
+//                             {
+//                                 component: {
+//                                     name: 'awesome-places.Find Place',
 //                                 },
-//                             ],
+//                             },
+//                         ],
+//                         options: {
+
+//                             bottomTab: {
+//                                 iconColor: '#FF1493',
+//                                 textColor: '#000',
+//                             },
+//                             bottomTabs: {
+//                                 animate: true,
+//                             },
 //                         },
 //                     },
-//                     {
-//                         stack: {
-//                             children: [
-//                                 {
-//                                     component: {
-//                                         name: 'DashboardScreen',
-//                                     },
+//                 },
+//                 {
+//                     stack: {
+//                         id: 'tab-2',
+//                         children: [
+//                             {
+//                                 component: {
+//                                     name: 'awesome-places.Share Place',
 //                                 },
-//                             ],
+//                             },
+//                         ],
+//                         options: {
+//                             bottomTab: {
+//                                 iconColor: '#FF1493',
+//                                 textColor: '#000',
+//                             },
+//                             bottomTabs: {
+//                                 animate: true,
+//                             },
+//                             // bottomTab: {
+//                             //     animateBadge: true,
+//                             //     dotIndicator: {
+//                             //         animate: true, visible: true,
+//                             //     },
+//                             // },
+//                             // bottomTabs: {
+//                             //     animate: true,
+//                             // },
 //                         },
 //                     },
-//                 ],
-//             },
+//                 },
+//             ],
+
 //         },
-//     });
-// });
 
-// //   const styles = StyleSheet.create({
-// //     root: {
-// //       flex: 1,
-// //       alignItems: 'center',
-// //       justifyContent: 'center',
-// //       backgroundColor: 'whitesmoke'
-// //     }
-// //   });
+//     },
+// };
 
-// export default startMainTabs;
+// for bottom tabs with sideMenu
+const mainRoot = {
+    root: {
+        sideMenu: {
+            id: 'sideMenu',
+            options: {
+                sideMenu: {
+                    left: {
+                        width: 110,
+                        shouldStretchDrawer: false,
+                    },
+                },
+            },
+            left: {
+                component: {
+                    id: 'Drawer',
+                    name: 'awesome-places.MenuScreen',
+                },
 
+            },
+            center: {
 
+                bottomTabs: {
+                    children: [
+                        {
+                            stack: {
+                                id: 'tab-1',
+                                children: [
+                                    {
+                                        component: {
+                                            id: 'findPlace',
+                                            name: 'awesome-places.Find Place',
+                                        },
+                                    },
+                                ],
+                                // options: {
+                                //     bottomTab: {
+                                //         iconColor: '#FF1493',
+                                //         textColor: '#000',
+                                //     },
+                                //     bottomTabs: {
+                                //         animate: true,
+                                //     },
+                                // },
+                            },
+                        },
+                        {
+                            stack: {
+                                id: 'tab-2',
+                                children: [
+                                    {
+                                        component: {
+                                            id: 'sharePlace',
+                                            name: 'awesome-places.Share Place',
+                                        },
+                                    },
+                                ],
+                                // options: {
+                                //     bottomTab: {
+                                //         iconColor: '#FF1493',
+                                //         textColor: '#000',
+                                //     },
+                                //     bottomTabs: {
+                                //         animate: true,
+                                //     },
+                                //     bottomTab: {
+                                //         animateBadge: true,
+                                //         dotIndicator: {
+                                //             animate: true, visible: true,
+                                //         },
+                                //     },
+                                //     bottomTabs: {
+                                //         animate: true,
+                                //     },
+                                // },
+                            },
+                        },
+                    ],
+
+                },
+            },
+        },
+        options: { width: 100 },
+    },
+}
+export default mainRoot;

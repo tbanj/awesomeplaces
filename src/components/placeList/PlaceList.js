@@ -9,6 +9,7 @@ const PlaceList = (props) => {
         <FlatList
             data={props.places}
             renderItem={(info, index) => {
+
                 return <ListItem
                     placeName={info.item.name}
                     placeImage={info.item.image}

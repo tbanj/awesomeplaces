@@ -14,9 +14,10 @@ import { connect } from 'react-redux';
 
 // import { Header, LearnMoreLinks, Colors } from 'react-native/Libraries/NewAppScreen';
 import PlaceList from './src/components/placeList/PlaceList';
-import PlaceDetail from './src/components/placedetail/PlaceDetail';
-import PlaceImage from './src/assets/theater.jpeg';
+import PlaceDetail from './src/screens/placedetail/PlaceDetail';
+// import PlaceImage from './src/assets/theater.jpeg';
 import { addPlace, deletePlace, selectPlace, deselectPlace } from './src/store/actions/index';
+import PlaceInput from './src/components/placeInput/PlaceInput';
 
 const App: () => React$Node = (props) => {
   const [placeName, setPlaceName] = useState('');
@@ -83,33 +84,30 @@ const App: () => React$Node = (props) => {
   //   />
   // ));
 
-  const placeSubmitHandler = () => {
-    if (placeName.trim() === '') {
-      return;
-    }
-    //  in react-native to view debug make use of alert to display content u want to troubleshoot
-    // setPlaces([
-    //   ...places,
-    //   {
-    //     key: new Date().getTime() + '', name: placeName,
-    //     image: PlaceImage, remoteImage: {
-    //       uri: 'http://4.bp.blogspot.com/-TLR8ISV2qWo/TyUeVqg9xmI/AAAAAAAACOU/1rCZw9-uj50/s640/62589635.jpg',
-    //       width: 30, height: 30,
-    //     },
-    //   },
-    // ]);
-    props.onAddPlace({ placeName: placeName, PlaceImage: PlaceImage });
-    console.log(placeName, 'how are you');
-    setPlaceName('');
-  };
+  // const placeSubmitHandler = () => {
+  //   if (placeName.trim() === '') {
+  //     return;
+  //   }
+  //   //  in react-native to view debug make use of alert to display content u want to troubleshoot
+  //   // setPlaces([
+  //   //   ...places,
+  //   //   {
+  //   //     key: new Date().getTime() + '', name: placeName,
+  //   //     image: PlaceImage, remoteImage: {
+  //   //       uri: 'http://4.bp.blogspot.com/-TLR8ISV2qWo/TyUeVqg9xmI/AAAAAAAACOU/1rCZw9-uj50/s640/62589635.jpg',
+  //   //       width: 30, height: 30,
+  //   //     },
+  //   //   },
+  //   // ]);
+  //   props.onAddPlace({ placeName: placeName, PlaceImage: PlaceImage });
+  //   console.log(placeName, 'how are you');
+  //   setPlaceName('');
+  // };
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.inputCss} placeholder="An awesome place" onChangeText={placeNameChangeHandler} value={placeName}
-        />
-        <Button style={styles.placeButton} title="Add" onPress={placeSubmitHandler} />
-      </View>
+      {/* for textInput */}
+      <PlaceInput />
       {/* Scrollview is not good for long list but it affect performance
       is good only for short list below 50
       FlatList is good for dynamic list, a list that can be upto 10,000 elements
@@ -118,7 +116,7 @@ const App: () => React$Node = (props) => {
       <View style={styles.listContainer}>
         {modalVisible === true && <PlaceDetail selectedPlace={props.selectedPlace} onItemDeleted={placeDeletedHandler}
           changeModalState={changeModalState} modalVisible={modalVisible} />}
-        {props.places && props.places.length > 0 && < PlaceList places={props.places} onItemSelected={placeSelectedHandler} />}
+        {props.places.length > 0 && < PlaceList places={props.places} onItemSelected={placeSelectedHandler} />}
       </View>
     </View>
   );
@@ -155,6 +153,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
+
+
   return {
     places: state.places.places,
     selectedPlace: state.places.selectedPlace,

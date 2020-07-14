@@ -11,7 +11,7 @@ export const addPlace = (placeName) => {
 export const deletePlace = (key) => {
     return {
         type: DELETE_PLACE,
-        placeName: key,
+        key: key,
     };
 };
 
