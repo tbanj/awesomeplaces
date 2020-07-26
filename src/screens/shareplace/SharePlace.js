@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React, { Component, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { addPlace } from '../../store/actions/index';
 import PlaceInput from '../../components/placeInput/PlaceInput';
 import startMainTabs from '../maintabs/startMainTabs';
+import DefaultInput from '../../components/UI/defaultInput/DefaultInput';
+import TextHeading from '../../components/UI/headingText/HeadingText';
 
 const SharePlaceScreen = (props) => {
     // want to listen to an event when navigator events occured
@@ -46,13 +48,20 @@ const SharePlaceScreen = (props) => {
     });
 
     return (
-        <View>
-            {/* <Text>On Share Place Screen</Text> */}
+        <ScrollView>
+            <View style={styles.header}>
+                <TextHeading >Share a Place with us!</TextHeading>
+            </View>
             <PlaceInput onAddPlace={() => placeAddedHandler()} />
-        </View>
+        </ScrollView>
     );
-}
+};
 
+const styles = StyleSheet.create({
+    header: {
+        alignItems: 'center',
+    },
+});
 export default SharePlaceScreen;
 
 

@@ -4,6 +4,7 @@ import { StyleSheet, View, TextInput, StatusBar, Button, PickerIOSComponent } fr
 import { connect } from 'react-redux';
 import { addPlace, deletePlace, selectPlace, deselectPlace } from '../../../src/store/actions/index';
 import PlaceImage from '../../../src/assets/theater.jpeg';
+import DefaultInput from '../UI/defaultInput/DefaultInput';
 class PlaceInput extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +35,7 @@ class PlaceInput extends Component {
     render() {
         return (
             <View style={styles.inputContainer}>
-                <TextInput style={styles.inputCss} placeholder="An awesome place" onChangeText={this.placeNameChangeHandler} value={this.state.placeName}
+                <DefaultInput style={styles.inputCss} placeholder="An awesome place" onChangeText={this.placeNameChangeHandler} value={this.state.placeName}
                 />
                 <Button style={styles.placeButton} title="Add" onPress={this.placeSubmitHandler} />
             </View>
