@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import {
     View, Text, Button, StyleSheet, TextInput, ImageBackground,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
@@ -11,6 +12,8 @@ import DefaultInput from '../components/UI/defaultInput/DefaultInput';
 import HeadingText from '../components/UI/headingText/HeadingText';
 import MainText from '../components/UI/mainText/MainText';
 import background from '../../src/assets/background.jpg';
+import DefaultTouchable from '../components/UI/defaultTouch/DefaultTouchable';
+import ButtonWithBg from '../components/UI/buttonWithBg/ButtonWithBg';
 // import DefaultButton from '../components/UI/defaultButton/DefaultButton';
 
 class AuthScreen extends Component {
@@ -36,11 +39,9 @@ class AuthScreen extends Component {
                             <HeadingText style={styles.HeadingText}>Please Login</HeadingText>
                         </MainText>
                         {/* <Button style={styles.buttonM} title="Switch to Login" /> */}
-                        <TouchableOpacity
-                            style={styles.loginScreenButton}
-                            underlayColor="#fff">
-                            <Text style={styles.loginText}>Switch to Login</Text>
-                        </TouchableOpacity>
+                        <ButtonWithBg color={'#29aaf4'} onPress={() => alert('Switch to Login')} text={'Switch to Login'} />
+                        {/* <DefaultTouchable style={styles.loginScreenButton}
+                            underlayColor="#fff" InnerText={'Switch to Login'} styleText={styles.loginText} /> */}
                         <View style={styles.inputContainer}>
                             <DefaultInput placeholder="Email address" style={styles.input} />
                             <DefaultInput placeholder="Password" style={styles.input} />
@@ -50,13 +51,10 @@ class AuthScreen extends Component {
                             onPress={() => {
                                 Navigation.setRoot(startMainTabs);
                             }} /> */}
-                        <TouchableOpacity onPress={() => {
+                        <DefaultTouchable style={styles.loginScreenButton} onPress={() => {
                             Navigation.setRoot(startMainTabs);
                         }}
-                            style={styles.loginScreenButton}
-                            underlayColor="#fff">
-                            <Text style={styles.loginText}>Submit</Text>
-                        </TouchableOpacity>
+                            underlayColor="#fff" InnerText={'Submit'} styleText={styles.loginText} />
                     </View>
 
 
@@ -130,10 +128,10 @@ const styles = StyleSheet.create({
         borderColor: '#fff',
     },
     loginText: {
-        color: '#fff',
+        color: 'black',
         textAlign: 'center',
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
     },
 });
 
