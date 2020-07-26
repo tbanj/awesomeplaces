@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
 import startMainTabs from './maintabs/startMainTabs';
+import DefaultInput from '../components/UI/defaultInput/DefaultInput';
+
 class AuthScreen extends Component {
     constructor(props) {
 
@@ -16,28 +18,21 @@ class AuthScreen extends Component {
     }
     render() {
         return (
-            // <View> <Text>Auth Screenl</Text> </View>
             <View style={styles.root}>
-                <Text>Auth Screen</Text>
-                {/* <Button title="Login" onPress={this.loginHandler} /> */}
-                {/* <Button title="Login"
-                    onPress={() => Navigation.push(this.props.componentId, {
-                        component: {
-                            name: 'SettingScreen',
-                            options: {
-                                topBar: {
-                                    title: {
-                                        text: 'SettingScreen',
-                                    },
-                                },
-                            },
-                        },
-                    })} /> */}
+                <View style={styles.container}>
+                    <Text style={styles.textHeading}>Please Login</Text>
+                    <Button title="Switch to Login" />
+                    <View style={styles.inputContainer}>
+                        <DefaultInput placeholder="Email address" style={styles.input} />
+                        <DefaultInput placeholder="Password" style={styles.input} />
+                        <DefaultInput placeholder="Confirm Password" style={styles.input} />
+                    </View>
+                    <Button title="Submit"
+                        onPress={() => {
+                            Navigation.setRoot(startMainTabs);
+                        }} />
+                </View>
 
-                <Button title="Login"
-                    onPress={() => {
-                        Navigation.setRoot(startMainTabs);
-                    }} />
 
             </View>
         );
@@ -61,10 +56,30 @@ AuthScreen.options = {
 
 const styles = StyleSheet.create({
     root: {
+
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'whitesmoke',
+    },
+    container: {
+
+        justifyContent: 'center',
+        flex: 1,
+        // width: '80%',
+        alignItems: 'center',
+        // paddingLeft: 10,
+        // paddingRight: 10,
+    },
+    textHeading: {
+        fontWeight: 'bold',
+        fontSize: 28,
+    },
+    input: {
+        backgroundColor: '#eee',
+        borderColor: '#bbb',
+    },
+    inputContainer: {
+        width: '80%',
     },
 });
 

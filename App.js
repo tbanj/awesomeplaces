@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigation } from 'react-native-navigation';
 import { Provider, connect } from 'react-redux';
 import AuthScreen from './src/screens/Auth';
