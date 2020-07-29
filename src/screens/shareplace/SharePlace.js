@@ -59,12 +59,7 @@ const SharePlaceScreen = (props) => {
                         <TextHeading >Share a Place with us!</TextHeading>
                     </MainText>
                 </View>
-                <View style={styles.placeholder}>
-                    <Image source={ImagePlaceholder} style={styles.previewImage} />
-                    {/* <Text>Preview Image</Text> */}
-                </View>
-                <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
-                    underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} />
+
                 <View style={styles.placeholder}><Text>Map</Text></View>
                 <DefaultTouchable style={styles.loginScreenButton}
                     underlayColor="#fff" InnerText={'Locate Me'} styleText={styles.loginText} />
@@ -106,7 +101,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#fff',
-    }
+    },
 });
 export default SharePlaceScreen;
 
