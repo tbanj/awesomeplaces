@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, StatusBar, Button, PickerIOSComponent } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace, deletePlace, selectPlace, deselectPlace } from '../../../src/store/actions/index';
 import PlaceImage from '../../../src/assets/theater.jpeg';
+import DefaultInput from '../UI/defaultInput/DefaultInput';
+import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 class PlaceInput extends Component {
     constructor(props) {
         super(props);
@@ -34,9 +36,14 @@ class PlaceInput extends Component {
     render() {
         return (
             <View style={styles.inputContainer}>
-                <TextInput style={styles.inputCss} placeholder="An awesome place" onChangeText={this.placeNameChangeHandler} value={this.state.placeName}
-                />
-                <Button style={styles.placeButton} title="Add" onPress={this.placeSubmitHandler} />
+                <DefaultInput style={styles.inputCss} placeholder="An awesome place" onChangeText={this.placeNameChangeHandler}
+                    value={this.state.placeName} />
+                {/* <Button style={styles.placeButton} title="Share a Place" onPress={this.placeSubmitHandler} /> */}
+                <DefaultTouchable style={styles.loginScreenButton} onPress={() => {
+                    alert('how are u');
+                    this.placeSubmitHandler();
+                }}
+                    underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} />
             </View>
         );
     }
@@ -44,16 +51,33 @@ class PlaceInput extends Component {
 
 const styles = StyleSheet.create({
     inputCss: {
-        width: '70%',
+        width: '100%',
     },
     inputContainer: {
+        width: '80%',
         // flex: 1,
-        padding: 10,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        // padding: 10,
+        // width: '100%',
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
+        // alignItems: 'center',
     },
+    loginScreenButton: {
+        marginRight: 40,
+        marginLeft: 40,
+        marginTop: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: '#2196F3',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#fff',
+    },
+    // placeButton: {
+    //     borderColor: 'red',
+    //     borderWidth: 1,
+    // },
+
 });
 const mapStateToProps = state => {
     return {

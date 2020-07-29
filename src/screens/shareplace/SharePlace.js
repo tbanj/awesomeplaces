@@ -1,12 +1,18 @@
 /* eslint-disable prettier/prettier */
 import React, { Component, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Button, Image } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { addPlace } from '../../store/actions/index';
 import PlaceInput from '../../components/placeInput/PlaceInput';
 import startMainTabs from '../maintabs/startMainTabs';
+import DefaultInput from '../../components/UI/defaultInput/DefaultInput';
+import TextHeading from '../../components/UI/headingText/HeadingText';
+import ButtonWithBg from '../../components/UI/buttonWithBg/ButtonWithBg';
+import DefaultTouchable from '../../components/UI/defaultTouch/DefaultTouchable';
+import ImagePlaceholder from '../../../src/assets/home.png';
+import MainText from '../../components/UI/mainText/MainText';
 
 const SharePlaceScreen = (props) => {
     // want to listen to an event when navigator events occured
@@ -46,13 +52,57 @@ const SharePlaceScreen = (props) => {
     });
 
     return (
-        <View>
-            {/* <Text>On Share Place Screen</Text> */}
-            <PlaceInput onAddPlace={() => placeAddedHandler()} />
-        </View>
-    );
-}
+        <ScrollView >
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <MainText>
+                        <TextHeading >Share a Place with us!</TextHeading>
+                    </MainText>
+                </View>
 
+                <View style={styles.placeholder}><Text>Map</Text></View>
+                <DefaultTouchable style={styles.loginScreenButton}
+                    underlayColor="#fff" InnerText={'Locate Me'} styleText={styles.loginText} />
+                <PlaceInput onAddPlace={() => placeAddedHandler()} />
+            </View>
+
+        </ScrollView>
+    );
+};
+
+const styles = StyleSheet.create({
+    header: {
+        alignItems: 'center',
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    mb: { marginBottom: 10 },
+    placeholder: {
+        borderWidth: 1,
+        borderColor: 'black',
+        backgroundColor: '#eee',
+        width: '80%',
+        // alignItems: 'center',
+        height: 150,
+    },
+    previewImage: {
+        width: '100%',
+        height: '100%',
+    },
+    loginScreenButton: {
+        marginRight: 40,
+        marginLeft: 40,
+        marginTop: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: '#2196F3',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#fff',
+    },
+});
 export default SharePlaceScreen;
 
 
@@ -84,6 +134,7 @@ Promise.all([
                 icon: sources[1],
                 color: 'white',
             },
+
         },
         // bottomTab: {
         //     text: 'Share Place',
