@@ -26,6 +26,7 @@ class AuthScreen extends Component {
         //  initialiaze next screen
         // startMainTabs();
     }
+    handleLogin = () => { alert('Switch to Login'); };
     render() {
         return (
 
@@ -39,7 +40,7 @@ class AuthScreen extends Component {
                             <HeadingText style={styles.HeadingText}>Please Login</HeadingText>
                         </MainText>
                         {/* <Button style={styles.buttonM} title="Switch to Login" /> */}
-                        <ButtonWithBg color={'#29aaf4'} onPress={() => alert('Switch to Login')} text={'Switch to Login'} />
+                        <ButtonWithBg color={'#29aaf4'} onPress={() => this.handleLogin()} text={'Switch to Login'} />
                         {/* <DefaultTouchable style={styles.loginScreenButton}
                             underlayColor="#fff" InnerText={'Switch to Login'} styleText={styles.loginText} /> */}
                         <View style={styles.inputContainer}>

@@ -72,7 +72,7 @@ const mainRoot = {
             options: {
                 sideMenu: {
                     left: {
-                        width: 110,
+                        width: 200,
                         shouldStretchDrawer: false,
                     },
                 },

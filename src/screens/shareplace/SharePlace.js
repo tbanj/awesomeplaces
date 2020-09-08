@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import React, { Component, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, Button, Image } from 'react-native';
+import React, { Component, useEffect, useState } from 'react';
+import { View, Text, FlatList, ScrollView, StyleSheet, Button, Image } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,12 +15,20 @@ import ImagePlaceholder from '../../../src/assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
 
 const SharePlaceScreen = (props) => {
+    const [imagePicker, setImagePicker] = useState('')
     // want to listen to an event when navigator events occured
     // props.navigator.setOnNavigatorEvent(onNavigatorEvent);
 
     // const onNavigatorEvent = event => {
     //     console.warn('event', event);
     // };
+
+    const { places } = useSelector(state => ({
+        places: state.places.places,
+    }));
+    if (places.length > 0) {
+        console.warn('places', places[places.length - 1]);
+    }
 
     const dispatch = useDispatch();
     const placeAddedHandler = (data) => { dispatch(addPlace(data)); };
@@ -51,22 +59,47 @@ const SharePlaceScreen = (props) => {
         }
     });
 
+    const handleImagePicked = () => {
+        if (places.length < 1) {
+            return;
+        }
+        setImagePicker(places[places.length - 1].image);
+    };
+
     return (
-        <ScrollView >
+
+
+        <ScrollView keyboardShouldPersistTaps="always">
             <View style={styles.container}>
                 <View style={styles.header}>
                     <MainText>
                         <TextHeading >Share a Place with us!</TextHeading>
                     </MainText>
                 </View>
+                <View style={[styles.placeholder, styles.mb]}>
+                    {imagePicker.length > 1 && <Image resizeMode="contain" source={imagePicker} style={styles.previewImage} />}
 
-                <View style={styles.placeholder}><Text>Map</Text></View>
+                    {/* {places.length > 0 ?
+                            <Image resizeMode="contain" source={places[places.length - 1].image} style={styles.previewImage} /> :
+                            <Image resizeMode="contain" source={places.image} style={styles.previewImage} />} */}
+                </View>
+                <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
+                    underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={() => handleImagePicked()} />
+                <View style={[styles.placeholder, styles.bw]}>
+                    <Text>Map</Text>
+                </View>
+
                 <DefaultTouchable style={styles.loginScreenButton}
                     underlayColor="#fff" InnerText={'Locate Me'} styleText={styles.loginText} />
+
                 <PlaceInput onAddPlace={() => placeAddedHandler()} />
             </View>
-
         </ScrollView>
+
+
+
+
+
     );
 };
 
@@ -74,19 +107,21 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center',
     },
+    testDiv: { flex: 1 },
     container: {
         flex: 1,
         alignItems: 'center',
     },
     mb: { marginBottom: 10 },
     placeholder: {
-        borderWidth: 1,
+
         borderColor: 'black',
-        backgroundColor: '#eee',
+        // backgroundColor: '#eee',
         width: '80%',
         // alignItems: 'center',
         height: 150,
     },
+    bw: { borderWidth: 1 },
     previewImage: {
         width: '100%',
         height: '100%',
@@ -102,6 +137,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff',
     },
+    placeImage: { marginRight: 8, height: 30, width: 30 },
 });
 export default SharePlaceScreen;
 

@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import Icon from 'react-native-vector-icons/AntDesign';
 import startMainTabs from '../maintabs/startMainTabs';
 // import SettingScreen from './maintabs/Setting';
 class MenuScreen extends Component {
@@ -71,10 +72,16 @@ class MenuScreen extends Component {
             // <View> <Text>Auth Screenl</Text> </View>
             // <View style={styles.root}>
             //     <Text>Menu Screen</Text>
-            // </View>
+            // </View>  logout from AntDesign
             <View style={[styles.container, { width: Dimensions.get('window').width * 0.8 }]}>
-                <Text>Menu Screen</Text>
+                <TouchableOpacity>
+                    <View style={styles.drawItem}>
+                        <Icon style={styles.drawItemIcon} name="logout" size={30} color="#aaa" />
+                        <Text>Menu Screen</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
+
         );
     }
 }
@@ -107,10 +114,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'whitesmoke',
     },
+    drawItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+        backgroundColor: '#eee',
+    },
+    drawItemIcon: { marginRight: 10 },
     container: {
-        paddingTop: 22, backgroundColor: 'white',
+        paddingTop: 50, backgroundColor: 'white',
         flex: 1,
-    }
+    },
 });
 
 export default MenuScreen;

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace, deletePlace, selectPlace, deselectPlace } from '../../../src/store/actions/index';
 import PlaceImage from '../../../src/assets/theater.jpeg';
@@ -10,9 +10,12 @@ class PlaceInput extends Component {
     constructor(props) {
         super(props);
         this.state = { placeName: '' };
+        // this._onLogin = this._onLogin.bind(this)
     }
 
-    placeNameChangeHandler = (event) => { this.setState({ placeName: event }); };
+    placeNameChangeHandler = (event) => {
+        this.setState({ placeName: event });
+    };
 
     placeSubmitHandler = () => {
         if (this.state.placeName.trim() === '') {
@@ -38,12 +41,10 @@ class PlaceInput extends Component {
             <View style={styles.inputContainer}>
                 <DefaultInput style={styles.inputCss} placeholder="An awesome place" onChangeText={this.placeNameChangeHandler}
                     value={this.state.placeName} />
-                {/* <Button style={styles.placeButton} title="Share a Place" onPress={this.placeSubmitHandler} /> */}
-                <DefaultTouchable style={styles.loginScreenButton} onPress={() => {
-                    alert('how are u');
-                    this.placeSubmitHandler();
-                }}
+                <DefaultTouchable style={styles.loginScreenButton} onPress={() => { this.placeSubmitHandler(); }}
                     underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} />
+
+
             </View>
         );
     }
