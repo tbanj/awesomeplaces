@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, { Component, useEffect, useState } from 'react';
-import { View, Text, FlatList, ScrollView, StyleSheet, Button, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+    View, Text, ScrollView, StyleSheet,
+    Platform, Image,
+} from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,7 +18,9 @@ import ImagePlaceholder from '../../../src/assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
 
 const SharePlaceScreen = (props) => {
-    const [imagePicker, setImagePicker] = useState('')
+    console.log('props', props);
+    const [imagePicker, setImagePicker] = useState('');
+    const [menuBtn, setMenuBtn] = useState(true);
     // want to listen to an event when navigator events occured
     // props.navigator.setOnNavigatorEvent(onNavigatorEvent);
 
@@ -32,10 +37,18 @@ const SharePlaceScreen = (props) => {
 
     const dispatch = useDispatch();
     const placeAddedHandler = (data) => { dispatch(addPlace(data)); };
-    let showSidebar = true;
-    Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-        if (buttonId === 'sideDrawer') {
-            if (showSidebar) {
+
+
+    useEffect(() => {
+        let showSide = true;
+        const screenEventListener = Navigation.events().registerComponentDidAppearListener(({ componentId, componentName, passProps }) => {
+            console.log('componentId, componentName, passProps ', componentId, componentName, passProps);
+        });
+
+
+        const sidebarSharePlaceListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+
+            if (Platform.OS === 'android') {
                 Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
                     sideMenu: {
                         left: {
@@ -43,21 +56,97 @@ const SharePlaceScreen = (props) => {
                         },
                     },
                 });
-                showSidebar = false;
-            } else {
+                // showSide = false;
+                return;
+            }
+
+            // console.log('buttonId', buttonId, menuBtn);
+            // Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //     sideMenu: {
+            //         left: {
+            //             visible: buttonId === 'sideDrawer_sharePlace' ? true : false,
+            //             enabled: buttonId === 'sideDrawer_sharePlace' ? true : false,
+            //         },
+            //     },
+            // });
+
+            function toggleMenuBtn() {
+                showSide = !showSide;
+                console.log('showSide', showSide, startMainTabs.root.sideMenu.id);
+            }
+            toggleMenuBtn();
+            if (showSide) {
+                // showSide = true;
+                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                    sideMenu: {
+                        left: {
+                            visible: true,
+                            enabled: true,
+                        },
+                    },
+                });
+
+                // showSide = false;
+                // return;
+                // setMenuBtn(true);
+            }
+
+
+            if (!showSide) {
+                // showSide = true;
                 Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
                     sideMenu: {
                         left: {
                             visible: false,
+                            enabled: false,
                         },
                     },
                 });
-                showSidebar = true;
+
+                // showSide = false;
+                // return;
+                // setMenuBtn(true);
             }
+            // if (menuBtn) {
+            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //         sideMenu: {
+            //             left: {
+            //                 visible: menuBtn ? false : true,
+            //             },
+            //         },
+            //     });
+            //     // showSide = true;
+            //     setMenuBtn(false);
+            // }
 
+            // if (showSide) {
+            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //         sideMenu: {
+            //             left: {
+            //                 visible: true,
+            //             },
+            //         },
+            //     });
+            // } else {
+            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //         sideMenu: {
+            //             left: {
+            //                 visible: true,
+            //                 enabled: true,
+            //             },
+            //         },
+            //     });
+            // }
+            // showSide = true;
+        });
 
-        }
-    });
+        // unsubscribe sidebarSharePlaceListener
+
+        return () => {
+            sidebarSharePlaceListener.remove();
+            screenEventListener.remove();
+        };
+    }, []);
 
     const handleImagePicked = () => {
         if (places.length < 1) {
@@ -77,7 +166,7 @@ const SharePlaceScreen = (props) => {
                     </MainText>
                 </View>
                 <View style={[styles.placeholder, styles.mb]}>
-                    {imagePicker.length > 1 && <Image resizeMode="contain" source={imagePicker} style={styles.previewImage} />}
+                    {places.length > 0 && <Image resizeMode="contain" source={imagePicker} style={styles.previewImage} />}
 
                     {/* {places.length > 0 ?
                             <Image resizeMode="contain" source={places[places.length - 1].image} style={styles.previewImage} /> :
@@ -151,8 +240,8 @@ export default SharePlaceScreen;
 
 
 Promise.all([
-    Icon.getImageSource('md-share-alt', 30),
-    Icon.getImageSource('ios-menu', 30),
+    Icon.getImageSource(Platform.OS === 'android' ? 'md-share-alt' : 'ios-share', 30),
+    Icon.getImageSource(Platform.OS === 'android' ? 'md-menu' : 'ios-menu', 30),
 ]).then(sources => {
     SharePlaceScreen.options = {
         topBar: {
@@ -166,7 +255,7 @@ Promise.all([
             /* to make button open a sideMenu Screen, we need to listen to Navigation
             events */
             leftButtons: {
-                id: 'sideDrawer',
+                id: 'sideDrawer_sharePlace',
                 icon: sources[1],
                 color: 'white',
             },

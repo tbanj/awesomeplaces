@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
     View, Text, Button, StyleSheet, TextInput, ImageBackground,
     TouchableOpacity,
-    Alert
+    Alert, Dimensions
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
@@ -17,17 +17,41 @@ import ButtonWithBg from '../components/UI/buttonWithBg/ButtonWithBg';
 // import DefaultButton from '../components/UI/defaultButton/DefaultButton';
 
 class AuthScreen extends Component {
+    state = {
+        // respStyles: {
+        //     pwdContainer: styles.portraitPwdContainer,
+        //     pwdWrapper: styles.portraitPwdWrapper,
+        // },
+        viewMode: Dimensions.get('window').height > 500 ? 'portrait' : 'landscape',
+    };
     constructor(props) {
 
         super(props);
+        Dimensions.addEventListener('change', (dims) => this.updateStyles);
     }
 
     loginHandler = () => {
         //  initialiaze next screen
         // startMainTabs();
     }
-    handleLogin = () => { alert('Switch to Login'); };
+    handleLogin = () => { console.log('Login at console'); };
+
+    updateStyles = (dims) => {
+        this.setState({
+            viewMode: Dimensions.get('window').height > 500 ? 'portrait' : 'landscape',
+        });
+    }
+
+    componentWillUnmount() {
+        Dimensions.removeEventListener('change', this.updateStyles);
+    }
     render() {
+        let headingText = null;
+        if (Dimensions.get('window').height > 500) {
+            headingText = (<MainText>
+                <HeadingText style={styles.HeadingText}>Please Login</HeadingText>
+            </MainText>);
+        }
         return (
 
 
@@ -36,17 +60,17 @@ class AuthScreen extends Component {
                     <View style={styles.container}>
 
                         {/* to make a style override the other it has to be the parent of that view or textciew */}
-                        <MainText>
-                            <HeadingText style={styles.HeadingText}>Please Login</HeadingText>
-                        </MainText>
+                        {headingText}
                         {/* <Button style={styles.buttonM} title="Switch to Login" /> */}
                         <ButtonWithBg color={'#29aaf4'} onPress={() => this.handleLogin()} text={'Switch to Login'} />
                         {/* <DefaultTouchable style={styles.loginScreenButton}
                             underlayColor="#fff" InnerText={'Switch to Login'} styleText={styles.loginText} /> */}
                         <View style={styles.inputContainer}>
                             <DefaultInput placeholder="Email address" style={styles.input} />
-                            <DefaultInput placeholder="Password" style={styles.input} />
-                            <DefaultInput placeholder="Confirm Password" style={styles.input} />
+                            <View style={this.state.viewMode === 'portrait' ? styles.portraitPwdContainer : styles.landscapePwdContainer}>
+                                <View style={this.state.viewMode === 'portrait' ? styles.portraitPwdWrapper : styles.landscapePwdWrapper}><DefaultInput placeholder="Password" style={styles.input} /></View>
+                                <View style={this.state.viewMode === 'portrait' ? styles.portraitPwdWrapper : styles.landscapePwdWrapper}><DefaultInput placeholder="Confirm Password" style={styles.input} /></View>
+                            </View>
                         </View>
                         {/* <Button title="Submit"
                             onPress={() => {
@@ -134,6 +158,21 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
     },
+    landscapePwdContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+
+    portraitPwdContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+    },
+    landscapePwdWrapper: {
+        width: '45%',
+    },
+    portraitPwdWrapper: {
+        width: '100%',
+    },
 });
 
-export default AuthScreen;
+export default AuthScreen; 

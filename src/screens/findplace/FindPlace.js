@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component, useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,41 +17,74 @@ const FindPlaceScreen = (props) => {
     }));
 
     // showSideBar is use to control when to close or open the sideBar
-    let showSidebar = true;
+    let showSidebar;
 
-    Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+    const sidebarEventListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+        if (Platform.OS === 'android') {
+            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                sideMenu: {
+                    left: {
+                        visible: true,
+                    },
+                },
+            });
+            // showSidebar = false;
+            return;
+        }
+
         if (buttonId === 'sideDrawer_findPlace') {
-            if (showSidebar) {
+            showSidebar = true;
 
-                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                    sideMenu: {
-                        left: {
-                            visible: true,
-                            enabled: true,
-                        },
+            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                sideMenu: {
+                    left: {
+                        visible: true,
+                        // enabled: true,
                     },
-                });
-                showSidebar = false;
-            }
-            else {
+                },
+            });
+            showSidebar = false;
 
-                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                    sideMenu: {
-                        left: {
-                            visible: false,
-                            enabled: false,
-                        },
+
+
+
+        }
+        else {
+
+            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                sideMenu: {
+                    left: {
+                        visible: false,
+                        // enabled: false,
                     },
-                });
-                showSidebar = true;
-            }
+                },
+            });
+            showSidebar = true;
 
+        }
 
+        if (showSidebar) {
+            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                sideMenu: {
+                    left: {
+                        visible: true,
+                    },
+                },
+            });
+        } else {
+            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                sideMenu: {
+                    left: {
+                        visible: false,
+                    },
+                },
+            });
         }
     });
 
 
-
+    // unsubscribe sidebarEventListener
+    sidebarEventListener.remove();
 
 
 
@@ -114,8 +147,8 @@ async function getMapIcon() {
     }
 }
 Promise.all([
-    Icon.getImageSource('md-map', 30),
-    Icon.getImageSource('ios-menu', 30),
+    Icon.getImageSource(Platform.OS === 'android' ? 'md-map' : 'ios-map', 30),
+    Icon.getImageSource(Platform.OS === 'android' ? 'md-menu' : 'ios-menu', 30),
 ]).then(sources => {
     FindPlaceScreen.options = {
         topBar: {

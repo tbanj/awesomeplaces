@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity, Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import startMainTabs from '../maintabs/startMainTabs';
@@ -76,7 +76,7 @@ class MenuScreen extends Component {
             <View style={[styles.container, { width: Dimensions.get('window').width * 0.8 }]}>
                 <TouchableOpacity>
                     <View style={styles.drawItem}>
-                        <Icon style={styles.drawItemIcon} name="logout" size={30} color="#aaa" />
+                        <Icon style={styles.drawItemIcon} name={'logout'} size={30} color="#aaa" />
                         <Text>Menu Screen</Text>
                     </View>
                 </TouchableOpacity>

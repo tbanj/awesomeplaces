@@ -148,5 +148,5 @@ const mainRoot = {
         },
         options: { width: 100 },
     },
-}
+};
 export default mainRoot;

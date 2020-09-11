@@ -2,18 +2,17 @@
 // /* eslint-disable prettier/prettier */
 // /* eslint-disable no-unused-vars */
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
-    Alert,
     StyleSheet,
     Text, Image,
     TouchableHighlight,
-    View,
+    View, Platform,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import { deletePlace } from '../../store/actions/index';
-import Feather from 'react-native-vector-icons/Feather';
+// import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
 const PlaceDetail = (props) => {
 
@@ -44,7 +43,7 @@ const PlaceDetail = (props) => {
                             onPress={() => deletePlaceHandler(props.selectedPlace.key)}
                         >
                             <Text>
-                                <Icon name="ios-trash" size={40} color="red" />;
+                                <Icon name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'} size={40} color="red" />;
           </Text>
                         </TouchableHighlight>
 
@@ -67,8 +66,8 @@ const PlaceDetail = (props) => {
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        justifyContent: 'center',
+        // alignItems: 'flex-start',
         margin: 5,
     },
     modalView: {
