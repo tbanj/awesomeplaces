@@ -18,9 +18,9 @@ import ImagePlaceholder from '../../../src/assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
 
 const SharePlaceScreen = (props) => {
-    console.log('props', props);
+    console.log('props');
     const [imagePicker, setImagePicker] = useState('');
-    const [menuBtn, setMenuBtn] = useState(true);
+    const [menuBtn, setMenuBtn] = useState(false);
     // want to listen to an event when navigator events occured
     // props.navigator.setOnNavigatorEvent(onNavigatorEvent);
 
@@ -41,110 +41,42 @@ const SharePlaceScreen = (props) => {
 
     useEffect(() => {
         let showSide = true;
-        const screenEventListener = Navigation.events().registerComponentDidAppearListener(({ componentId, componentName, passProps }) => {
-            console.log('componentId, componentName, passProps ', componentId, componentName, passProps);
-        });
-
-
         const sidebarSharePlaceListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
 
-            if (Platform.OS === 'android') {
-                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                    sideMenu: {
-                        left: {
-                            visible: true,
+
+
+            if (buttonId === 'sideDrawer_sharePlace') {
+                if (Platform.OS === 'android') {
+                    Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                        sideMenu: {
+                            left: {
+                                visible: true,
+                                enabled: true,
+                            },
                         },
-                    },
-                });
-                // showSide = false;
-                return;
-            }
-
-            // console.log('buttonId', buttonId, menuBtn);
-            // Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //     sideMenu: {
-            //         left: {
-            //             visible: buttonId === 'sideDrawer_sharePlace' ? true : false,
-            //             enabled: buttonId === 'sideDrawer_sharePlace' ? true : false,
-            //         },
-            //     },
-            // });
-
-            function toggleMenuBtn() {
-                showSide = !showSide;
-                console.log('showSide', showSide, startMainTabs.root.sideMenu.id);
-            }
-            toggleMenuBtn();
-            if (showSide) {
-                // showSide = true;
+                    });
+                    return;
+                }
                 Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
                     sideMenu: {
                         left: {
-                            visible: true,
+                            visible: showSide === true ? true : false,
                             enabled: true,
                         },
                     },
                 });
 
-                // showSide = false;
-                // return;
-                // setMenuBtn(true);
+                function toggleMenuBtn() {
+                    showSide = !showSide;
+                    console.log('showSide', showSide);
+                }
+                toggleMenuBtn();
             }
-
-
-            if (!showSide) {
-                // showSide = true;
-                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                    sideMenu: {
-                        left: {
-                            visible: false,
-                            enabled: false,
-                        },
-                    },
-                });
-
-                // showSide = false;
-                // return;
-                // setMenuBtn(true);
-            }
-            // if (menuBtn) {
-            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //         sideMenu: {
-            //             left: {
-            //                 visible: menuBtn ? false : true,
-            //             },
-            //         },
-            //     });
-            //     // showSide = true;
-            //     setMenuBtn(false);
-            // }
-
-            // if (showSide) {
-            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //         sideMenu: {
-            //             left: {
-            //                 visible: true,
-            //             },
-            //         },
-            //     });
-            // } else {
-            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //         sideMenu: {
-            //             left: {
-            //                 visible: true,
-            //                 enabled: true,
-            //             },
-            //         },
-            //     });
-            // }
-            // showSide = true;
         });
 
         // unsubscribe sidebarSharePlaceListener
-
         return () => {
             sidebarSharePlaceListener.remove();
-            screenEventListener.remove();
         };
     }, []);
 

@@ -17,76 +17,113 @@ const FindPlaceScreen = (props) => {
     }));
 
     // showSideBar is use to control when to close or open the sideBar
-    let showSidebar;
 
-    const sidebarEventListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-        if (Platform.OS === 'android') {
-            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                sideMenu: {
-                    left: {
-                        visible: true,
+
+
+
+
+
+
+    useEffect(() => {
+        let showSidebar = true;
+        const sidebarEventListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+
+            if (buttonId === 'sideDrawer_findPlace') {
+                if (Platform.OS === 'android') {
+                    Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                        sideMenu: {
+                            left: {
+                                visible: true,
+                                enabled: true,
+                            },
+                        },
+                    });
+                    return;
+                }
+                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                    sideMenu: {
+                        left: {
+                            visible: showSidebar === true ? true : false,
+                            enabled: true,
+                        },
                     },
-                },
-            });
-            // showSidebar = false;
-            return;
+                });
+
+                function toggleMenuBtn() {
+                    showSidebar = !showSidebar;
+                }
+                toggleMenuBtn();
+            }
+
+            // if (Platform.OS === 'android') {
+            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //         sideMenu: {
+            //             left: {
+            //                 visible: true,
+            //                 enabled: true,
+            //             },
+            //         },
+            //     });
+            //     // showSidebar = false;
+            //     return;
+            // }
+
+            // if (buttonId === 'sideDrawer_findPlace') {
+            //     showSidebar = true;
+
+            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //         sideMenu: {
+            //             left: {
+            //                 visible: true,
+            //                 // enabled: true,
+            //             },
+            //         },
+            //     });
+            //     showSidebar = false;
+
+
+
+
+            // }
+            // else {
+
+            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //         sideMenu: {
+            //             left: {
+            //                 visible: false,
+            //                 // enabled: true,
+            //             },
+            //         },
+            //     });
+            //     showSidebar = true;
+
+            // }
+
+            // if (showSidebar) {
+            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //         sideMenu: {
+            //             left: {
+            //                 visible: true,
+            //                 enabled: true,
+            //             },
+            //         },
+            //     });
+            // } else {
+            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+            //         sideMenu: {
+            //             left: {
+            //                 visible: false,
+            //                   enabled: true,
+            //             },
+            //         },
+            //     });
+            // }
+        });
+        return () => {
+            // unsubscribe sidebarEventListener
+            sidebarEventListener.remove();
         }
-
-        if (buttonId === 'sideDrawer_findPlace') {
-            showSidebar = true;
-
-            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                sideMenu: {
-                    left: {
-                        visible: true,
-                        // enabled: true,
-                    },
-                },
-            });
-            showSidebar = false;
-
-
-
-
-        }
-        else {
-
-            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                sideMenu: {
-                    left: {
-                        visible: false,
-                        // enabled: false,
-                    },
-                },
-            });
-            showSidebar = true;
-
-        }
-
-        if (showSidebar) {
-            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                sideMenu: {
-                    left: {
-                        visible: true,
-                    },
-                },
-            });
-        } else {
-            Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                sideMenu: {
-                    left: {
-                        visible: false,
-                    },
-                },
-            });
-        }
-    });
-
-
-    // unsubscribe sidebarEventListener
-    sidebarEventListener.remove();
-
-
+    }, [])
 
     const itemSelectedHandler = (data) => {
         const selPlace = places.find(place => place.key === data);
