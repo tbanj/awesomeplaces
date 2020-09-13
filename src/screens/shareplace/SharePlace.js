@@ -19,7 +19,7 @@ import MainText from '../../components/UI/mainText/MainText';
 
 const SharePlaceScreen = (props) => {
     console.log('props');
-    const [imagePicker, setImagePicker] = useState('');
+    const [imagePicker, setImagePicker] = useState(null);
     const [menuBtn, setMenuBtn] = useState(false);
     // want to listen to an event when navigator events occured
     // props.navigator.setOnNavigatorEvent(onNavigatorEvent);

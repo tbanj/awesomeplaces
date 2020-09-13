@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component, useState, useEffect } from 'react';
-import { View, Text, Platform } from 'react-native';
+import { View, Text, Platform, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,10 @@ const FindPlaceScreen = (props) => {
     const { places } = useSelector(state => ({
         places: state.places.places,
     }));
+    const [placesLoaded, setPlacesLoaded] = useState(false);
+
+    const [removeAnim, setRemoveAnim] = useState(new Animated.Value(1));
+    const [placesAnim, setPlacesAnim] = useState(new Animated.Value(0));
 
     // showSideBar is use to control when to close or open the sideBar
 
@@ -119,11 +123,61 @@ const FindPlaceScreen = (props) => {
             //     });
             // }
         });
+
+
         return () => {
             // unsubscribe sidebarEventListener
             sidebarEventListener.remove();
         }
-    }, [])
+    }, []);
+
+    const placesLoadedHandler = () => {
+        Animated.timing(placesAnim, {
+            toValue: 1, duration: 500, useNativeDriver: true,
+        }).start();
+    };
+
+    const placesSearchHandler = () => {
+        Animated.timing(removeAnim,
+            { toValue: 0, duration: 500, useNativeDriver: true }).start(() => {
+                setPlacesLoaded(true);
+                placesLoadedHandler();
+            });
+
+
+
+    };
+
+    // scale: removeAnim
+    let content = (<Animated.View style={{
+        opacity: removeAnim,
+        transform: [{
+            scale: removeAnim.interpolate(
+                {
+                    inputRange: [0, 1],
+                    outputRange: [12, 1],
+                })
+        }],
+    }}>
+        <TouchableOpacity onPress={() => placesSearchHandler()}>
+            <View style={styles.searchButton}><Text style={styles.searchButtonText}>Find Places</Text></View>
+        </TouchableOpacity  >
+    </Animated.View>);
+
+    if (placesLoaded) {
+        content = (<Animated.View style={{
+            opacity: placesAnim,
+            // transform: [{
+            //     scale: placesAnim.interpolate(
+            //         {
+            //             inputRange: [0, 1],
+            //             outputRange: [1, 1],
+            //         }),
+            // }],
+        }}>
+            <PlaceList places={places} onItemSelected={(data) => itemSelectedHandler(data)} />
+        </Animated.View>);
+    }
 
     const itemSelectedHandler = (data) => {
         const selPlace = places.find(place => place.key === data);
@@ -146,11 +200,32 @@ const FindPlaceScreen = (props) => {
     };
 
     return (
-        <View>
-            <PlaceList places={places} onItemSelected={(data) => itemSelectedHandler(data)} />
+        <View style={placesLoaded ? null : styles.buttonContainer}>
+            {content}
+            {/* {!placesLoaded && content}
+            {placesLoaded && <PlaceList places={places} onItemSelected={(data) => itemSelectedHandler(data)} />} */}
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    searchButton: {
+        borderColor: '#FF1493',
+        borderWidth: 3,
+        borderRadius: 50,
+        padding: 20,
+    },
+    searchButtonText: {
+        color: '#FF1493',
+        fontWeight: 'bold',
+        fontSize: 26,
+    },
+    buttonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
 
 export default FindPlaceScreen;
 

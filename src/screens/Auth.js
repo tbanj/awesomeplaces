@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
     View, Text, Button, StyleSheet, TextInput, ImageBackground,
     TouchableOpacity,
-    Alert, Dimensions
+    Alert, Dimensions,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
@@ -23,6 +23,11 @@ class AuthScreen extends Component {
         //     pwdWrapper: styles.portraitPwdWrapper,
         // },
         viewMode: Dimensions.get('window').height > 500 ? 'portrait' : 'landscape',
+        controls: {
+            email: { value: '', valid: false, validationRule: { isEmail: true } },
+            password: { value: '', valid: false, validationRule: { minLength: 6 } },
+            confirmPassword: { value: '', valid: false, validationRule: { equalTo: 'password' } },
+        },
     };
     constructor(props) {
 
@@ -41,6 +46,19 @@ class AuthScreen extends Component {
             viewMode: Dimensions.get('window').height > 500 ? 'portrait' : 'landscape',
         });
     }
+    updateInputState = (key, value) => {
+        this.setState(prevState => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    [key]: {
+                        ...prevState.controls[key],
+                        value: value,
+                    },
+                }
+            };
+        });
+    };
 
     componentWillUnmount() {
         Dimensions.removeEventListener('change', this.updateStyles);
@@ -66,10 +84,21 @@ class AuthScreen extends Component {
                         {/* <DefaultTouchable style={styles.loginScreenButton}
                             underlayColor="#fff" InnerText={'Switch to Login'} styleText={styles.loginText} /> */}
                         <View style={styles.inputContainer}>
-                            <DefaultInput placeholder="Email address" style={styles.input} />
+                            <DefaultInput
+                                onChangeText={(val) => this.updateInputState('email', val)}
+                                value={this.state.controls.email.value}
+                                placeholder="Email address" style={styles.input} />
                             <View style={this.state.viewMode === 'portrait' ? styles.portraitPwdContainer : styles.landscapePwdContainer}>
-                                <View style={this.state.viewMode === 'portrait' ? styles.portraitPwdWrapper : styles.landscapePwdWrapper}><DefaultInput placeholder="Password" style={styles.input} /></View>
-                                <View style={this.state.viewMode === 'portrait' ? styles.portraitPwdWrapper : styles.landscapePwdWrapper}><DefaultInput placeholder="Confirm Password" style={styles.input} /></View>
+                                <View style={this.state.viewMode === 'portrait' ? styles.portraitPwdWrapper : styles.landscapePwdWrapper}>
+                                    <DefaultInput
+                                        value={this.state.controls.password.value}
+                                        onChangeText={(val) => this.updateInputState('password', val)}
+                                        placeholder="Password" style={styles.input} /></View>
+                                <View style={this.state.viewMode === 'portrait' ? styles.portraitPwdWrapper : styles.landscapePwdWrapper}>
+                                    <DefaultInput placeholder="Confirm Password"
+                                        onChangeText={(val) => this.updateInputState('confirmPassword', val)}
+                                        value={this.state.controls.confirmPassword.value}
+                                        style={styles.input} /></View>
                             </View>
                         </View>
                         {/* <Button title="Submit"
