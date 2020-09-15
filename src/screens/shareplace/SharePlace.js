@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     View, Text, ScrollView, StyleSheet,
-    Platform, Image,
+    Platform, Image, KeyboardAvoidingView,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ import MainText from '../../components/UI/mainText/MainText';
 const SharePlaceScreen = (props) => {
     console.log('props');
     const [imagePicker, setImagePicker] = useState(null);
-    const [menuBtn, setMenuBtn] = useState(false);
+    const [menuBtn, setMenuBtn] = useState(true);
     // want to listen to an event when navigator events occured
     // props.navigator.setOnNavigatorEvent(onNavigatorEvent);
 
@@ -40,11 +40,16 @@ const SharePlaceScreen = (props) => {
 
 
     useEffect(() => {
-        let showSide = true;
+        // Subscribe
+        const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
+
+            if (componentName === 'awesome-places.MenuScreen') {
+                setMenuBtn(true);
+            }
+        });
+        // // Unsubscribe
+
         const sidebarSharePlaceListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-
-
-
             if (buttonId === 'sideDrawer_sharePlace') {
                 if (Platform.OS === 'android') {
                     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
@@ -60,15 +65,14 @@ const SharePlaceScreen = (props) => {
                 Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
                     sideMenu: {
                         left: {
-                            visible: showSide === true ? true : false,
+                            visible: menuBtn === true ? true : false,
                             enabled: true,
                         },
                     },
                 });
 
                 function toggleMenuBtn() {
-                    showSide = !showSide;
-                    console.log('showSide', showSide);
+                    setMenuBtn(menuBtn === false ? true : false);
                 }
                 toggleMenuBtn();
             }
@@ -77,8 +81,9 @@ const SharePlaceScreen = (props) => {
         // unsubscribe sidebarSharePlaceListener
         return () => {
             sidebarSharePlaceListener.remove();
+            screenEventListener.remove();
         };
-    }, []);
+    }, [menuBtn]);
 
     const handleImagePicked = () => {
         if (places.length < 1) {
@@ -91,7 +96,7 @@ const SharePlaceScreen = (props) => {
 
 
         <ScrollView keyboardShouldPersistTaps="always">
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View style={styles.header}>
                     <MainText>
                         <TextHeading >Share a Place with us!</TextHeading>
@@ -114,7 +119,7 @@ const SharePlaceScreen = (props) => {
                     underlayColor="#fff" InnerText={'Locate Me'} styleText={styles.loginText} />
 
                 <PlaceInput onAddPlace={() => placeAddedHandler()} />
-            </View>
+            </KeyboardAvoidingView>
         </ScrollView>
 
 

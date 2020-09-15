@@ -10,26 +10,25 @@ import startMainTabs from '../maintabs/startMainTabs';
 
 
 const FindPlaceScreen = (props) => {
-
-    // call state from redux store
+    const [menuBtn, setMenuBtn] = useState(true);
     const { places } = useSelector(state => ({
         places: state.places.places,
     }));
     const [placesLoaded, setPlacesLoaded] = useState(false);
 
-    const [removeAnim, setRemoveAnim] = useState(new Animated.Value(1));
-    const [placesAnim, setPlacesAnim] = useState(new Animated.Value(0));
-
-    // showSideBar is use to control when to close or open the sideBar
-
-
-
-
-
-
+    const [removeAnim] = useState(new Animated.Value(1));
+    const [placesAnim] = useState(new Animated.Value(0));
 
     useEffect(() => {
         let showSidebar = true;
+
+        const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
+
+            if (componentName === 'awesome-places.MenuScreen') {
+                console.log(componentId, componentName);
+                setMenuBtn(true);
+            }
+        });
         const sidebarEventListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
 
             if (buttonId === 'sideDrawer_findPlace') {
@@ -47,89 +46,26 @@ const FindPlaceScreen = (props) => {
                 Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
                     sideMenu: {
                         left: {
-                            visible: showSidebar === true ? true : false,
+                            visible: menuBtn === true ? true : false,
                             enabled: true,
                         },
                     },
                 });
 
                 function toggleMenuBtn() {
-                    showSidebar = !showSidebar;
+                    setMenuBtn(menuBtn === false ? true : false);
                 }
                 toggleMenuBtn();
             }
-
-            // if (Platform.OS === 'android') {
-            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //         sideMenu: {
-            //             left: {
-            //                 visible: true,
-            //                 enabled: true,
-            //             },
-            //         },
-            //     });
-            //     // showSidebar = false;
-            //     return;
-            // }
-
-            // if (buttonId === 'sideDrawer_findPlace') {
-            //     showSidebar = true;
-
-            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //         sideMenu: {
-            //             left: {
-            //                 visible: true,
-            //                 // enabled: true,
-            //             },
-            //         },
-            //     });
-            //     showSidebar = false;
-
-
-
-
-            // }
-            // else {
-
-            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //         sideMenu: {
-            //             left: {
-            //                 visible: false,
-            //                 // enabled: true,
-            //             },
-            //         },
-            //     });
-            //     showSidebar = true;
-
-            // }
-
-            // if (showSidebar) {
-            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //         sideMenu: {
-            //             left: {
-            //                 visible: true,
-            //                 enabled: true,
-            //             },
-            //         },
-            //     });
-            // } else {
-            //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-            //         sideMenu: {
-            //             left: {
-            //                 visible: false,
-            //                   enabled: true,
-            //             },
-            //         },
-            //     });
-            // }
         });
 
 
         return () => {
             // unsubscribe sidebarEventListener
             sidebarEventListener.remove();
+            screenEventListener.remove();
         }
-    }, []);
+    }, [menuBtn]);
 
     const placesLoadedHandler = () => {
         Animated.timing(placesAnim, {
@@ -143,9 +79,6 @@ const FindPlaceScreen = (props) => {
                 setPlacesLoaded(true);
                 placesLoadedHandler();
             });
-
-
-
     };
 
     // scale: removeAnim

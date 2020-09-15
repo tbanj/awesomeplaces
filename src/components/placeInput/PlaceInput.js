@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { StyleSheet, View, Button, Alert } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace, deletePlace, selectPlace, deselectPlace } from '../../../src/store/actions/index';
 import PlaceImage from '../../../src/assets/theater.jpeg';
@@ -34,17 +34,20 @@ class PlaceInput extends Component {
         // ]);
         this.props.onAddPlace({ placeName: this.state.placeName, PlaceImage: PlaceImage });
         this.setState({ placeName: '' });
+        Keyboard.dismiss();
     };
 
     render() {
         return (
-            <View style={styles.inputContainer}>
-                <DefaultInput style={styles.inputCss} placeholder="An awesome place" onChangeText={this.placeNameChangeHandler}
-                    value={this.state.placeName} />
+
+            <View style={styles.inputContainer} >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <DefaultInput style={styles.inputCss} placeholder="An awesome place" onChangeText={this.placeNameChangeHandler}
+                        value={this.state.placeName} />
+
+                </TouchableWithoutFeedback>
                 <DefaultTouchable style={styles.loginScreenButton} onPress={() => { this.placeSubmitHandler(); }}
                     underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} />
-
-
             </View>
         );
     }

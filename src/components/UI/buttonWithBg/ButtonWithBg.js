@@ -8,10 +8,11 @@ import {
 https://github.com/vhpoet/react-native-styling-cheat-sheet */
 const ButtonWithBg = (props) => {
     const content =
-        <View style={[styles.button, { backgroundColor: props.color }]}>
-            <Text>{props.text}</Text>
+        <View style={[styles.button, { backgroundColor: props.color },
+        props.disabled ? styles.disabled : null]}>
+            <Text style={props.disabled ? styles.disabledText : null}>{props.text}</Text>
         </View>;
-
+    if (props.disabled) { return content; }
     if (Platform.OS === 'android') {
         return (<TouchableNativeFeedback>
             {content}
@@ -28,6 +29,14 @@ const styles = StyleSheet.create({
     button: {
         padding: 10,
         margin: 5,
+    },
+    disabled: {
+        backgroundColor: '#eee',
+        borderColor: '#aaa',
+
+    },
+    disabledText: {
+        color: '#aaa',
     },
 });
 
