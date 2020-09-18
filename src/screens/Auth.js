@@ -131,7 +131,7 @@ class AuthScreen extends Component {
                         {/* to make a style override the other it has to be the parent of that view or textciew */}
                         {headingText}
                         {/* <Button style={styles.buttonM} title="Switch to Login" /> */}
-                        <ButtonWithBg color={'#29aaf4'} onPress={this.switchAuthModeHandler} text={`Switch to ${this.state.authMode === 'login' ? 'Signup' : 'Login'}`} />
+                        <ButtonWithBg color={'#29aaf4'} onPress={() => this.switchAuthModeHandler()} text={`Switch to ${this.state.authMode === 'login' ? 'Signup' : 'Login'}`} />
                         {/* <DefaultTouchable style={styles.loginScreenButton}
                             underlayColor="#fff" InnerText={'Switch to Login'} styleText={styles.loginText} /> */}
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

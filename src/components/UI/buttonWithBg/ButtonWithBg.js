@@ -14,7 +14,7 @@ const ButtonWithBg = (props) => {
         </View>;
     if (props.disabled) { return content; }
     if (Platform.OS === 'android') {
-        return (<TouchableNativeFeedback>
+        return (<TouchableNativeFeedback onPress={props.onPress}>
             {content}
         </TouchableNativeFeedback>);
     }
