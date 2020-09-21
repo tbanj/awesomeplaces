@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import {
-    View, StyleSheet, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback
+    View, StyleSheet, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
@@ -74,7 +74,6 @@ class AuthScreen extends Component {
             };
         }
         if (key === 'password') {
-
             connectedValue = {
                 ...connectedValue,
                 equalTo: value,

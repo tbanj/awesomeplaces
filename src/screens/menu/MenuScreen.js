@@ -14,7 +14,6 @@ class MenuScreen extends Component {
         // this.navigationEventListener = Navigation.events().bindComponent(this);
         // Navigation.events().bindComponent(this);
         // Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-        //     console.log('buttonId  DDD', buttonId);
         //     // if (buttonId === 'sideDrawer_findPlace') {
         //     //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
         //     //         sideMenu: {

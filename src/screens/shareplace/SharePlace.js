@@ -16,9 +16,9 @@ import ButtonWithBg from '../../components/UI/buttonWithBg/ButtonWithBg';
 import DefaultTouchable from '../../components/UI/defaultTouch/DefaultTouchable';
 import ImagePlaceholder from '../../../src/assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
+import PickLocation from '../../components/pickLocation/PickLocation';
 
 const SharePlaceScreen = (props) => {
-    console.log('props');
     const [imagePicker, setImagePicker] = useState(null);
     const [menuBtn, setMenuBtn] = useState(true);
     // want to listen to an event when navigator events occured
@@ -102,7 +102,7 @@ const SharePlaceScreen = (props) => {
                         <TextHeading >Share a Place with us!</TextHeading>
                     </MainText>
                 </View>
-                <View style={[styles.placeholder, styles.mb]}>
+                <View style={[styles.placeholder, styles.imgHeight, styles.mb]}>
                     {places.length > 0 && <Image resizeMode="contain" source={imagePicker} style={styles.previewImage} />}
 
                     {/* {places.length > 0 ?
@@ -111,12 +111,13 @@ const SharePlaceScreen = (props) => {
                 </View>
                 <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
                     underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={() => handleImagePicked()} />
-                <View style={[styles.placeholder, styles.bw]}>
-                    <Text>Map</Text>
+                <View style={[styles.placeholder]}>
+                    {/* <Text>Map</Text> */}
+                    <PickLocation />
                 </View>
 
-                <DefaultTouchable style={styles.loginScreenButton}
-                    underlayColor="#fff" InnerText={'Locate Me'} styleText={styles.loginText} />
+                {/* <DefaultTouchable style={styles.loginScreenButton}
+                    underlayColor="#fff" InnerText={'Locate Me'} styleText={styles.loginText} /> */}
 
                 <PlaceInput onAddPlace={() => placeAddedHandler()} />
             </KeyboardAvoidingView>
@@ -140,14 +141,14 @@ const styles = StyleSheet.create({
     },
     mb: { marginBottom: 10 },
     placeholder: {
-
         borderColor: 'black',
         // backgroundColor: '#eee',
         width: '80%',
         // alignItems: 'center',
-        height: 150,
+
     },
-    bw: { borderWidth: 1 },
+    imgHeight: { height: 150 },
+
     previewImage: {
         width: '100%',
         height: '100%',

@@ -18,7 +18,6 @@ const validate = (val, rules, connectedValue) => {
                 isValid = true;
         }
     }
-    console.log('isValid', isValid);
     return isValid;
 };
 

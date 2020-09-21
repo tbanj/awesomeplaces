@@ -20,12 +20,9 @@ const FindPlaceScreen = (props) => {
     const [placesAnim] = useState(new Animated.Value(0));
 
     useEffect(() => {
-        let showSidebar = true;
-
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
 
             if (componentName === 'awesome-places.MenuScreen') {
-                console.log(componentId, componentName);
                 setMenuBtn(true);
             }
         });
