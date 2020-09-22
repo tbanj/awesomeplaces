@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* todoappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* todoappTests.m */; };
+		00E356F31AD99517003FC87E /* majaplaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* majaplaceTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2A0D25BBE78DD80A294B3E91 /* libPods-todoapp-todoappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3198FF15F50260279B4EA8D7 /* libPods-todoapp-todoappTests.a */; };
+		2A0D25BBE78DD80A294B3E91 /* libPods-majaplace-majaplaceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3198FF15F50260279B4EA8D7 /* libPods-majaplace-majaplaceTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* todoappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* todoappTests.m */; };
-		450BF0FECD3868F98633A1C1 /* libPods-todoapp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8223EF76304A26526232CD9 /* libPods-todoapp-tvOSTests.a */; };
-		ADD3F4CDE714F89411B2DA30 /* libPods-todoapp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0ABA89F76B67917B601FD4 /* libPods-todoapp-tvOS.a */; };
-		CF6A0FCBD56623CFBC007C29 /* libPods-todoapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF57E52DA7FB2C190E3D07C /* libPods-todoapp.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* majaplaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* majaplaceTests.m */; };
+		450BF0FECD3868F98633A1C1 /* libPods-majaplace-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8223EF76304A26526232CD9 /* libPods-majaplace-tvOSTests.a */; };
+		ADD3F4CDE714F89411B2DA30 /* libPods-majaplace-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0ABA89F76B67917B601FD4 /* libPods-majaplace-tvOS.a */; };
+		CF6A0FCBD56623CFBC007C29 /* libPods-majaplace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF57E52DA7FB2C190E3D07C /* libPods-majaplace.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,23 +28,23 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = todoapp;
+			remoteInfo = majaplace;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "todoapp-tvOS";
+			remoteInfo = "majaplace-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* todoappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = todoappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* majaplaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = majaplaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* todoappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = todoappTests.m; sourceTree = "<group>"; };
-		02491FD6C20D05ED443059AC /* Pods-todoapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todoapp.debug.xcconfig"; path = "Target Support Files/Pods-todoapp/Pods-todoapp.debug.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* majaplaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = majaplaceTests.m; sourceTree = "<group>"; };
+		02491FD6C20D05ED443059AC /* Pods-majaplace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace.debug.xcconfig"; path = "Target Support Files/Pods-majaplace/Pods-majaplace.debug.xcconfig"; sourceTree = "<group>"; };
 		084DE8F92462E30C000A65AA /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		084DE8FA2462E30C000A65AA /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		084DE8FB2462E30D000A65AA /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -61,26 +61,26 @@
 		084DE9062462E30D000A65AA /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		084DE9072462E30D000A65AA /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		084DE9082462E30D000A65AA /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* todoapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todoapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = todoapp/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = todoapp/AppDelegate.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* majaplace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = majaplace.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = majaplace/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = majaplace/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = todoapp/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = todoapp/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = todoapp/main.m; sourceTree = "<group>"; };
-		2539225F01613A18B4B085C5 /* Pods-todoapp-todoappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todoapp-todoappTests.debug.xcconfig"; path = "Target Support Files/Pods-todoapp-todoappTests/Pods-todoapp-todoappTests.debug.xcconfig"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* todoapp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todoapp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* todoapp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "todoapp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3198FF15F50260279B4EA8D7 /* libPods-todoapp-todoappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-todoapp-todoappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B0ABA89F76B67917B601FD4 /* libPods-todoapp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-todoapp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7429F1C37C4F27A4FC8BEB59 /* Pods-todoapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todoapp.release.xcconfig"; path = "Target Support Files/Pods-todoapp/Pods-todoapp.release.xcconfig"; sourceTree = "<group>"; };
-		7B3087C1D479A35C11FFA6CE /* Pods-todoapp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todoapp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-todoapp-tvOS/Pods-todoapp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		7BF57E52DA7FB2C190E3D07C /* libPods-todoapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-todoapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		89E205B89CD66269731590C3 /* Pods-todoapp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todoapp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-todoapp-tvOSTests/Pods-todoapp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		9B975F64B12887BA06522A29 /* Pods-todoapp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todoapp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-todoapp-tvOSTests/Pods-todoapp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A79F9CE910F9695E6311BAD7 /* Pods-todoapp-todoappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todoapp-todoappTests.release.xcconfig"; path = "Target Support Files/Pods-todoapp-todoappTests/Pods-todoapp-todoappTests.release.xcconfig"; sourceTree = "<group>"; };
-		D8223EF76304A26526232CD9 /* libPods-todoapp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-todoapp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0CD4C604B2BB688D69744C4 /* Pods-todoapp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-todoapp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-todoapp-tvOS/Pods-todoapp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = majaplace/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = majaplace/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = majaplace/main.m; sourceTree = "<group>"; };
+		2539225F01613A18B4B085C5 /* Pods-majaplace-majaplaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace-majaplaceTests.debug.xcconfig"; path = "Target Support Files/Pods-majaplace-majaplaceTests/Pods-majaplace-majaplaceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* majaplace-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "majaplace-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* majaplace-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "majaplace-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3198FF15F50260279B4EA8D7 /* libPods-majaplace-majaplaceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-majaplace-majaplaceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B0ABA89F76B67917B601FD4 /* libPods-majaplace-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-majaplace-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7429F1C37C4F27A4FC8BEB59 /* Pods-majaplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace.release.xcconfig"; path = "Target Support Files/Pods-majaplace/Pods-majaplace.release.xcconfig"; sourceTree = "<group>"; };
+		7B3087C1D479A35C11FFA6CE /* Pods-majaplace-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace-tvOS.release.xcconfig"; path = "Target Support Files/Pods-majaplace-tvOS/Pods-majaplace-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		7BF57E52DA7FB2C190E3D07C /* libPods-majaplace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-majaplace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89E205B89CD66269731590C3 /* Pods-majaplace-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-majaplace-tvOSTests/Pods-majaplace-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		9B975F64B12887BA06522A29 /* Pods-majaplace-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-majaplace-tvOSTests/Pods-majaplace-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A79F9CE910F9695E6311BAD7 /* Pods-majaplace-majaplaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace-majaplaceTests.release.xcconfig"; path = "Target Support Files/Pods-majaplace-majaplaceTests/Pods-majaplace-majaplaceTests.release.xcconfig"; sourceTree = "<group>"; };
+		D8223EF76304A26526232CD9 /* libPods-majaplace-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-majaplace-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0CD4C604B2BB688D69744C4 /* Pods-majaplace-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-majaplace-tvOS/Pods-majaplace-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -90,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A0D25BBE78DD80A294B3E91 /* libPods-todoapp-todoappTests.a in Frameworks */,
+				2A0D25BBE78DD80A294B3E91 /* libPods-majaplace-majaplaceTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF6A0FCBD56623CFBC007C29 /* libPods-todoapp.a in Frameworks */,
+				CF6A0FCBD56623CFBC007C29 /* libPods-majaplace.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADD3F4CDE714F89411B2DA30 /* libPods-todoapp-tvOS.a in Frameworks */,
+				ADD3F4CDE714F89411B2DA30 /* libPods-majaplace-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,20 +114,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				450BF0FECD3868F98633A1C1 /* libPods-todoapp-tvOSTests.a in Frameworks */,
+				450BF0FECD3868F98633A1C1 /* libPods-majaplace-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* todoappTests */ = {
+		00E356EF1AD99517003FC87E /* majaplaceTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* todoappTests.m */,
+				00E356F21AD99517003FC87E /* majaplaceTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = todoappTests;
+			path = majaplaceTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -161,7 +161,7 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* todoapp */ = {
+		13B07FAE1A68108700A75B9A /* majaplace */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -172,7 +172,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = todoapp;
+			name = majaplace;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -180,10 +180,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				7BF57E52DA7FB2C190E3D07C /* libPods-todoapp.a */,
-				3198FF15F50260279B4EA8D7 /* libPods-todoapp-todoappTests.a */,
-				3B0ABA89F76B67917B601FD4 /* libPods-todoapp-tvOS.a */,
-				D8223EF76304A26526232CD9 /* libPods-todoapp-tvOSTests.a */,
+				7BF57E52DA7FB2C190E3D07C /* libPods-majaplace.a */,
+				3198FF15F50260279B4EA8D7 /* libPods-majaplace-majaplaceTests.a */,
+				3B0ABA89F76B67917B601FD4 /* libPods-majaplace-tvOS.a */,
+				D8223EF76304A26526232CD9 /* libPods-majaplace-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -199,9 +199,9 @@
 			isa = PBXGroup;
 			children = (
 				084DE8F82462E26B000A65AA /* Fonts */,
-				13B07FAE1A68108700A75B9A /* todoapp */,
+				13B07FAE1A68108700A75B9A /* majaplace */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* todoappTests */,
+				00E356EF1AD99517003FC87E /* majaplaceTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D04110AC7979E9480E178706 /* Pods */,
@@ -215,10 +215,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* todoapp.app */,
-				00E356EE1AD99517003FC87E /* todoappTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* todoapp-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* todoapp-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* majaplace.app */,
+				00E356EE1AD99517003FC87E /* majaplaceTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* majaplace-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* majaplace-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,14 +226,14 @@
 		D04110AC7979E9480E178706 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				02491FD6C20D05ED443059AC /* Pods-todoapp.debug.xcconfig */,
-				7429F1C37C4F27A4FC8BEB59 /* Pods-todoapp.release.xcconfig */,
-				2539225F01613A18B4B085C5 /* Pods-todoapp-todoappTests.debug.xcconfig */,
-				A79F9CE910F9695E6311BAD7 /* Pods-todoapp-todoappTests.release.xcconfig */,
-				E0CD4C604B2BB688D69744C4 /* Pods-todoapp-tvOS.debug.xcconfig */,
-				7B3087C1D479A35C11FFA6CE /* Pods-todoapp-tvOS.release.xcconfig */,
-				9B975F64B12887BA06522A29 /* Pods-todoapp-tvOSTests.debug.xcconfig */,
-				89E205B89CD66269731590C3 /* Pods-todoapp-tvOSTests.release.xcconfig */,
+				02491FD6C20D05ED443059AC /* Pods-majaplace.debug.xcconfig */,
+				7429F1C37C4F27A4FC8BEB59 /* Pods-majaplace.release.xcconfig */,
+				2539225F01613A18B4B085C5 /* Pods-majaplace-majaplaceTests.debug.xcconfig */,
+				A79F9CE910F9695E6311BAD7 /* Pods-majaplace-majaplaceTests.release.xcconfig */,
+				E0CD4C604B2BB688D69744C4 /* Pods-majaplace-tvOS.debug.xcconfig */,
+				7B3087C1D479A35C11FFA6CE /* Pods-majaplace-tvOS.release.xcconfig */,
+				9B975F64B12887BA06522A29 /* Pods-majaplace-tvOSTests.debug.xcconfig */,
+				89E205B89CD66269731590C3 /* Pods-majaplace-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -248,9 +248,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* todoappTests */ = {
+		00E356ED1AD99517003FC87E /* majaplaceTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "todoappTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "majaplaceTests" */;
 			buildPhases = (
 				F579C553A868CCE2AD044F27 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -263,14 +263,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = todoappTests;
-			productName = todoappTests;
-			productReference = 00E356EE1AD99517003FC87E /* todoappTests.xctest */;
+			name = majaplaceTests;
+			productName = majaplaceTests;
+			productReference = 00E356EE1AD99517003FC87E /* majaplaceTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* todoapp */ = {
+		13B07F861A680F5B00A75B9A /* majaplace */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "todoapp" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "majaplace" */;
 			buildPhases = (
 				EDCD69FC16522E6C9146ED82 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -284,14 +284,14 @@
 			);
 			dependencies = (
 			);
-			name = todoapp;
-			productName = todoapp;
-			productReference = 13B07F961A680F5B00A75B9A /* todoapp.app */;
+			name = majaplace;
+			productName = majaplace;
+			productReference = 13B07F961A680F5B00A75B9A /* majaplace.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* todoapp-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* majaplace-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "todoapp-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "majaplace-tvOS" */;
 			buildPhases = (
 				124037040C0AAABEE2A76CBF /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -304,14 +304,14 @@
 			);
 			dependencies = (
 			);
-			name = "todoapp-tvOS";
-			productName = "todoapp-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* todoapp-tvOS.app */;
+			name = "majaplace-tvOS";
+			productName = "majaplace-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* majaplace-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* todoapp-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* majaplace-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "todoapp-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "majaplace-tvOSTests" */;
 			buildPhases = (
 				25BBE963C87F8EB43C61B4A0 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -323,9 +323,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "todoapp-tvOSTests";
-			productName = "todoapp-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* todoapp-tvOSTests.xctest */;
+			name = "majaplace-tvOSTests";
+			productName = "majaplace-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* majaplace-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -334,7 +334,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -354,7 +354,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "todoapp" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "majaplace" */;
 			compatibilityVersion = "Xcode 11.4";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -367,10 +367,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* todoapp */,
-				00E356ED1AD99517003FC87E /* todoappTests */,
-				2D02E47A1E0B4A5D006451C7 /* todoapp-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* todoapp-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* majaplace */,
+				00E356ED1AD99517003FC87E /* majaplaceTests */,
+				2D02E47A1E0B4A5D006451C7 /* majaplace-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* majaplace-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -430,15 +430,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-todoapp/Pods-todoapp-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-majaplace/Pods-majaplace-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-todoapp/Pods-todoapp-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-majaplace/Pods-majaplace-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-todoapp/Pods-todoapp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-majaplace/Pods-majaplace-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		124037040C0AAABEE2A76CBF /* [CP] Check Pods Manifest.lock */ = {
@@ -456,7 +456,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-todoapp-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-majaplace-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -478,7 +478,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-todoapp-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-majaplace-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -505,15 +505,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-todoapp-todoappTests/Pods-todoapp-todoappTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-majaplace-majaplaceTests/Pods-majaplace-majaplaceTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-todoapp-todoappTests/Pods-todoapp-todoappTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-majaplace-majaplaceTests/Pods-majaplace-majaplaceTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-todoapp-todoappTests/Pods-todoapp-todoappTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-majaplace-majaplaceTests/Pods-majaplace-majaplaceTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EDCD69FC16522E6C9146ED82 /* [CP] Check Pods Manifest.lock */ = {
@@ -531,7 +531,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-todoapp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-majaplace-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -553,7 +553,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-todoapp-todoappTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-majaplace-majaplaceTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -605,7 +605,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* todoappTests.m in Sources */,
+				00E356F31AD99517003FC87E /* majaplaceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,7 +631,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* todoappTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* majaplaceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,12 +640,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* todoapp */;
+			target = 13B07F861A680F5B00A75B9A /* majaplace */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* todoapp-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* majaplace-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -657,7 +657,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = todoapp;
+			path = majaplace;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -665,7 +665,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2539225F01613A18B4B085C5 /* Pods-todoapp-todoappTests.debug.xcconfig */;
+			baseConfigurationReference = 2539225F01613A18B4B085C5 /* Pods-majaplace-majaplaceTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -673,7 +673,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = todoappTests/Info.plist;
+				INFOPLIST_FILE = majaplaceTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -687,18 +687,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/todoapp.app/todoapp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/majaplace.app/majaplace";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A79F9CE910F9695E6311BAD7 /* Pods-todoapp-todoappTests.release.xcconfig */;
+			baseConfigurationReference = A79F9CE910F9695E6311BAD7 /* Pods-majaplace-majaplaceTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = todoappTests/Info.plist;
+				INFOPLIST_FILE = majaplaceTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -712,13 +712,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/todoapp.app/todoapp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/majaplace.app/majaplace";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02491FD6C20D05ED443059AC /* Pods-todoapp.debug.xcconfig */;
+			baseConfigurationReference = 02491FD6C20D05ED443059AC /* Pods-majaplace.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -731,7 +731,7 @@
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
-				INFOPLIST_FILE = todoapp/Info.plist;
+				INFOPLIST_FILE = majaplace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -741,18 +741,19 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.majaplace2020;
-				PRODUCT_NAME = todoapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.majaplace;
+				PRODUCT_NAME = majaplace;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7429F1C37C4F27A4FC8BEB59 /* Pods-todoapp.release.xcconfig */;
+			baseConfigurationReference = 7429F1C37C4F27A4FC8BEB59 /* Pods-majaplace.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -760,7 +761,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VU4TDNT233;
-				INFOPLIST_FILE = todoapp/Info.plist;
+				INFOPLIST_FILE = majaplace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -770,17 +771,18 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.majaplace2020;
-				PRODUCT_NAME = todoapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.majaplace;
+				PRODUCT_NAME = majaplace;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0CD4C604B2BB688D69744C4 /* Pods-todoapp-tvOS.debug.xcconfig */;
+			baseConfigurationReference = E0CD4C604B2BB688D69744C4 /* Pods-majaplace-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -791,7 +793,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "todoapp-tvOS/Info.plist";
+				INFOPLIST_FILE = "majaplace-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -801,7 +803,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.todoapp-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.majaplace-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -811,7 +813,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B3087C1D479A35C11FFA6CE /* Pods-todoapp-tvOS.release.xcconfig */;
+			baseConfigurationReference = 7B3087C1D479A35C11FFA6CE /* Pods-majaplace-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -822,7 +824,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "todoapp-tvOS/Info.plist";
+				INFOPLIST_FILE = "majaplace-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -832,7 +834,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.todoapp-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.majaplace-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -842,7 +844,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B975F64B12887BA06522A29 /* Pods-todoapp-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 9B975F64B12887BA06522A29 /* Pods-majaplace-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -852,7 +854,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "todoapp-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "majaplace-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -863,17 +865,17 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.todoapp-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.majaplace-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/todoapp-tvOS.app/todoapp-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/majaplace-tvOS.app/majaplace-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89E205B89CD66269731590C3 /* Pods-todoapp-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 89E205B89CD66269731590C3 /* Pods-majaplace-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -883,7 +885,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "todoapp-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "majaplace-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -894,10 +896,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.todoapp-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.majaplace-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/todoapp-tvOS.app/todoapp-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/majaplace-tvOS.app/majaplace-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1024,7 +1026,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "todoappTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "majaplaceTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1033,7 +1035,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "todoapp" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "majaplace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1042,7 +1044,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "todoapp-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "majaplace-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1051,7 +1053,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "todoapp-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "majaplace-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1060,7 +1062,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "todoapp" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "majaplace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

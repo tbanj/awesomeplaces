@@ -16,7 +16,6 @@ import ButtonWithBg from '../../components/UI/buttonWithBg/ButtonWithBg';
 import DefaultTouchable from '../../components/UI/defaultTouch/DefaultTouchable';
 import ImagePlaceholder from '../../../src/assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
-import PickLocation from '../../components/pickLocation/PickLocation';
 
 const SharePlaceScreen = (props) => {
     const [imagePicker, setImagePicker] = useState(null);
@@ -78,12 +77,14 @@ const SharePlaceScreen = (props) => {
             }
         });
 
+
         // unsubscribe sidebarSharePlaceListener
         return () => {
             sidebarSharePlaceListener.remove();
             screenEventListener.remove();
         };
     }, [menuBtn]);
+
 
     const handleImagePicked = () => {
         if (places.length < 1) {
@@ -113,7 +114,7 @@ const SharePlaceScreen = (props) => {
                     underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={() => handleImagePicked()} />
                 <View style={[styles.placeholder]}>
                     {/* <Text>Map</Text> */}
-                    <PickLocation />
+
                 </View>
 
                 {/* <DefaultTouchable style={styles.loginScreenButton}

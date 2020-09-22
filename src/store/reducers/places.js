@@ -20,6 +20,7 @@ const reducer = (state = initialState, action) => {
                         uri: 'http://4.bp.blogspot.com/-TLR8ISV2qWo/TyUeVqg9xmI/AAAAAAAACOU/1rCZw9-uj50/s640/62589635.jpg',
                         width: 30, height: 30,
                     },
+                    location: action.location,
                 }],
             };
 

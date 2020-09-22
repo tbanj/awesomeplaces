@@ -1,17 +1,21 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import { Alert, Button, Dimensions, Platform, StyleSheet, Text, View } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 class PickLocation extends Component {
-    state = {
-        focusedLocation: {
-            latitude: 37.7900352,
-            longitude: -122.4013726,
-            latitudeDelta: 0.0122,
-            longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
-        },
-        locationChosen: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            focusedLocation: {
+                latitude: 37.7900352,
+                longitude: -122.4013726,
+                latitudeDelta: 0.0122,
+                longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
+            },
+            locationChosen: false,
+        };
+
     };
     handlePickLocation = (event) => {
         const coords = event.nativeEvent.coordinate;
@@ -30,12 +34,13 @@ class PickLocation extends Component {
                 locationChosen: true,
             };
         });
+
+        this.props.onLocationPick({ latitude: coords.latitude, longitude: coords.longitude });
     }
 
     getLocationHandler = () => {
         if (Platform.OS === 'ios') {
             // your code using Geolocation and asking for authorisation with
-            console.log('you are here');
             Geolocation.requestAuthorization();
         }
         Geolocation.getCurrentPosition(pos => {
@@ -65,6 +70,7 @@ class PickLocation extends Component {
 
                 {/* is use to animateRegion of map through making use of ref .. ref={refr => { this.map = refr; }} */}
                 <MapView style={[styles.mapHeight, styles.bw]}
+                    provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
                     initialRegion={this.state.focusedLocation}
                     onPress={this.handlePickLocation}
                     ref={refr => { this.map = refr; }} >

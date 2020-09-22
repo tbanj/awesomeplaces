@@ -3,24 +3,52 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace, deletePlace, selectPlace, deselectPlace } from '../../../src/store/actions/index';
+import validate from '../../lib/validation';
 import PlaceImage from '../../../src/assets/theater.jpeg';
+import ButtonWithBg from '../UI/buttonWithBg/ButtonWithBg';
 import DefaultInput from '../UI/defaultInput/DefaultInput';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
+import PickLocation from '../pickLocation/PickLocation';
 class PlaceInput extends Component {
     constructor(props) {
         super(props);
-        this.state = { placeName: '' };
+        this.state = {
+            controls: {
+                placeName: { value: '', touched: false, valid: false, validationRules: { minLength: 3 } },
+                location: { value: null, valid: false },
+            },
+        };
         // this._onLogin = this._onLogin.bind(this)
     }
 
-    placeNameChangeHandler = (event) => {
-        this.setState({ placeName: event });
+    placeNameChangeHandler = (key, val) => {
+
+        this.setState((prevState) => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    placeName: {
+                        ...prevState.controls.placeName,
+                        value: val, valid: validate(val, prevState.controls[key].validationRules),
+                        touched: true,
+                    },
+                },
+            };
+        });
+    };
+    locationPickHandler = (locate) => {
+        this.setState((prevState) => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    location: { value: locate, valid: true },
+                },
+            };
+        });
     };
 
     placeSubmitHandler = () => {
-        if (this.state.placeName.trim() === '') {
-            return;
-        }
+        if (this.state.controls.placeName.value.trim() === '') { return; }
         //  in react-native to view debug make use of alert to display content u want to troubleshoot
         // setPlaces([
         //   ...places,
@@ -32,33 +60,46 @@ class PlaceInput extends Component {
         //     },
         //   },
         // ]);
-        this.props.onAddPlace({ placeName: this.state.placeName, PlaceImage: PlaceImage });
-        this.setState({ placeName: '' });
+        this.props.onAddPlace({ placeName: this.state.controls.placeName.value, PlaceImage: PlaceImage }, this.state.controls.location.value);
+
+        this.setState({ controls: { placeName: { value: '', valid: false } } });
         Keyboard.dismiss();
     };
 
     render() {
         return (
+            <View style={styles.container}>
+                <PickLocation onLocationPick={this.locationPickHandler} />
+                <View style={styles.inputContainer} >
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <DefaultInput placeholder="An awesome place" onChangeText={(event) => this.placeNameChangeHandler('placeName', event)}
+                            value={this.state.controls.placeName.value}
+                            touched={this.state.controls.placeName.touched}
+                            valid={this.state.controls.placeName.valid}
+                        />
 
-            <View style={styles.inputContainer} >
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <DefaultInput style={styles.inputCss} placeholder="An awesome place" onChangeText={this.placeNameChangeHandler}
-                        value={this.state.placeName} />
-
-                </TouchableWithoutFeedback>
-                <DefaultTouchable style={styles.loginScreenButton} onPress={() => { this.placeSubmitHandler(); }}
-                    underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} />
+                    </TouchableWithoutFeedback>
+                    {/* <DefaultTouchable style={styles.loginScreenButton} onPress={() => { this.placeSubmitHandler(); }}
+                        underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} /> */}
+                    <ButtonWithBg style={styles.loginScreenButton} color={'#29aaf4'}
+                        disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid}
+                        onPress={() => { this.placeSubmitHandler(); }}
+                        underlayColor="#fff" text={'Share a Place'} styleText={styles.loginText} />
+                </View>
             </View>
+
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: { width: '80%' },
     inputCss: {
-        width: '100%',
+        width: '80%',
     },
     inputContainer: {
-        width: '80%',
+        width: '100%',
+
         // flex: 1,
         // padding: 10,
         // width: '100%',
@@ -92,7 +133,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddPlace: (name) => dispatch(addPlace(name)),
+        onAddPlace: (name, location) => dispatch(addPlace(name, location)),
         onDeletePlace: (key) => dispatch(deletePlace(key)),
         onSelectedPlace: (key) => dispatch(selectPlace(key)),
         onDeselectPlace: (name) => dispatch(addPlace(name)),

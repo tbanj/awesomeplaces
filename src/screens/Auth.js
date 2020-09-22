@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import {
-    View, StyleSheet, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback,
+    View, StyleSheet, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback, Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
 import startMainTabs from './maintabs/startMainTabs';
 import DefaultInput from '../components/UI/defaultInput/DefaultInput';
+import DefaultInputRef from '../components/UI/defaultInputRef/DefaultInputRef';
 import HeadingText from '../components/UI/headingText/HeadingText';
 import MainText from '../components/UI/mainText/MainText';
 import background from '../../src/assets/background.jpg';
@@ -32,11 +33,17 @@ class AuthScreen extends Component {
             password: { value: '', touched: false, valid: false, validationRules: { minLength: 6 } },
             confirmPassword: { value: '', touched: false, valid: false, validationRules: { equalTo: 'password' } },
         },
+
     };
     constructor(props) {
 
         super(props);
         Dimensions.addEventListener('change', (dims) => this.updateStyles());
+        this.textInput = {};
+    }
+
+    focusNextTextInput = (id) => {
+        this.textInput[id].focus();
     }
 
     loginHandler = () => {
@@ -55,8 +62,6 @@ class AuthScreen extends Component {
             };
         });
     }
-
-    handleLogin = () => { console.log('Login at console'); };
 
     updateStyles = (dims) => {
         this.setState({
@@ -113,9 +118,10 @@ class AuthScreen extends Component {
         }
         if (this.state.authMode === 'signup') {
             confirmPasswordControl = (<View style={this.state.viewMode === 'portrait' ? styles.portraitPwdWrapper : styles.landscapePwdWrapper}>
-                <DefaultInput placeholder="Confirm Password"
+                <DefaultInputRef placeholder="Confirm Password"
                     onChangeText={(val) => this.updateInputState('confirmPassword', val)}
                     value={this.state.controls.confirmPassword.value}
+                    ref={ref => { this.textInput.confirmPass = ref }}
                     touched={this.state.controls.confirmPassword.touched}
                     valid={this.state.controls.confirmPassword.valid}
                     secureTextEntry
@@ -135,25 +141,37 @@ class AuthScreen extends Component {
                             underlayColor="#fff" InnerText={'Switch to Login'} styleText={styles.loginText} /> */}
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={styles.inputContainer}>
-                                <DefaultInput
+                                <DefaultInputRef
                                     onChangeText={(val) => this.updateInputState('email', val)}
                                     value={this.state.controls.email.value}
                                     valid={this.state.controls.email.valid}
                                     touched={this.state.controls.email.touched}
+                                    ref={ref => { this.textInput.emailId = ref }}
                                     autoCapitalize="none"
+                                    handleFocus={() => this.focusNextTextInput('userPass')}
                                     autoCorrect={false}
                                     keyboardType={'email-address'}
 
                                     placeholder="Email address" style={styles.input} />
                                 <View style={this.state.viewMode === 'portrait' || this.state.authMode === 'login' ? styles.portraitPwdContainer : styles.landscapePwdContainer}>
                                     <View style={this.state.viewMode === 'portrait' || this.state.authMode === 'login' ? styles.portraitPwdWrapper : styles.landscapePwdWrapper}>
-                                        <DefaultInput
+                                        {this.state.authMode === 'signup' ? <DefaultInputRef
                                             value={this.state.controls.password.value}
                                             onChangeText={(val) => this.updateInputState('password', val)}
                                             valid={this.state.controls.password.valid}
                                             touched={this.state.controls.password.touched}
+                                            ref={ref => { this.textInput.userPass = ref }}
+                                            handleFocus={() => this.focusNextTextInput('confirmPass')}
                                             placeholder="Password" style={styles.input}
-                                            secureTextEntry />
+                                            secureTextEntry /> : <DefaultInputRef
+                                                value={this.state.controls.password.value}
+                                                onChangeText={(val) => this.updateInputState('password', val)}
+                                                valid={this.state.controls.password.valid}
+                                                touched={this.state.controls.password.touched}
+                                                ref={ref => { this.textInput.userPass = ref }}
+
+                                                placeholder="Password" style={styles.input}
+                                                secureTextEntry />}
                                     </View>
                                     {confirmPasswordControl}
                                 </View>
@@ -168,6 +186,8 @@ class AuthScreen extends Component {
                             disabled={!this.state.controls.email.valid || !this.state.controls.confirmPassword.valid
                                 && this.state.authMode === 'signup' || !this.state.controls.password.valid}
                             onPress={() => this.loginHandler()}
+                            // hhhddd
+                            // ref={ref => { this.textInput.submitBtn = ref }}
                             underlayColor="#fff" text={'Submit'} styleText={styles.loginText} />
                     </KeyboardAvoidingView>
 

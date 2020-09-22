@@ -4,6 +4,8 @@ import { TextInput, StyleSheet } from 'react-native';
 
 const DefaultInput = (props) => {
 
+
+
     /* (1)  to override default style of a child comp. , styles will be setup in the
      parent or top level component and the style={styles.input} will be called after
      {...props}  e.g
@@ -36,7 +38,8 @@ const DefaultInput = (props) => {
     });
 
     return (
-        <TextInput underlineColorAndroid="transparent" {...props}
+        <TextInput underlineColorAndroid="transparent" {...props} returnKeyType="next"
+            blurOnSubmit={false} onSubmitEditing={props.handleFocus}
             style={[styles.input, props.style, !props.valid && props.touched ? styles.invalid : null]} />);
 };
 
