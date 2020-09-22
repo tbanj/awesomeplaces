@@ -1,10 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import {
+    StyleSheet, View, TouchableWithoutFeedback, Keyboard,
+    Image,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace, deletePlace, selectPlace, deselectPlace } from '../../../src/store/actions/index';
 import validate from '../../lib/validation';
 import PlaceImage from '../../../src/assets/theater.jpeg';
+import PickImage from '../../../src/components/pickImage/PickImage';
 import ButtonWithBg from '../UI/buttonWithBg/ButtonWithBg';
 import DefaultInput from '../UI/defaultInput/DefaultInput';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
@@ -16,6 +20,11 @@ class PlaceInput extends Component {
             controls: {
                 placeName: { value: '', touched: false, valid: false, validationRules: { minLength: 3 } },
                 location: { value: null, valid: false },
+                imagePicker: null,
+                image: {
+                    value: null,
+                    valid: false,
+                },
             },
         };
         // this._onLogin = this._onLogin.bind(this)
@@ -47,6 +56,21 @@ class PlaceInput extends Component {
         });
     };
 
+    handleImagePicked = () => {
+        if (this.state.controls.placeName.valid) {
+            return;
+        }
+        // setImagePicker(places[places.length - 1].image);
+        this.setState((prevState) => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    imagePicker: PlaceImage
+                },
+            };
+        });
+    };
+
     placeSubmitHandler = () => {
         if (this.state.controls.placeName.value.trim() === '') { return; }
         //  in react-native to view debug make use of alert to display content u want to troubleshoot
@@ -60,15 +84,35 @@ class PlaceInput extends Component {
         //     },
         //   },
         // ]);
-        this.props.onAddPlace({ placeName: this.state.controls.placeName.value, PlaceImage: PlaceImage }, this.state.controls.location.value);
+        this.props.onAddPlace({ placeName: this.state.controls.placeName.value, PlaceImage: PlaceImage },
+            this.state.controls.location.value, this.state.controls.image.value);
 
         this.setState({ controls: { placeName: { value: '', valid: false } } });
         Keyboard.dismiss();
     };
 
+    imagePickHandler = (img) => {
+        this.setState((prevState) => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    image: { value: img, valid: true },
+                },
+            };
+        });
+    }
+
     render() {
         return (
             <View style={styles.container}>
+                <PickImage onImagePicker={this.imagePickHandler} />
+                {/* <View style={[styles.placeholder, styles.imgHeight, styles.mb]}>
+                    {this.state.controls.placeName.valid && <Image resizeMode="contain" source={this.state.controls.imagePicker} style={styles.previewImage} />}
+
+                </View>
+                <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
+                    underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={this.handleImagePicked} /> */}
+
                 <PickLocation onLocationPick={this.locationPickHandler} />
                 <View style={styles.inputContainer} >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -81,8 +125,10 @@ class PlaceInput extends Component {
                     </TouchableWithoutFeedback>
                     {/* <DefaultTouchable style={styles.loginScreenButton} onPress={() => { this.placeSubmitHandler(); }}
                         underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} /> */}
+
                     <ButtonWithBg style={styles.loginScreenButton} color={'#29aaf4'}
-                        disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid}
+                        disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid ||
+                            !this.state.controls.image.valid}
                         onPress={() => { this.placeSubmitHandler(); }}
                         underlayColor="#fff" text={'Share a Place'} styleText={styles.loginText} />
                 </View>
@@ -118,6 +164,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff',
     },
+    imgHeight: { height: 150 },
+    mb: { marginBottom: 10 },
     // placeButton: {
     //     borderColor: 'red',
     //     borderWidth: 1,
@@ -133,7 +181,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddPlace: (name, location) => dispatch(addPlace(name, location)),
+        onAddPlace: (name, location, image) => dispatch(addPlace(name, location, image)),
         onDeletePlace: (key) => dispatch(deletePlace(key)),
         onSelectedPlace: (key) => dispatch(selectPlace(key)),
         onDeselectPlace: (name) => dispatch(addPlace(name)),

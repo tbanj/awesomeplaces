@@ -103,15 +103,12 @@ const SharePlaceScreen = (props) => {
                         <TextHeading >Share a Place with us!</TextHeading>
                     </MainText>
                 </View>
-                <View style={[styles.placeholder, styles.imgHeight, styles.mb]}>
+                {/* <View style={[styles.placeholder, styles.imgHeight, styles.mb]}>
                     {places.length > 0 && <Image resizeMode="contain" source={imagePicker} style={styles.previewImage} />}
 
-                    {/* {places.length > 0 ?
-                            <Image resizeMode="contain" source={places[places.length - 1].image} style={styles.previewImage} /> :
-                            <Image resizeMode="contain" source={places.image} style={styles.previewImage} />} */}
                 </View>
                 <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
-                    underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={() => handleImagePicked()} />
+                    underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={() => handleImagePicked()} /> */}
                 <View style={[styles.placeholder]}>
                     {/* <Text>Map</Text> */}
 

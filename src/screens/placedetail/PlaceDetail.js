@@ -15,7 +15,7 @@ import { deletePlace } from '../../store/actions/index';
 // import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
 const PlaceDetail = (props) => {
-
+    console.log('props.selectedPlace', props.selectedPlace.image);
     const dispatch = useDispatch();
     // delete with key assigned to it
     const deletePlaceHandler = (key) => {
@@ -29,7 +29,7 @@ const PlaceDetail = (props) => {
 
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Image resizeMode="contain" source={props.selectedPlace.image} />
+                    <Image resizeMode="contain" source={props.selectedPlace.image} style={{ width: '100%', height: '80%' }} />
                     <Text style={styles.modalText}>{props.selectedPlace.name} </Text>
                     <View>
                         {/* <TouchableHighlight

@@ -1,42 +1,62 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-import ImagePlaceholder from '../../../src'
+import React, { Component } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+import PlaceImage from '../../../src/assets/theater.jpeg';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
-const PickImage = () => {
-    return (
-        <View>
-            <View style={styles.placeholder}>
-                <Image source={ImagePlaceholder} style={styles.previewImage} />
-                {/* <Text>Preview Image</Text> */}
+import ImagePicker from 'react-native-image-picker';
+
+class PickImage extends Component {
+    state = {
+        imagePicker: null,
+    };
+
+    handleImagePicked = () => {
+        ImagePicker.showImagePicker({
+            title: 'Pick an Image',
+        }, res => {
+            // check if user cancel the camera intent without taking pictures
+            if (res.didCancel) {
+                console.log('User cancelled!');
+            } else if (res.error) { console.log('Error', res.error); }
+            else {
+                this.setState({ imagePicker: { uri: res.uri } });
+                this.props.onImagePicker({ uri: res.uri });
+            }
+        });
+
+        // this.setState({
+        //     imagePicker: PlaceImage,
+        // });
+    };
+    render() {
+        return (<View style={styles.container}>
+            <View style={[styles.placeholder, styles.mb]}>
+                {this.state.imagePicker !== null && <Image resizeMode="contain" source={this.state.imagePicker} style={styles.previewImage} />}
+
             </View>
             <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
-                underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} />
-        </View>
-
-    );
+                underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={this.handleImagePicked} />
+        </View>);
+    }
 }
 
 const styles = StyleSheet.create({
-    header: {
-        alignItems: 'center',
-    },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-    },
+    container: { flex: 1, alignItems: 'center' },
     mb: { marginBottom: 10 },
     placeholder: {
-        borderWidth: 1,
         borderColor: 'black',
-        backgroundColor: '#eee',
+        borderWidth: 1,
+        // backgroundColor: '#eee',
         width: '80%',
-        // alignItems: 'center',
         height: 150,
+        // alignItems: 'center',
+
     },
     previewImage: {
-        width: '100%',
-        height: '100%',
+        // width: '100%',
+        // height: '100%',
+        flex: 1,
+        resizeMode: 'stretch',
     },
     loginScreenButton: {
         marginRight: 40,

@@ -16,11 +16,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 places: [...state.places, {
                     key: new Date().getTime() + '', name: action.placeName.placeName,
-                    image: action.placeName.PlaceImage, remoteImage: {
+                    img: action.placeName.PlaceImage, remoteImage: {
                         uri: 'http://4.bp.blogspot.com/-TLR8ISV2qWo/TyUeVqg9xmI/AAAAAAAACOU/1rCZw9-uj50/s640/62589635.jpg',
                         width: 30, height: 30,
                     },
                     location: action.location,
+                    image: {
+                        uri: action.image.uri,
+                    },
                 }],
             };
 

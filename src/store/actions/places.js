@@ -1,11 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { ADD_PLACE, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE } from './actionTypes';
 
-export const addPlace = (placeName, location) => {
+export const addPlace = (placeName, location, image) => {
     return {
         type: ADD_PLACE,
         placeName: placeName,
-        location: location
+        location: location,
+        image: image,
     };
 };
 
