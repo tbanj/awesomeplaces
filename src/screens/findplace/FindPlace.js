@@ -111,7 +111,6 @@ const FindPlaceScreen = (props) => {
 
     const itemSelectedHandler = (data) => {
         const selPlace = places.find(place => place.key === data);
-        console.log('selPlace', selPlace);
         Navigation.push(props.componentId, {
             component: {
                 name: 'awesome-places.Place Detail',

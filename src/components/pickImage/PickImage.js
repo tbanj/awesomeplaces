@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Alert, Image, StyleSheet, View } from 'react-native';
 import PlaceImage from '../../../src/assets/theater.jpeg';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import ImagePicker from 'react-native-image-picker';
@@ -11,16 +11,20 @@ class PickImage extends Component {
     };
 
     handleImagePicked = () => {
+        /*  incase you dont want to store the data from Gallery or camera 
+        which is needed to be in base64 string include
+       parameter {noData: true} which will help for better performance  */
         ImagePicker.showImagePicker({
             title: 'Pick an Image',
         }, res => {
             // check if user cancel the camera intent without taking pictures
             if (res.didCancel) {
-                console.log('User cancelled!');
-            } else if (res.error) { console.log('Error', res.error); }
+                Alert.alert('User cancelled!');
+            } else if (res.error) { console.warn('Error', res.error); }
             else {
                 this.setState({ imagePicker: { uri: res.uri } });
-                this.props.onImagePicker({ uri: res.uri });
+                // res.data the image is stored in form of strings
+                this.props.onImagePicker({ uri: res.uri, base64: res.data });
             }
         });
 

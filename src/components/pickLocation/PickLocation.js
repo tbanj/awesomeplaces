@@ -55,8 +55,8 @@ class PickLocation extends Component {
             this.handlePickLocation(coordsEvent);
         },
             err => {
-                console.log(err);
-                Alert.alert('Fetching Position faild, please pick one ma');
+                console.warn(err);
+                Alert.alert('Fetching Position faild, please pick one');
             });
 
     }
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     button: { margin: 8 },
     mapHeight: { height: 250 },
     bw: { borderWidth: 1 },
-    placeholder: {},
 });
 
 export default PickLocation;
