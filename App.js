@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigation } from 'react-native-navigation';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import AuthScreen from './src/screens/Auth';
 import startMainTabs from './src/screens/maintabs/startMainTabs';
 // import DashboardScreen from './src/screens/maintabs/Dashboard';
@@ -128,39 +128,6 @@ Navigation.events().registerAppLaunchedListener(async () => {
     });
 
 });
-
-// Navigation.events().registerAppLaunchedListener(async () => {
-    // Navigation.setRoot(startMainTabs);
-    // Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[0].stack.id, {
-    //     bottomTab: {
-    //         iconColor: '#FF1493',
-    //         textColor: 'red',
-    //         animateBadge: true,
-    //         dotIndicator: {
-    //             animate: true,
-    //             visible: true,
-    //         },
-    //     },
-    //     bottomTabs: {
-    //         animate: true,
-    //     },
-    // });
-
-    // Navigation.mergeOptions(startMainTabs.root.bottomTabs.children[1].stack.id, {
-
-    //     bottomTab: {
-    //         // textColor: 'red',
-    //         animateBadge: true,
-    //         dotIndicator: {
-    //             animate: true,
-    //             visible: true,
-    //         },
-    //     },
-    //     bottomTabs: {
-    //         animate: true,
-    //     },
-    // });
-// });
 
 
 

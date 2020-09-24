@@ -52,6 +52,7 @@ class AuthScreen extends Component {
         //     password: this.state.controls.password.value,
         // };
         // this.props.onLogin(authData);
+        Keyboard.dismiss();
         Navigation.setRoot(startMainTabs);
     }
 

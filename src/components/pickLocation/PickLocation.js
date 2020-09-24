@@ -8,8 +8,9 @@ class PickLocation extends Component {
         super(props);
         this.state = {
             focusedLocation: {
-                latitude: 37.7900352,
-                longitude: -122.4013726,
+                // 37.7900352, -122.4013726,
+                latitude: 6.4939597,
+                longitude: 3.3529198,
                 latitudeDelta: 0.0122,
                 longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
             },
@@ -52,11 +53,12 @@ class PickLocation extends Component {
                     },
                 },
             };
+            console.log('coordsEvent', coordsEvent);
             this.handlePickLocation(coordsEvent);
         },
             err => {
                 console.warn(err);
-                Alert.alert('Fetching Position faild, please pick one');
+                Alert.alert('Fetching Position failed, please pick one');
             });
 
     }
