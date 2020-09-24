@@ -1,18 +1,16 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import {
-    View, StyleSheet, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback, Alert,
+    View, StyleSheet, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
 import startMainTabs from './maintabs/startMainTabs';
-import DefaultInput from '../components/UI/defaultInput/DefaultInput';
 import DefaultInputRef from '../components/UI/defaultInputRef/DefaultInputRef';
 import HeadingText from '../components/UI/headingText/HeadingText';
 import MainText from '../components/UI/mainText/MainText';
 import background from '../../src/assets/background.jpg';
-import DefaultTouchable from '../components/UI/defaultTouch/DefaultTouchable';
 import ButtonWithBg from '../components/UI/buttonWithBg/ButtonWithBg';
 import validate from '../lib/validation';
 import { tryAuth } from '../store/actions/auth';
@@ -52,7 +50,7 @@ class AuthScreen extends Component {
         //     password: this.state.controls.password.value,
         // };
         // this.props.onLogin(authData);
-        Keyboard.dismiss();
+        // Keyboard.dismiss();
         Navigation.setRoot(startMainTabs);
     }
 
@@ -122,33 +120,39 @@ class AuthScreen extends Component {
                 <DefaultInputRef placeholder="Confirm Password"
                     onChangeText={(val) => this.updateInputState('confirmPassword', val)}
                     value={this.state.controls.confirmPassword.value}
-                    ref={ref => { this.textInput.confirmPass = ref }}
+                    ref={ref => { this.textInput.confirmPass = ref; }}
                     touched={this.state.controls.confirmPassword.touched}
                     valid={this.state.controls.confirmPassword.valid}
                     secureTextEntry
+                    handleFocus={Keyboard.dismiss}
+                    handleBlur={true}
+                    handleReturnType={'done'}
                     style={styles.input} />
             </View>);
         }
         return (
             <View style={styles.root}>
                 <ImageBackground source={background} style={styles.background}>
-                    <KeyboardAvoidingView style={styles.container} behavior="padding">
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <KeyboardAvoidingView style={styles.container} behavior="padding">
 
-                        {/* to make a style override the other it has to be the parent of that view or textciew */}
-                        {headingText}
-                        {/* <Button style={styles.buttonM} title="Switch to Login" /> */}
-                        <ButtonWithBg color={'#29aaf4'} onPress={() => this.switchAuthModeHandler()} text={`Switch to ${this.state.authMode === 'login' ? 'Signup' : 'Login'}`} />
-                        {/* <DefaultTouchable style={styles.loginScreenButton}
+                            {/* to make a style override the other it has to be the parent of that view or textciew */}
+                            {headingText}
+                            {/* <Button style={styles.buttonM} title="Switch to Login" /> */}
+                            <ButtonWithBg color={'#29aaf4'} onPress={() => this.switchAuthModeHandler()} text={`Switch to ${this.state.authMode === 'login' ? 'Signup' : 'Login'}`} />
+                            {/* <DefaultTouchable style={styles.loginScreenButton}
                             underlayColor="#fff" InnerText={'Switch to Login'} styleText={styles.loginText} /> */}
-                        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
                             <View style={styles.inputContainer}>
                                 <DefaultInputRef
                                     onChangeText={(val) => this.updateInputState('email', val)}
                                     value={this.state.controls.email.value}
                                     valid={this.state.controls.email.valid}
                                     touched={this.state.controls.email.touched}
-                                    ref={ref => { this.textInput.emailId = ref }}
+                                    ref={ref => { this.textInput.emailId = ref; }}
                                     autoCapitalize="none"
+                                    handleBlur={false}
+                                    handleReturnType={'next'}
                                     handleFocus={() => this.focusNextTextInput('userPass')}
                                     autoCorrect={false}
                                     keyboardType={'email-address'}
@@ -161,37 +165,40 @@ class AuthScreen extends Component {
                                             onChangeText={(val) => this.updateInputState('password', val)}
                                             valid={this.state.controls.password.valid}
                                             touched={this.state.controls.password.touched}
-                                            ref={ref => { this.textInput.userPass = ref }}
+                                            ref={ref => { this.textInput.userPass = ref; }}
+                                            handleBlur={false}
                                             handleFocus={() => this.focusNextTextInput('confirmPass')}
+                                            handleReturnType={'next'}
                                             placeholder="Password" style={styles.input}
                                             secureTextEntry /> : <DefaultInputRef
                                                 value={this.state.controls.password.value}
                                                 onChangeText={(val) => this.updateInputState('password', val)}
                                                 valid={this.state.controls.password.valid}
                                                 touched={this.state.controls.password.touched}
-                                                ref={ref => { this.textInput.userPass = ref }}
-
+                                                ref={ref => { this.textInput.userPass = ref; }}
+                                                handleFocus={Keyboard.dismiss}
+                                                handleReturnType={'done'}
                                                 placeholder="Password" style={styles.input}
+                                                handleBlur={true}
                                                 secureTextEntry />}
                                     </View>
                                     {confirmPasswordControl}
                                 </View>
                             </View>
-                        </TouchableWithoutFeedback>
 
-                        {/* <Button title="Submit"
+
+                            {/* <Button title="Submit"
                             onPress={() => {
                                 Navigation.setRoot(startMainTabs);
                             }} /> */}
-                        <ButtonWithBg style={styles.button} color={'#29aaf4'}
-                            disabled={!this.state.controls.email.valid || !this.state.controls.confirmPassword.valid
-                                && this.state.authMode === 'signup' || !this.state.controls.password.valid}
-                            onPress={() => this.loginHandler()}
-                            // hhhddd
-                            // ref={ref => { this.textInput.submitBtn = ref }}
-                            underlayColor="#fff" text={'Submit'} styleText={styles.loginText} />
-                    </KeyboardAvoidingView>
-
+                            <ButtonWithBg style={styles.button} color={'#29aaf4'}
+                                disabled={!this.state.controls.email.valid || !this.state.controls.confirmPassword.valid
+                                    && this.state.authMode === 'signup' || !this.state.controls.password.valid}
+                                onPress={() => this.loginHandler()}
+                                // ref={ref => { this.textInput.submitBtn = ref }}
+                                underlayColor="#fff" text={'Submit'} styleText={styles.loginText} />
+                        </KeyboardAvoidingView>
+                    </TouchableWithoutFeedback>
 
                 </ImageBackground>
             </View>

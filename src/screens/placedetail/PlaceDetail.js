@@ -129,8 +129,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         textAlign: 'center',
+        fontSize: 26,
     },
-    imageSize: { width: '100%', height: 230 },
+    imageSize: { width: '100%', height: 230, marginBottom: 10 },
     mapHeight: { width: '100%', height: 230 },
     bw: { borderWidth: 1 },
 });

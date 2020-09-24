@@ -8,8 +8,11 @@ import {
 https://github.com/vhpoet/react-native-styling-cheat-sheet */
 const ButtonWithBg = (props) => {
     const content =
-        <View style={[styles.button, { backgroundColor: props.color },
-        props.disabled ? styles.disabled : null]}>
+        <View style={[styles.button, {
+            backgroundColor: props.color,
+
+        },
+        props.disabled ? [styles.disabled, { borderColor: props.borderClr, borderWidth: props.borderWd }] : null]}>
             <Text style={props.disabled ? styles.disabledText : null}>{props.text}</Text>
         </View>;
     if (props.disabled) { return content; }

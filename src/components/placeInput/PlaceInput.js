@@ -87,7 +87,16 @@ class PlaceInput extends Component {
         this.props.onAddPlace({ placeName: this.state.controls.placeName.value, PlaceImage: PlaceImage },
             this.state.controls.location.value, this.state.controls.image.value);
 
-        this.setState({ controls: { placeName: { value: '', valid: false } } });
+        this.setState((prevState) => {
+            return {
+                controls: {
+                    ...prevState.controls,
+                    placeName: { value: '', valid: false },
+                    location: { value: '', valid: false },
+                }
+            }
+        });
+        // { controls: { placeName: { value: '', valid: false } } }
         Keyboard.dismiss();
     };
 
@@ -116,8 +125,11 @@ class PlaceInput extends Component {
                 <PickLocation onLocationPick={this.locationPickHandler} />
                 <View style={styles.inputContainer} >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                        <DefaultInput placeholder="An awesome place" onChangeText={(event) => this.placeNameChangeHandler('placeName', event)}
+                        <DefaultInput style={styles.bd} placeholder="An awesome place" onChangeText={(event) => this.placeNameChangeHandler('placeName', event)}
                             value={this.state.controls.placeName.value}
+                            handleReturnType={'done'}
+                            onKeyDismiss={Keyboard.dismiss}
+                            handleBlur={true}
                             touched={this.state.controls.placeName.touched}
                             valid={this.state.controls.placeName.valid}
                         />
@@ -127,6 +139,7 @@ class PlaceInput extends Component {
                         underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} /> */}
 
                     <ButtonWithBg style={styles.loginScreenButton} color={'#29aaf4'}
+                        borderClr={'#0000FF'} borderWd={1}
                         disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid ||
                             !this.state.controls.image.valid}
                         onPress={() => { this.placeSubmitHandler(); }}
@@ -142,6 +155,10 @@ const styles = StyleSheet.create({
     container: { width: '80%' },
     inputCss: {
         width: '80%',
+    },
+    bd: {
+        borderColor: 'black',
+        borderWidth: 1,
     },
     inputContainer: {
         width: '100%',
