@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {
     View, StyleSheet, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback,
+    Keyboard, Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
@@ -14,7 +15,6 @@ import background from '../../src/assets/background.jpg';
 import ButtonWithBg from '../components/UI/buttonWithBg/ButtonWithBg';
 import validate from '../lib/validation';
 import { tryAuth } from '../store/actions/auth';
-import { Keyboard } from 'react-native';
 
 // import DefaultButton from '../components/UI/defaultButton/DefaultButton';
 
@@ -25,6 +25,7 @@ class AuthScreen extends Component {
         //     pwdWrapper: styles.portraitPwdWrapper,
         // },
         authMode: 'login',
+        keyboardState: false,
         viewMode: Dimensions.get('window').height > 500 ? 'portrait' : 'landscape',
         controls: {
             email: { value: '', touched: false, valid: false, validationRules: { isEmail: true } },
@@ -37,8 +38,10 @@ class AuthScreen extends Component {
 
         super(props);
         Dimensions.addEventListener('change', (dims) => this.updateStyles());
+
         this.textInput = {};
     }
+
 
     focusNextTextInput = (id) => {
         this.textInput[id].focus();
@@ -50,8 +53,14 @@ class AuthScreen extends Component {
         //     password: this.state.controls.password.value,
         // };
         // this.props.onLogin(authData);
-        // Keyboard.dismiss();
-        Navigation.setRoot(startMainTabs);
+
+        setTimeout(() => {
+            Navigation.setRoot(startMainTabs);
+        }, 1000);
+        Keyboard.dismiss();
+        // if (this.state.keyboardState) {
+
+        // }
     }
 
     switchAuthModeHandler = () => {
@@ -106,6 +115,7 @@ class AuthScreen extends Component {
 
     componentWillUnmount() {
         Dimensions.removeEventListener('change', this.updateStyles());
+
     }
     render() {
         let headingText = null;
@@ -133,7 +143,7 @@ class AuthScreen extends Component {
         return (
             <View style={styles.root}>
                 <ImageBackground source={background} style={styles.background}>
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} >
                         <KeyboardAvoidingView style={styles.container} behavior="padding">
 
                             {/* to make a style override the other it has to be the parent of that view or textciew */}
@@ -195,6 +205,7 @@ class AuthScreen extends Component {
                                 disabled={!this.state.controls.email.valid || !this.state.controls.confirmPassword.valid
                                     && this.state.authMode === 'signup' || !this.state.controls.password.valid}
                                 onPress={() => this.loginHandler()}
+                                // hhhddd
                                 // ref={ref => { this.textInput.submitBtn = ref }}
                                 underlayColor="#fff" text={'Submit'} styleText={styles.loginText} />
                         </KeyboardAvoidingView>

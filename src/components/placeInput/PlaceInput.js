@@ -114,7 +114,7 @@ class PlaceInput extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <PickImage onImagePicker={this.imagePickHandler} />
+                {/* <PickImage onImagePicker={this.imagePickHandler} /> */}
                 {/* <View style={[styles.placeholder, styles.imgHeight, styles.mb]}>
                     {this.state.controls.placeName.valid && <Image resizeMode="contain" source={this.state.controls.imagePicker} style={styles.previewImage} />}
 
@@ -124,7 +124,7 @@ class PlaceInput extends Component {
 
                 <PickLocation onLocationPick={this.locationPickHandler} />
                 <View style={styles.inputContainer} >
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                         <DefaultInput style={styles.bd} placeholder="An awesome place" onChangeText={(event) => this.placeNameChangeHandler('placeName', event)}
                             value={this.state.controls.placeName.value}
                             handleReturnType={'done'}

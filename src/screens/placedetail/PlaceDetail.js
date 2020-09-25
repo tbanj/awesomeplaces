@@ -9,18 +9,20 @@ import {
     TouchableHighlight,
     View, Platform, Dimensions, ScrollView,
 } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { useDispatch } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
 import { deletePlace } from '../../store/actions/index';
 // import Feather from 'react-native-vector-icons/Feather';
 
 const PlaceDetail = (props) => {
     const dispatch = useDispatch();
     const [focusedLocation, setFocusedLocation] = useState({
-        latitude: null,
-        longitude: null,
+        // 37.7900352, -122.4013726,
+        latitude: 37.7900352,
+        longitude: -122.4013726,
         latitudeDelta: 0.0122,
         longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
     });

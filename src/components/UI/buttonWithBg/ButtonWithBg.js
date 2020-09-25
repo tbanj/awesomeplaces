@@ -2,7 +2,7 @@
 import React from 'react';
 import {
     TouchableHighlight, TouchableNativeFeedback, Text, View,
-    Platform, StyleSheet,
+    Platform, StyleSheet, Keyboard,
 } from 'react-native';
 /*  for text components u cant set a border for it always refer to
 https://github.com/vhpoet/react-native-styling-cheat-sheet */
@@ -27,6 +27,7 @@ const ButtonWithBg = (props) => {
         </TouchableHighlight>);
 
 };
+// onSubmitEditing={Keyboard.dismiss} blurOnSubmit={true}
 
 const styles = StyleSheet.create({
     button: {
