@@ -50,7 +50,7 @@ const PlaceDetail = (props) => {
                 {props.selectedPlace !== undefined &&
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Image resizeMode="contain" source={props.selectedPlace.image} style={styles.imageSize} />
+                            <Image resizeMode="cover" source={props.selectedPlace.image} style={styles.imageSize} />
 
                             {focusedLocation.latitude !== null && <MapView style={[styles.mapHeight, styles.bw]}
                                 provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
@@ -60,12 +60,6 @@ const PlaceDetail = (props) => {
 
                             <Text style={styles.modalText}>{props.selectedPlace.name} </Text>
                             <View>
-                                {/* <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: 'red', marginTop: 10, marginBottom: 10 }}
-                            onPress={() => deletePlaceHandler(props.selectedPlace.key)}
-                        >
-                            <Text style={styles.textStyle}>Delete</Text>
-                        </TouchableHighlight> */}
 
                                 <TouchableHighlight
                                     onPress={() => deletePlaceHandler(props.selectedPlace.key)}
@@ -75,15 +69,6 @@ const PlaceDetail = (props) => {
           </Text>
                                 </TouchableHighlight>
 
-                                {/* <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
-                            onPress={() => props.changeModalState(!props.modalVisible)}
-                        >
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </TouchableHighlight> */}
-                                {/* <View>
-                            <Feather name="activity" style={{ fontSize: 50 }} />
-                        </View> */}
                             </View>
                         </View>
                     </View>
@@ -133,7 +118,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 26,
     },
-    imageSize: { width: '100%', height: 230, marginBottom: 10 },
+    imageSize: {
+        width: '100%', height: 230, marginBottom: 10, flex: 1,
+    },
     mapHeight: { width: '100%', height: 230 },
     bw: { borderWidth: 1 },
 });

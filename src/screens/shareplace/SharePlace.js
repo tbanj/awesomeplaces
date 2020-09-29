@@ -8,7 +8,7 @@ import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { addPlace } from '../../store/actions/index';
-import PlaceInput from '../../components/placeInput/test';
+import PlaceInput from '../../components/placeInput/PlaceInput';
 import startMainTabs from '../maintabs/startMainTabs';
 import DefaultInput from '../../components/UI/defaultInput/DefaultInput';
 import TextHeading from '../../components/UI/headingText/HeadingText';
@@ -30,9 +30,6 @@ const SharePlaceScreen = (props) => {
     const { places } = useSelector(state => ({
         places: state.places.places,
     }));
-    if (places.length > 0) {
-        console.warn('places', places[places.length - 1]);
-    }
 
     const dispatch = useDispatch();
     const placeAddedHandler = (data) => { dispatch(addPlace(data)); };

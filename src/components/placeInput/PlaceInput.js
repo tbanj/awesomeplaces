@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import {
-    StyleSheet, View, TouchableWithoutFeedback, Keyboard,
-    Image,
+    StyleSheet, View, TouchableWithoutFeedback, Keyboard, Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { addPlace, deletePlace, selectPlace, deselectPlace } from '../../../src/store/actions/index';
@@ -27,8 +26,9 @@ class PlaceInput extends Component {
                 },
             },
         };
-        // this._onLogin = this._onLogin.bind(this)
+        // this._onLogin = this._onLogin.bind(this);
     }
+
 
     placeNameChangeHandler = (key, val) => {
 
@@ -65,7 +65,7 @@ class PlaceInput extends Component {
             return {
                 controls: {
                     ...prevState.controls,
-                    imagePicker: PlaceImage
+                    imagePicker: PlaceImage,
                 },
             };
         });
@@ -84,7 +84,7 @@ class PlaceInput extends Component {
         //     },
         //   },
         // ]);
-        this.props.onAddPlace({ placeName: this.state.controls.placeName.value, PlaceImage: PlaceImage },
+        this.props.onAddPlace({ ...this.props.places, placeName: this.state.controls.placeName.value, PlaceImage: PlaceImage },
             this.state.controls.location.value, this.state.controls.image.value);
 
         this.setState((prevState) => {
@@ -114,7 +114,8 @@ class PlaceInput extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {/* <PickImage onImagePicker={this.imagePickHandler} /> */}
+                {/**/}
+                <PickImage onImagePicker={this.imagePickHandler} />
                 {/* <View style={[styles.placeholder, styles.imgHeight, styles.mb]}>
                     {this.state.controls.placeName.valid && <Image resizeMode="contain" source={this.state.controls.imagePicker} style={styles.previewImage} />}
 
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         places: state.places.places,
-        selectedPlace: state.places.selectedPlace,
+        selectedPlace: state.places.selectedPlace
     };
 };
 

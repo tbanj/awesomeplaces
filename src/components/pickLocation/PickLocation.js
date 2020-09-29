@@ -41,10 +41,10 @@ class PickLocation extends Component {
     }
 
     getLocationHandler = () => {
-        if (Platform.OS === 'ios') {
-            // your code using Geolocation and asking for authorisation with
-            Geolocation.requestAuthorization();
-        }
+        // if (Platform.OS === 'ios') {
+        //     // your code using Geolocation and asking for authorisation with
+        //     Geolocation.requestAuthorization();
+        // }
         Geolocation.getCurrentPosition(pos => {
             const coordsEvent = {
                 nativeEvent: {
