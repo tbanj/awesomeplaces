@@ -20,21 +20,21 @@ export const addPlace = (placeName, location, image) => {
             name: placeName.placeName,
             location: location,
         };
-        fetch('https://majaloc.firebaseio.com/places.json', {
-            method: 'POST',
-            body: JSON.stringify(placeData),
-        })
-            .catch(err => console.log(err))
-            .then(res => res.json()).then(parsedRes => {
-                console.log(parsedRes);
-                // return {
-                //     type: ADD_PLACE,
-                //     placeName: placeName,
-                //     location: location,
-                //     image: image
-                // };
-            });
-    }
+        // fetch('https://majaloc.firebaseio.com/places.json', {
+        //     method: 'POST',
+        //     body: JSON.stringify(placeData),
+        // })
+        //     .catch(err => console.log(err))
+        //     .then(res => res.json()).then(parsedRes => {
+        //         console.log(parsedRes);
+        //         return {
+        //             type: ADD_PLACE,
+        //             placeName: placeName,
+        //             location: location,
+        //             image: image
+        //         };
+        //     });
+    };
 };
 
 
