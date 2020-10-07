@@ -20,6 +20,20 @@ export const addPlace = (placeName, location, image) => {
             name: placeName.placeName,
             location: location,
         };
+        fetch('https://us-central1-majaloc.cloudfunctions.net/storeImage', {
+            method: 'POST',
+            body: JSON.stringify({
+                image: image.base64,
+            }),
+        })
+            .catch(err => console.log(err))
+            .then(res => {
+                if (res) {
+                    console.log('res', res.status);
+                    return res.json();
+                }
+            })
+            .then(parsedRes => console.log('parsedRes', parsedRes));
         // fetch('https://majaloc.firebaseio.com/places.json', {
         //     method: 'POST',
         //     body: JSON.stringify(placeData),
