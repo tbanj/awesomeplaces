@@ -1,4 +1,4 @@
-package com.todoapp;
+package com.majaplace;
 
 import com.reactnativenavigation.NavigationActivity;
 

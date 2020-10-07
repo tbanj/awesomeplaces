@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, { Component, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, Button, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+    View, Text, ScrollView, StyleSheet,
+    Platform, Image, KeyboardAvoidingView,
+} from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,6 +18,8 @@ import ImagePlaceholder from '../../../src/assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
 
 const SharePlaceScreen = (props) => {
+    const [imagePicker, setImagePicker] = useState(null);
+    const [menuBtn, setMenuBtn] = useState(true);
     // want to listen to an event when navigator events occured
     // props.navigator.setOnNavigatorEvent(onNavigatorEvent);
 
@@ -22,51 +27,101 @@ const SharePlaceScreen = (props) => {
     //     console.warn('event', event);
     // };
 
+    const { places } = useSelector(state => ({
+        places: state.places.places,
+    }));
+
     const dispatch = useDispatch();
     const placeAddedHandler = (data) => { dispatch(addPlace(data)); };
-    let showSidebar = true;
-    Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-        if (buttonId === 'sideDrawer') {
-            if (showSidebar) {
-                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                    sideMenu: {
-                        left: {
-                            visible: true,
-                        },
-                    },
-                });
-                showSidebar = false;
-            } else {
-                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-                    sideMenu: {
-                        left: {
-                            visible: false,
-                        },
-                    },
-                });
-                showSidebar = true;
+
+
+    useEffect(() => {
+        // Subscribe
+        const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
+
+            if (componentName === 'awesome-places.MenuScreen') {
+                setMenuBtn(true);
             }
+        });
+        // // Unsubscribe
+
+        const sidebarSharePlaceListener = Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+            if (buttonId === 'sideDrawer_sharePlace') {
+                if (Platform.OS === 'android') {
+                    Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                        sideMenu: {
+                            left: {
+                                visible: true,
+                                enabled: true,
+                            },
+                        },
+                    });
+                    return;
+                }
+                Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
+                    sideMenu: {
+                        left: {
+                            visible: menuBtn === true ? true : false,
+                            enabled: true,
+                        },
+                    },
+                });
+
+                function toggleMenuBtn() {
+                    setMenuBtn(menuBtn === false ? true : false);
+                }
+                toggleMenuBtn();
+            }
+        });
 
 
+        // unsubscribe sidebarSharePlaceListener
+        return () => {
+            sidebarSharePlaceListener.remove();
+            screenEventListener.remove();
+        };
+    }, [menuBtn]);
+
+
+    const handleImagePicked = () => {
+        if (places.length < 1) {
+            return;
         }
-    });
+        setImagePicker(places[places.length - 1].image);
+    };
 
     return (
-        <ScrollView >
-            <View style={styles.container}>
+
+
+        <ScrollView keyboardShouldPersistTaps="always">
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View style={styles.header}>
                     <MainText>
                         <TextHeading >Share a Place with us!</TextHeading>
                     </MainText>
                 </View>
+                {/* <View style={[styles.placeholder, styles.imgHeight, styles.mb]}>
+                    {places.length > 0 && <Image resizeMode="contain" source={imagePicker} style={styles.previewImage} />}
 
-                <View style={styles.placeholder}><Text>Map</Text></View>
-                <DefaultTouchable style={styles.loginScreenButton}
-                    underlayColor="#fff" InnerText={'Locate Me'} styleText={styles.loginText} />
+                </View>
+                <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
+                    underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={() => handleImagePicked()} /> */}
+                <View style={[styles.placeholder]}>
+                    {/* <Text>Map</Text> */}
+
+                </View>
+
+                {/* <DefaultTouchable style={styles.loginScreenButton}
+                    underlayColor="#fff" InnerText={'Locate Me'} styleText={styles.loginText} /> */}
+
                 <PlaceInput onAddPlace={() => placeAddedHandler()} />
-            </View>
-
+            </KeyboardAvoidingView>
         </ScrollView>
+
+
+
+
+
     );
 };
 
@@ -74,19 +129,21 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center',
     },
+    testDiv: { flex: 1 },
     container: {
         flex: 1,
         alignItems: 'center',
     },
     mb: { marginBottom: 10 },
     placeholder: {
-        borderWidth: 1,
         borderColor: 'black',
-        backgroundColor: '#eee',
+        // backgroundColor: '#eee',
         width: '80%',
         // alignItems: 'center',
-        height: 150,
+
     },
+    imgHeight: { height: 150 },
+
     previewImage: {
         width: '100%',
         height: '100%',
@@ -102,6 +159,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff',
     },
+    placeImage: { marginRight: 8, height: 30, width: 30 },
 });
 export default SharePlaceScreen;
 
@@ -115,8 +173,8 @@ export default SharePlaceScreen;
 
 
 Promise.all([
-    Icon.getImageSource('md-share-alt', 30),
-    Icon.getImageSource('ios-menu', 30),
+    Icon.getImageSource(Platform.OS === 'android' ? 'md-share-alt' : 'ios-share', 30),
+    Icon.getImageSource(Platform.OS === 'android' ? 'md-menu' : 'ios-menu', 30),
 ]).then(sources => {
     SharePlaceScreen.options = {
         topBar: {
@@ -130,7 +188,7 @@ Promise.all([
             /* to make button open a sideMenu Screen, we need to listen to Navigation
             events */
             leftButtons: {
-                id: 'sideDrawer',
+                id: 'sideDrawer_sharePlace',
                 icon: sources[1],
                 color: 'white',
             },

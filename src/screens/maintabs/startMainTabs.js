@@ -72,7 +72,7 @@ const mainRoot = {
             options: {
                 sideMenu: {
                     left: {
-                        width: 110,
+                        width: 200,
                         shouldStretchDrawer: false,
                     },
                 },
@@ -148,5 +148,5 @@ const mainRoot = {
         },
         options: { width: 100 },
     },
-}
+};
 export default mainRoot;

@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'todoapp' do
-  # Pods for todoapp
+target 'majaplace' do
+  # Pods for majaplace
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,7 @@ target 'todoapp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'todoappTests' do
+  target 'majaplaceTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,10 +94,10 @@ target 'todoapp' do
   end
 end
 
-target 'todoapp-tvOS' do
-  # Pods for todoapp-tvOS
+target 'majaplace-tvOS' do
+  # Pods for majaplace-tvOS
 
-  target 'todoapp-tvOSTests' do
+  target 'majaplace-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

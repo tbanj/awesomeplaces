@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.todoapp"
+        applicationId "com.majaplace"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
