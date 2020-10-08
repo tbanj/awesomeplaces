@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { Alert, Button, Dimensions, Platform, StyleSheet, Text, View } from 'react-native';
+import { Alert, Button, Dimensions, Platform, StyleSheet, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 class PickLocation extends Component {
@@ -41,10 +41,10 @@ class PickLocation extends Component {
     }
 
     getLocationHandler = () => {
-        // if (Platform.OS === 'ios') {
-        //     // your code using Geolocation and asking for authorisation with
-        //     Geolocation.requestAuthorization();
-        // }
+        if (Platform.OS === 'ios') {
+            // your code using Geolocation and asking for authorisation with
+            Geolocation.requestAuthorization();
+        }
         Geolocation.getCurrentPosition(pos => {
             const coordsEvent = {
                 nativeEvent: {
