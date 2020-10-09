@@ -23,34 +23,35 @@ export const addPlace = (placeName, location, image) => {
         console.log('location', location);
 
         // test of firebase console
-        fetch('https://us-central1-majaloc.cloudfunctions.net/storeImage', {
-            method: 'POST',
-            body: 'Alabi Temitope Wahab',
-        })
-            .catch(err => console.log(err))
-            .then(res => {
-                if (res) {
-                    console.log('res', res);
-                    return res.json();
-                }
-            })
-            .then(parsedRes => console.log('parsedRes', parsedRes));
-
-        // for image upload
-        // fetch('https://us-central1-majaloc.cloudfunctions.net/storeImage', {
+        // fetch('https://us-central1-majaloc.cloudfunctions.net/majaPlace', {
         //     method: 'POST',
-        //     body: JSON.stringify({
-        //         image: image.base64,
-        //     }),
+        //     body: JSON.stringify({ name: 'Alabi Temitope Wahab' }),
         // })
         //     .catch(err => console.log(err))
         //     .then(res => {
         //         if (res) {
-        //             console.log('res', res);
+        //             // console.log('res', res);
         //             return res.json();
         //         }
         //     })
         //     .then(parsedRes => console.log('parsedRes', parsedRes));
+
+        // for image upload
+        fetch('https://us-central1-majaloc.cloudfunctions.net/storeImage', {
+            method: 'POST',
+            body: JSON.stringify({
+                image: image.base64,
+            }),
+
+        })
+            .catch(err => console.log(err))
+            .then(res => {
+                if (res) {
+                    // console.log('res', res);
+                    return res.json();
+                }
+            })
+            .then(parsedRes => console.log('parsedRes', parsedRes));
         // fetch('https://majaloc.firebaseio.com/places.json', {
         //     method: 'POST',
         //     body: JSON.stringify(placeData),

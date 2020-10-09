@@ -139,9 +139,10 @@ class PlaceInput extends Component {
                     {/* <DefaultTouchable style={styles.loginScreenButton} onPress={() => { this.placeSubmitHandler(); }}
                         underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} /> */}
 
+                    {/* || !this.state.controls.location.valid */}
                     <ButtonWithBg style={styles.loginScreenButton} color={'#29aaf4'}
                         borderClr={'#0000FF'} borderWd={1}
-                        disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid ||
+                        disabled={!this.state.controls.placeName.valid ||
                             !this.state.controls.image.valid}
                         onPress={() => { this.placeSubmitHandler(); }}
                         underlayColor="#fff" text={'Share a Place'} styleText={styles.loginText} />
