@@ -6,6 +6,7 @@ import PlaceImage from '../../../src/assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import ImagePicker from 'react-native-image-picker';
+import { createStorageReferenceToFile, uploadFileToFireBase } from '../../lib/storage';
 
 class PickImage extends Component {
     state = {
@@ -22,11 +23,31 @@ class PickImage extends Component {
             // check if user cancel the camera intent without taking pictures
             if (res.didCancel) {
                 Alert.alert('User cancelled!');
-            } else if (res.error) { console.warn('Error', res.error); }
-            else {
+            }
+            else if (res.error) { console.warn('Error', res.error); }
+            else if (res.customButton) {
+                console.log('User tapped custom button: ', res.customButton);
+                Alert.alert(res.customButton);
+            } else {
                 this.setState({ imagePicker: { uri: res.uri } });
                 // res.data the image is stored in form of strings
+
+                // 
+                console.log('res', Object.keys(res));
+                console.log(
+                    'My file storage reference is: ',
+                    createStorageReferenceToFile(res)
+                );
+                // Add this
+                // Promise.resolve(uploadFileToFireBase(res));
+                const dataPath = new Promise((resolve, reject) => {
+                    resolve(uploadFileToFireBase(res));
+                });
+                dataPath.then((val) => console.log('asynchronous logging has val:', val));
                 this.props.onImagePicker({ uri: res.uri, base64: res.data });
+
+
+
             }
         });
 
