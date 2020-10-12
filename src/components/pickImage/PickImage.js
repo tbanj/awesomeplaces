@@ -2,16 +2,26 @@
 import React, { Component } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 import PlaceImage from '../../../src/assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import ImagePicker from 'react-native-image-picker';
-import { createStorageReferenceToFile, uploadFileToFireBase } from '../../lib/storage';
+import { createStorageReferenceToFile, getUrl, uploadFileToFireBase } from '../../lib/storage';
 
 class PickImage extends Component {
     state = {
         imagePicker: null,
     };
+
+    componentDidMount() {
+        console.log('i call am');
+        auth().signInAnonymously();
+    }
+    initiateAuth = () => { auth().signInAnonymously(); };
+    componentWillUnmount() {
+        // this.initiateAuth;
+    }
 
     handleImagePicked = () => {
         /*  incase you dont want to store the data from Gallery or camera 
@@ -19,7 +29,7 @@ class PickImage extends Component {
        parameter {noData: true} which will help for better performance  */
         ImagePicker.showImagePicker({
             title: 'Pick an Image',
-        }, res => {
+        }, async (res) => {
             // check if user cancel the camera intent without taking pictures
             if (res.didCancel) {
                 Alert.alert('User cancelled!');
@@ -28,23 +38,19 @@ class PickImage extends Component {
             else if (res.customButton) {
                 console.log('User tapped custom button: ', res.customButton);
                 Alert.alert(res.customButton);
-            } else {
+            }
+            else {
+
                 this.setState({ imagePicker: { uri: res.uri } });
                 // res.data the image is stored in form of strings
 
-                // 
-                console.log('res', Object.keys(res));
-                console.log(
-                    'My file storage reference is: ',
-                    createStorageReferenceToFile(res)
-                );
+                // console.log(
+                //     'My file storage reference is: ',
+                //     createStorageReferenceToFile(res)
+                // );
                 // Add this
-                // Promise.resolve(uploadFileToFireBase(res));
-                const dataPath = new Promise((resolve, reject) => {
-                    resolve(uploadFileToFireBase(res));
-                });
-                dataPath.then((val) => console.log('asynchronous logging has val:', val));
-                this.props.onImagePicker({ uri: res.uri, base64: res.data });
+
+                this.props.onImagePicker({ uri: res.uri, base64: res.data, totalData: res });
 
 
 

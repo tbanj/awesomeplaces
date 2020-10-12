@@ -14,6 +14,7 @@ const FindPlaceScreen = (props) => {
     const { places } = useSelector(state => ({
         places: state.places.places,
     }));
+    console.log('places', places);
     const [placesLoaded, setPlacesLoaded] = useState(false);
 
     const [removeAnim] = useState(new Animated.Value(1));

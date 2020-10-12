@@ -101,6 +101,7 @@ class PlaceInput extends Component {
     };
 
     imagePickHandler = (img) => {
+        console.log('image keys', img.uri);
         this.setState((prevState) => {
             return {
                 controls: {
