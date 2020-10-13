@@ -13,12 +13,17 @@ class PickImage extends Component {
     state = {
         imagePicker: null,
     };
+    constructor(props) {
+        super(props);
+
+    }
 
     componentDidMount() {
-        console.log('i call am');
-        auth().signInAnonymously();
+        this.initiateAuth();
+        // auth().signInAnonymously();
     }
-    initiateAuth = () => { auth().signInAnonymously(); };
+
+    initiateAuth = () => { console.log('I call am dey here'); };
     componentWillUnmount() {
         // this.initiateAuth;
     }
