@@ -20,12 +20,17 @@ class PickLocation extends Component {
 
     };
     handlePickLocation = (event) => {
+        if (Platform.OS === 'ios') {
+            // your code using Geolocation and asking for authorisation with
+            Geolocation.requestAuthorization();
+        }
         const coords = event.nativeEvent.coordinate;
         this.map.animateToRegion({
             ...this.state.focusedLocation,
             latitude: coords.latitude,
             longitude: coords.longitude,
         });
+        console.log('latitude', coords.latitude, 'longitude', coords.longitude);
         this.setState(prevState => {
             return {
                 focusedLocation: {

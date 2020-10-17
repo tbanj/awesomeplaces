@@ -6,11 +6,23 @@ import PlaceImage from '../../../src/assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import ImagePicker from 'react-native-image-picker';
+import { createStorageReferenceToFile, getUrl, uploadFileToFireBase } from '../../lib/storage';
 
 class PickImage extends Component {
     state = {
         imagePicker: null,
     };
+    constructor(props) {
+        super(props);
+
+    }
+
+    componentDidMount() {
+        // this.initiateAuth();
+    }
+    componentWillUnmount() {
+        // console.log('i destroy the auth state');
+    }
 
     handleImagePicked = () => {
         /*  incase you dont want to store the data from Gallery or camera 
@@ -18,15 +30,30 @@ class PickImage extends Component {
        parameter {noData: true} which will help for better performance  */
         ImagePicker.showImagePicker({
             title: 'Pick an Image',
-        }, res => {
+        }, async (res) => {
             // check if user cancel the camera intent without taking pictures
             if (res.didCancel) {
                 Alert.alert('User cancelled!');
-            } else if (res.error) { console.warn('Error', res.error); }
+            }
+            else if (res.error) { console.warn('Error', res.error); }
+            else if (res.customButton) {
+                Alert.alert(res.customButton);
+            }
             else {
+
                 this.setState({ imagePicker: { uri: res.uri } });
                 // res.data the image is stored in form of strings
-                this.props.onImagePicker({ uri: res.uri, base64: res.data });
+
+                // console.log(
+                //     'My file storage reference is: ',
+                //     createStorageReferenceToFile(res)
+                // );
+                // Add this
+
+                this.props.onImagePicker({ uri: res.uri, base64: res.data, totalData: res });
+
+
+
             }
         });
 

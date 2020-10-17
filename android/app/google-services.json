@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "97564249850",
+    "firebase_url": "https://majaloc.firebaseio.com",
+    "project_id": "majaloc",
+    "storage_bucket": "majaloc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97564249850:android:cfabe5952244f632a0c343",
+        "android_client_info": {
+          "package_name": "com.majaplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97564249850-mnobkummvlkadag7rnoolupkh0a407cd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_K9d8DureuPExaNOJHCXgWMiLYIwnI2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97564249850-mnobkummvlkadag7rnoolupkh0a407cd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

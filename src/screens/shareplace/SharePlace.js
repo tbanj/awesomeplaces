@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { addPlace } from '../../store/actions/index';
 import PlaceInput from '../../components/placeInput/PlaceInput';
@@ -37,6 +38,7 @@ const SharePlaceScreen = (props) => {
 
     useEffect(() => {
         // Subscribe
+        auth().signInAnonymously();
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
 
             if (componentName === 'awesome-places.MenuScreen') {

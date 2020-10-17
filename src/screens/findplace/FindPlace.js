@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, { Component, useState, useEffect } from 'react';
-import { View, Text, Platform, TouchableOpacity, StyleSheet, Animated, Keyboard } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Platform, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import PlaceList from '../../components/placeList/PlaceList';
 import startMainTabs from '../maintabs/startMainTabs';
@@ -15,7 +15,6 @@ const FindPlaceScreen = (props) => {
         places: state.places.places,
     }));
     const [placesLoaded, setPlacesLoaded] = useState(false);
-
     const [removeAnim] = useState(new Animated.Value(1));
     const [placesAnim] = useState(new Animated.Value(0));
 

@@ -40,7 +40,7 @@ const DefaultInput = (props) => {
     return (
         <TextInput underlineColorAndroid="transparent" {...props}
             returnKeyType={props.handleReturnType}
-            onSubmitEditing={props.nKeyDismiss}
+            onSubmitEditing={props.onKeyDismiss}
             blurOnSubmit={props.handleBlur}
             style={[styles.input, props.style, !props.valid && props.touched ? styles.invalid : null]} />);
 };

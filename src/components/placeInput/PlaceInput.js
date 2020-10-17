@@ -101,6 +101,7 @@ class PlaceInput extends Component {
     };
 
     imagePickHandler = (img) => {
+        console.log('image keys', img.uri);
         this.setState((prevState) => {
             return {
                 controls: {
@@ -129,7 +130,9 @@ class PlaceInput extends Component {
                         <DefaultInput style={styles.bd} placeholder="An awesome place" onChangeText={(event) => this.placeNameChangeHandler('placeName', event)}
                             value={this.state.controls.placeName.value}
                             handleReturnType={'done'}
-                            onKeyDismiss={Keyboard.dismiss}
+                            onKeyDismiss={this.state.controls.placeName.valid || this.state.controls.location.valid ||
+                                this.state.controls.image.valid ?
+                                () => { this.placeSubmitHandler(); } : Keyboard.dismiss}
                             handleBlur={true}
                             touched={this.state.controls.placeName.touched}
                             valid={this.state.controls.placeName.valid}
@@ -139,6 +142,7 @@ class PlaceInput extends Component {
                     {/* <DefaultTouchable style={styles.loginScreenButton} onPress={() => { this.placeSubmitHandler(); }}
                         underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} /> */}
 
+                    {/* || !this.state.controls.location.valid */}
                     <ButtonWithBg style={styles.loginScreenButton} color={'#29aaf4'}
                         borderClr={'#0000FF'} borderWd={1}
                         disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid ||
