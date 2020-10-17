@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import auth from '@react-native-firebase/auth';
 import PlaceImage from '../../../src/assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
@@ -19,13 +18,10 @@ class PickImage extends Component {
     }
 
     componentDidMount() {
-        this.initiateAuth();
-        // auth().signInAnonymously();
+        // this.initiateAuth();
     }
-
-    initiateAuth = () => { console.log('I call am dey here'); };
     componentWillUnmount() {
-        // this.initiateAuth;
+        // console.log('i destroy the auth state');
     }
 
     handleImagePicked = () => {
@@ -41,7 +37,6 @@ class PickImage extends Component {
             }
             else if (res.error) { console.warn('Error', res.error); }
             else if (res.customButton) {
-                console.log('User tapped custom button: ', res.customButton);
                 Alert.alert(res.customButton);
             }
             else {

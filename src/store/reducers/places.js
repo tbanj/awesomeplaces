@@ -10,6 +10,7 @@ const reducer = (state = initialState, action) => {
     // if (action.placeName !== undefined) {
     //     alert(action.placeName.PlaceImage);
     // }
+
     switch (action.type) {
         case ADD_PLACE:
             return {

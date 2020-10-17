@@ -18,21 +18,22 @@ export const createStorageReferenceToFile = response => {
         // let extractFile = spliText[spliText.length - 2].replace('/', '');
         // iosFileName = extractFile.split('/');
         let spliText = response.uri.split('/');
-        iosFileName = spliText[spliText.length - 1]
-        console.warn('iosFileName', iosFileName);
+        iosFileName = spliText[spliText.length - 1];
     }
-
-    return storage().ref(Platform.OS === 'android' ? response.fileName : iosFileName);
+    //create folder name majaplace to store images; 
+    return storage().ref(Platform.OS === 'android' ? `majaplace/${response.fileName}` : `majaplace/${iosFileName}`);
 };
 
 
 export const uploadFileToFireBase = async (imagePickerResponse) => {
-    const fileSource = getFileLocalPath(imagePickerResponse);
-    const storageRef = createStorageReferenceToFile(imagePickerResponse);
-    console.log('storageRef', storageRef);
+
     try {
+        const fileSource = getFileLocalPath(imagePickerResponse);
+        const storageRef = createStorageReferenceToFile(imagePickerResponse);
+
         await storageRef.putFile(fileSource);
-        return getUrl(imagePickerResponse);
+        const textUrl = await getUrl(imagePickerResponse);
+        return textUrl;
     } catch (error) {
         console.log('error', error);
     }
@@ -42,18 +43,17 @@ export const uploadFileToFireBase = async (imagePickerResponse) => {
 };
 
 export const getUrl = async (response) => {
-    console.log('res am here');
     let iosFileName = null;
     if (Platform.OS === 'ios') {
         let spliText = response.uri.split('/');
-        iosFileName = spliText[spliText.length - 1]
-        console.warn('iosFileName', iosFileName);
+        iosFileName = spliText[spliText.length - 1];
+        // console.warn('iosFileName', iosFileName);
     }
     try {
         const url = await storage()
-            .ref(Platform.OS === 'android' ? response.fileName : iosFileName)
+            .ref(Platform.OS === 'android' ? `majaplace/${response.fileName}` : `majaplace/${iosFileName}`)
             .getDownloadURL();
-        console.log('url', url);
+        return url;
     } catch (error) {
         console.log('error', error);
     }

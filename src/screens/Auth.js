@@ -5,6 +5,7 @@ import {
     Keyboard, Alert
 } from 'react-native';
 import { connect } from 'react-redux';
+// import auth from '@react-native-firebase/auth';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
 import startMainTabs from './maintabs/startMainTabs';
@@ -47,14 +48,18 @@ class AuthScreen extends Component {
         this.textInput[id].focus();
     }
 
+    // initiateAuth = () => {
+    //     auth().signInAnonymously();
+    // };
+
     loginHandler = () => {
         // const authData = {
         //     email: this.state.controls.email.value,
         //     password: this.state.controls.password.value,
         // };
         // this.props.onLogin(authData);
-
         setTimeout(() => {
+            // this.initiateAuth();
             Navigation.setRoot(startMainTabs);
         }, 1000);
         Keyboard.dismiss();
@@ -134,7 +139,10 @@ class AuthScreen extends Component {
                     touched={this.state.controls.confirmPassword.touched}
                     valid={this.state.controls.confirmPassword.valid}
                     secureTextEntry
-                    handleFocus={Keyboard.dismiss}
+                    handleFocus={this.state.controls.email.valid && this.state.controls.password.valid
+                        && this.state.controls.confirmPassword.valid ?
+                        () => this.loginHandler() : Keyboard.dismiss}
+
                     handleBlur={true}
                     handleReturnType={'done'}
                     style={styles.input} />
@@ -186,8 +194,10 @@ class AuthScreen extends Component {
                                                 valid={this.state.controls.password.valid}
                                                 touched={this.state.controls.password.touched}
                                                 ref={ref => { this.textInput.userPass = ref; }}
-                                                handleFocus={Keyboard.dismiss}
+                                                handleFocus={this.state.controls.email.valid && this.state.controls.password.valid ?
+                                                    () => this.loginHandler() : Keyboard.dismiss}
                                                 handleReturnType={'done'}
+
                                                 placeholder="Password" style={styles.input}
                                                 handleBlur={true}
                                                 secureTextEntry />}

@@ -130,7 +130,9 @@ class PlaceInput extends Component {
                         <DefaultInput style={styles.bd} placeholder="An awesome place" onChangeText={(event) => this.placeNameChangeHandler('placeName', event)}
                             value={this.state.controls.placeName.value}
                             handleReturnType={'done'}
-                            onKeyDismiss={Keyboard.dismiss}
+                            onKeyDismiss={this.state.controls.placeName.valid || this.state.controls.location.valid ||
+                                this.state.controls.image.valid ?
+                                () => { this.placeSubmitHandler(); } : Keyboard.dismiss}
                             handleBlur={true}
                             touched={this.state.controls.placeName.touched}
                             valid={this.state.controls.placeName.valid}
@@ -143,7 +145,7 @@ class PlaceInput extends Component {
                     {/* || !this.state.controls.location.valid */}
                     <ButtonWithBg style={styles.loginScreenButton} color={'#29aaf4'}
                         borderClr={'#0000FF'} borderWd={1}
-                        disabled={!this.state.controls.placeName.valid ||
+                        disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid ||
                             !this.state.controls.image.valid}
                         onPress={() => { this.placeSubmitHandler(); }}
                         underlayColor="#fff" text={'Share a Place'} styleText={styles.loginText} />
