@@ -30,12 +30,13 @@ const SharePlaceScreen = (props) => {
 
     const { places } = useSelector(state => ({
         places: state.places.places,
+
     }));
 
     const dispatch = useDispatch();
     const placeAddedHandler = (data) => { dispatch(addPlace(data)); };
 
-
+    // const submitButton = ''
     useEffect(() => {
         // Subscribe
         auth().signInAnonymously();

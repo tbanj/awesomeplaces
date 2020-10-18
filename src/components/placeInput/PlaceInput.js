@@ -1,16 +1,17 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import {
-    StyleSheet, View, TouchableWithoutFeedback, Keyboard, Alert,
+    StyleSheet, View, TouchableWithoutFeedback, Keyboard, Text,
+    ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
-import { addPlace, deletePlace, selectPlace, deselectPlace } from '../../../src/store/actions/index';
+import { addPlace, deletePlace, selectPlace, } from '../../../src/store/actions/index';
 import validate from '../../lib/validation';
 import PlaceImage from '../../../src/assets/theater.jpeg';
 import PickImage from '../../../src/components/pickImage/PickImage';
 import ButtonWithBg from '../UI/buttonWithBg/ButtonWithBg';
 import DefaultInput from '../UI/defaultInput/DefaultInput';
-import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
+// import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import PickLocation from '../pickLocation/PickLocation';
 class PlaceInput extends Component {
     constructor(props) {
@@ -101,7 +102,6 @@ class PlaceInput extends Component {
     };
 
     imagePickHandler = (img) => {
-        console.log('image keys', img.uri);
         this.setState((prevState) => {
             return {
                 controls: {
@@ -113,6 +113,15 @@ class PlaceInput extends Component {
     }
 
     render() {
+        let submitButton = <ButtonWithBg style={styles.loginScreenButton} color={'#29aaf4'}
+            borderClr={'#0000FF'} borderWd={1}
+            disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid ||
+                !this.state.controls.image.valid}
+            onPress={() => { this.placeSubmitHandler(); }}
+            underlayColor="#fff" text={'Share a Place'} styleText={styles.loginText} />;
+        if (this.props.isLoading) {
+            submitButton = <View style={styles.pt10}><ActivityIndicator color="#2196F3" /></View>;
+        }
         return (
             <View style={styles.container}>
                 {/**/}
@@ -143,12 +152,7 @@ class PlaceInput extends Component {
                         underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} /> */}
 
                     {/* || !this.state.controls.location.valid */}
-                    <ButtonWithBg style={styles.loginScreenButton} color={'#29aaf4'}
-                        borderClr={'#0000FF'} borderWd={1}
-                        disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid ||
-                            !this.state.controls.image.valid}
-                        onPress={() => { this.placeSubmitHandler(); }}
-                        underlayColor="#fff" text={'Share a Place'} styleText={styles.loginText} />
+                    {submitButton}
                 </View>
             </View>
 
@@ -188,6 +192,7 @@ const styles = StyleSheet.create({
     },
     imgHeight: { height: 150 },
     mb: { marginBottom: 10 },
+    pt10: { paddingTop: 10 },
     // placeButton: {
     //     borderColor: 'red',
     //     borderWidth: 1,
@@ -197,7 +202,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         places: state.places.places,
-        selectedPlace: state.places.selectedPlace
+        selectedPlace: state.places.selectedPlace,
+        isLoading: state.ui.isLoading,
     };
 };
 

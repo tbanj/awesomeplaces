@@ -2,9 +2,11 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import placesReducer from './reducers/places';
+import uiReducer from './reducers/ui';
 export const middlewares = [reduxThunk];
 const rootReducer = combineReducers({
     places: placesReducer,
+    ui: uiReducer,
 });
 let composeEnhancers = compose;
 

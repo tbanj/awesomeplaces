@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 // reducers is just a function
 
-import { ADD_IMAGE, ADD_PLACE, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE } from '../actions/actionTypes';
+import { ADD_IMAGE, ADD_PLACE, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, SET_PLACES } from '../actions/actionTypes';
 const initialState = {
     places: [],
     selectedPlace: null,
@@ -12,6 +12,11 @@ const reducer = (state = initialState, action) => {
     // }
 
     switch (action.type) {
+        case SET_PLACES:
+            return {
+                ...state,
+                places: action.places,
+            }
         case ADD_PLACE:
             return {
                 ...state,

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { utils } from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 
@@ -36,6 +36,7 @@ export const uploadFileToFireBase = async (imagePickerResponse) => {
         return textUrl;
     } catch (error) {
         console.log('error', error);
+        // Alert.alert('Something went wrong, please try again');
     }
     // const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/black-t-shirt-sm.png`;
     //       // uploads file
@@ -56,6 +57,7 @@ export const getUrl = async (response) => {
         return url;
     } catch (error) {
         console.log('error', error);
+        // Alert.alert('Something went wrong, please try again');
     }
 }
 
