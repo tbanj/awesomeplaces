@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
 
 import PlaceList from '../../components/placeList/PlaceList';
-import { getPlaces } from '../../store/actions/places';
+import { getPlaces } from '../../store/actions/index';
 import startMainTabs from '../maintabs/startMainTabs';
 
 
@@ -22,7 +22,6 @@ const FindPlaceScreen = (props) => {
     useEffect(() => {
         // Keyboard.dismiss();
         dispatch(getPlaces());
-
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
 
             if (componentName === 'awesome-places.MenuScreen') {

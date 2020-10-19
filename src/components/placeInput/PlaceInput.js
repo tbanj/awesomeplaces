@@ -94,6 +94,7 @@ class PlaceInput extends Component {
                     ...prevState.controls,
                     placeName: { value: '', valid: false },
                     location: { value: '', valid: false },
+                    image: { value: null, valid: false }
                 }
             }
         });

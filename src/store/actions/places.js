@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Alert } from 'react-native';
 import { uploadFileToFireBase, getUrl } from '../../lib/storage';
+import { sortedData } from '../../lib/extra'
 /* eslint-disable prettier/prettier */
 import { ADD_PLACE, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, ADD_IMAGE, SET_PLACES } from './actionTypes';
 import { uiStartLoading, uiStopLoading } from './ui';
@@ -20,17 +21,6 @@ import { uiStartLoading, uiStopLoading } from './ui';
 
 export const addPlace = (placeName, location, image) => {
     return async (dispatch) => {
-        // try {
-
-
-
-
-        // } catch (error) {
-        //     console.log(error);
-        //     Alert.alert('Something went wrong, please try again');
-        //     dispatch(uiStopLoading());
-        // }
-
         dispatch(uiStartLoading());
         const imgUrl = await Promise.resolve(uploadFileToFireBase(image.totalData));
         delete image.totalData;
@@ -38,6 +28,9 @@ export const addPlace = (placeName, location, image) => {
             name: placeName.placeName,
             location: location,
             image: imgUrl,
+            timeStamp: Date.now(),
+            createdDate: new Date().toISOString(),
+            updatedDate: new Date().toISOString(),
         };
 
         fetch('https://majaloc.firebaseio.com/places.json', {
@@ -51,16 +44,17 @@ export const addPlace = (placeName, location, image) => {
             })
             .then(res => res.json()).then(parsedRes => {
                 console.log('parsedRes', parsedRes);
+                dispatch(getPlaces());
                 dispatch(uiStopLoading());
 
             });
 
-        dispatch({
-            type: ADD_PLACE,
-            placeName: placeName,
-            location: location,
-            image: image,
-        });
+        // dispatch({
+        //     type: ADD_PLACE,
+        //     placeName: placeName,
+        //     location: location,
+        //     image: image,
+        // });
     };
 };
 // export const addPlace = (placeName, location, image) => {
@@ -117,26 +111,37 @@ export const addPlace = (placeName, location, image) => {
 
 export const getPlaces = () => {
     return dispatch => {
-        fetch('https://majaloc.firebaseio.com/places.json')
+        fetch('https://majaloc.firebaseio.com/places.json?orderBy="timeStamp"&limitToLast=50&print=pretty')
             .catch(err => {
-                Alert.alert('Something went wrong, please try again');
+                Alert.alert('Something went wrong, Hi');
                 console.log(err);
             })
             .then(res => res.json())
             .then(parsedRes => {
-                console.log('parsedRes', parsedRes);
                 const places = [];
-                for (let key in parsedRes) {
-                    places.push({
-                        ...parsedRes[key],
-                        image: {
-                            uri: parsedRes[key].image,
-                            flex: 1
-                        },
-                        id: key,
-                    });
+
+                if ('error' in parsedRes) {
+                    // console.log('parsedRes', Object.keys(parsedRes));
+                    dispatch(setPlaces(places));
+                } else {
+                    console.log('parsedRes', parsedRes);
+
+                    for (let key in parsedRes) {
+                        places.push({
+                            ...parsedRes[key],
+                            image: {
+                                uri: parsedRes[key].image,
+                                flex: 1,
+                            },
+                            key: key,
+                        });
+                    }
+                    const descendData = sortedData(places);
+                    console.log('descendData', descendData);
+
+                    dispatch(setPlaces(descendData));
                 }
-                dispatch(setPlaces());
+
             });
     };
 };
@@ -149,10 +154,26 @@ export const setPlaces = places => {
 };
 
 export const deletePlace = (key) => {
-    return {
-        type: DELETE_PLACE,
-        key: key,
-    };
+    return dispatch => {
+        fetch(`https://majaloc.firebaseio.com/places/${key}.json`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json',
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                Alert.alert('Something went wrong, please try again');
+            })
+            .then(res => res.json())
+            .then(parsedRes => console.log('Delete', parsedRes));
+        dispatch({
+            type: DELETE_PLACE,
+            key: key,
+        })
+    }
+
 };
 
 
