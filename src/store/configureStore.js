@@ -3,10 +3,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import placesReducer from './reducers/places';
 import uiReducer from './reducers/ui';
+import authReducer from './reducers/auth';
 export const middlewares = [reduxThunk];
 const rootReducer = combineReducers({
     places: placesReducer,
     ui: uiReducer,
+    auth: authReducer,
 });
 let composeEnhancers = compose;
 

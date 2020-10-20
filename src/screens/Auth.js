@@ -5,7 +5,6 @@ import {
     Keyboard, Alert
 } from 'react-native';
 import { connect } from 'react-redux';
-// import auth from '@react-native-firebase/auth';
 import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
 import startMainTabs from './maintabs/startMainTabs';
@@ -16,6 +15,7 @@ import background from '../../src/assets/background.jpg';
 import ButtonWithBg from '../components/UI/buttonWithBg/ButtonWithBg';
 import validate from '../lib/validation';
 import { tryAuth } from '../store/actions/auth';
+import { ActivityIndicator } from 'react-native';
 
 // import DefaultButton from '../components/UI/defaultButton/DefaultButton';
 
@@ -53,15 +53,16 @@ class AuthScreen extends Component {
     // };
 
     loginHandler = () => {
-        // const authData = {
-        //     email: this.state.controls.email.value,
-        //     password: this.state.controls.password.value,
-        // };
-        // this.props.onLogin(authData);
-        setTimeout(() => {
-            // this.initiateAuth();
-            Navigation.setRoot(startMainTabs);
-        }, 1000);
+        const authData = {
+            email: this.state.controls.email.value,
+            password: this.state.controls.password.value,
+        };
+
+        this.props.onTryAuth(authData, this.state.authMode);
+        // setTimeout(() => {
+        //     this.initiateAuth();
+        //     if (this.props.isLogin) { Navigation.setRoot(startMainTabs); };
+        // }, 1000);
         Keyboard.dismiss();
         // if (this.state.keyboardState) {
 
@@ -125,6 +126,15 @@ class AuthScreen extends Component {
     render() {
         let headingText = null;
         let confirmPasswordControl = null;
+        let submitBtn = (
+            <ButtonWithBg style={styles.button} color={'#29aaf4'}
+                disabled={!this.state.controls.email.valid || !this.state.controls.confirmPassword.valid
+                    && this.state.authMode === 'signup' || !this.state.controls.password.valid}
+                onPress={() => this.loginHandler()}
+                // hhhddd
+                // ref={ref => { this.textInput.submitBtn = ref }}
+                underlayColor="#fff" text={'Submit'} styleText={styles.loginText} />
+        );
         if (Dimensions.get('window').height > 500) {
             headingText = (<MainText>
                 <HeadingText style={styles.HeadingText}>Please Login</HeadingText>
@@ -147,6 +157,9 @@ class AuthScreen extends Component {
                     handleReturnType={'done'}
                     style={styles.input} />
             </View>);
+        }
+        if (this.props.isLoading) {
+            submitBtn = <ActivityIndicator color="#2196F3" />;
         }
         return (
             <View style={styles.root}>
@@ -211,13 +224,7 @@ class AuthScreen extends Component {
                             onPress={() => {
                                 Navigation.setRoot(startMainTabs);
                             }} /> */}
-                            <ButtonWithBg style={styles.button} color={'#29aaf4'}
-                                disabled={!this.state.controls.email.valid || !this.state.controls.confirmPassword.valid
-                                    && this.state.authMode === 'signup' || !this.state.controls.password.valid}
-                                onPress={() => this.loginHandler()}
-                                // hhhddd
-                                // ref={ref => { this.textInput.submitBtn = ref }}
-                                underlayColor="#fff" text={'Submit'} styleText={styles.loginText} />
+                            {submitBtn}
                         </KeyboardAvoidingView>
                     </TouchableWithoutFeedback>
 
@@ -325,8 +332,15 @@ const styles = StyleSheet.create({
 
 });
 
-const mapDispatchToProps = dispatch => {
-    return { onLogin: (authData) => dispatch(tryAuth(authData)) };
+const mapStateToProps = state => {
+    return {
+        isLoading: state.ui.isLoading,
+        isLogin: state.auth.isLogin,
+    };
 };
-export default connect(null, mapDispatchToProps)(AuthScreen);
+
+const mapDispatchToProps = dispatch => {
+    return { onTryAuth: (authData, authMode) => dispatch(tryAuth(authData, authMode)) };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
 

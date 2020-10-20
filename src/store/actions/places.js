@@ -37,16 +37,17 @@ export const addPlace = (placeName, location, image) => {
             method: 'POST',
             body: JSON.stringify(placeData),
         })
-            .catch(err => {
-                console.log(err);
-                Alert.alert('Something went wrong, please try again');
-                dispatch(uiStopLoading());
-            })
+
             .then(res => res.json()).then(parsedRes => {
                 console.log('parsedRes', parsedRes);
                 dispatch(getPlaces());
                 dispatch(uiStopLoading());
 
+            })
+            .catch(err => {
+                console.log(err);
+                Alert.alert('Something went wrong, please try again');
+                dispatch(uiStopLoading());
             });
 
         // dispatch({
@@ -110,12 +111,11 @@ export const addPlace = (placeName, location, image) => {
 
 
 export const getPlaces = () => {
-    return dispatch => {
-        fetch('https://majaloc.firebaseio.com/places.json?orderBy="timeStamp"&limitToLast=50&print=pretty')
-            .catch(err => {
-                Alert.alert('Something went wrong, Hi');
-                console.log(err);
-            })
+    return (dispatch, getState) => {
+        const token = getState().auth.token;
+        console.log('token', token);
+        if (!token) { return; }
+        fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token}orderBy="timeStamp"&limitToLast=50&print=pretty`)
             .then(res => res.json())
             .then(parsedRes => {
                 const places = [];
@@ -142,6 +142,10 @@ export const getPlaces = () => {
                     dispatch(setPlaces(descendData));
                 }
 
+            })
+            .catch(err => {
+                Alert.alert('Something went wrong, Hi');
+                console.log(err);
             });
     };
 };
@@ -162,12 +166,12 @@ export const deletePlace = (key) => {
                     'Content-type': 'application/json',
                 }
             })
+            .then(res => res.json())
+            .then(parsedRes => console.log('Delete', parsedRes))
             .catch(error => {
                 console.log(error);
                 Alert.alert('Something went wrong, please try again');
-            })
-            .then(res => res.json())
-            .then(parsedRes => console.log('Delete', parsedRes));
+            });
         dispatch({
             type: DELETE_PLACE,
             key: key,
