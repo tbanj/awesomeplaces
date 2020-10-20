@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SET_TOKEN, TRY_AUTH } from '../actions/actionTypes';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SET_TOKEN } from '../actions/actionTypes';
 
 const initialState = {
     token: null,
@@ -19,19 +19,19 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLogin: false,
-            }
+            };
 
         case AUTH_SET_TOKEN:
             console.log('action.token', action.token);
             return {
                 ...state,
-                token: action.token
-            }
+                token: action.token,
+            };
 
         default:
-            return state
+            return state;
     }
-}
+};
 
 export default reducer;
 

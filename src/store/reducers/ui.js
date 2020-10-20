@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-const { UI_START_LOADING, UI_STOP_LOADING } = require("../actions/actionTypes");
+const { UI_START_LOADING, UI_STOP_LOADING } = require('../actions/actionTypes');
 
 // UI_START_LOADING, UI_STOP_LOADING
 const initialState = {
@@ -21,6 +21,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default reducer;

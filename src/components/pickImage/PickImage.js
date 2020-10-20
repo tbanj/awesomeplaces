@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import PlaceImage from '../../../src/assets/theater.jpeg';
+// import PlaceImage from '../../../src/assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import ImagePicker from 'react-native-image-picker';
-import { createStorageReferenceToFile, getUrl, uploadFileToFireBase } from '../../lib/storage';
+// import { createStorageReferenceToFile, getUrl, uploadFileToFireBase } from '../../lib/storage';
 
 class PickImage extends Component {
     state = {
@@ -20,7 +20,7 @@ class PickImage extends Component {
 
 
     handleImagePicked = () => {
-        /*  incase you dont want to store the data from Gallery or camera 
+        /*  incase you dont want to store the data from Gallery or camera
         which is needed to be in base64 string include
        parameter {noData: true} which will help for better performance  */
         ImagePicker.showImagePicker({

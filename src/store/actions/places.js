@@ -1,10 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { Alert } from 'react-native';
-import { uploadFileToFireBase, getUrl } from '../../lib/storage';
-import { sortedData } from '../../lib/extra'
+import { Navigation } from 'react-native-navigation';
+import { uploadFileToFireBase } from '../../lib/storage';
+import { sortedData } from '../../lib/extra';
 /* eslint-disable prettier/prettier */
-import { ADD_PLACE, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, ADD_IMAGE, SET_PLACES } from './actionTypes';
+import { DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, SET_PLACES } from './actionTypes';
+import { authSetToken } from './auth';
 import { uiStartLoading, uiStopLoading } from './ui';
+import { getData } from '../../lib/asyncStorage';
 
 // export const addPlace = (placeName, location, image) => {
 //     return {
@@ -37,12 +40,10 @@ export const addPlace = (placeName, location, image) => {
             method: 'POST',
             body: JSON.stringify(placeData),
         })
-
             .then(res => res.json()).then(parsedRes => {
                 console.log('parsedRes', parsedRes);
                 dispatch(getPlaces());
                 dispatch(uiStopLoading());
-
             })
             .catch(err => {
                 console.log(err);
@@ -111,11 +112,23 @@ export const addPlace = (placeName, location, image) => {
 
 
 export const getPlaces = () => {
-    return (dispatch, getState) => {
-        const token = getState().auth.token;
-        console.log('token', token);
-        if (!token) { return; }
-        fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token}orderBy="timeStamp"&limitToLast=50&print=pretty`)
+    return async (dispatch, getState) => {
+        // to get data store in state use getState
+        // const token = getState().auth.token;
+        // console.log('token', token);
+
+        const token = await Promise.resolve(getData('mp:auth:token'));
+        if (!token) {
+            Alert.alert('No valid token found, will redirect you to Login');
+            // setTimeout(() => {
+            //     Navigation.setRoot({
+            //         root: { component: { name: 'AuthScreen' } },
+            //     });
+            // }, 3000);
+            return;
+        }
+        dispatch(authSetToken(token));
+        fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
             .then(res => res.json())
             .then(parsedRes => {
                 const places = [];
@@ -154,29 +167,40 @@ export const setPlaces = places => {
     return {
         type: SET_PLACES,
         places: places,
-    }
+    };
 };
 
 export const deletePlace = (key) => {
-    return dispatch => {
-        fetch(`https://majaloc.firebaseio.com/places/${key}.json`,
+    return async (dispatch) => {
+        dispatch(uiStartLoading);
+        const token = await Promise.resolve(getData('mp:auth:token'));
+        if (!token) {
+            Alert.alert('No valid token found');
+            return;
+        }
+        fetch(`https://majaloc.firebaseio.com/places/${key}.json&auth=${token}`,
             {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
-                }
+                },
             })
             .then(res => res.json())
-            .then(parsedRes => console.log('Delete', parsedRes))
+            .then(parsedRes => {
+                dispatch(uiStopLoading);
+                console.log('Delete', parsedRes);
+            })
             .catch(error => {
                 console.log(error);
                 Alert.alert('Something went wrong, please try again');
+
+                dispatch(uiStopLoading);
             });
         dispatch({
             type: DELETE_PLACE,
             key: key,
-        })
-    }
+        });
+    };
 
 };
 

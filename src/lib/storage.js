@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Alert, Platform } from 'react-native';
-import { utils } from '@react-native-firebase/app';
+// import { utils } from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 
 // create bucket storage reference to not yet existing image
@@ -20,7 +20,7 @@ export const createStorageReferenceToFile = response => {
         let spliText = response.uri.split('/');
         iosFileName = spliText[spliText.length - 1];
     }
-    //create folder name majaplace to store images; 
+    //create folder name majaplace to store images;
     return storage().ref(Platform.OS === 'android' ? `majaplace/${response.fileName}` : `majaplace/${iosFileName}`);
 };
 
@@ -36,7 +36,7 @@ export const uploadFileToFireBase = async (imagePickerResponse) => {
         return textUrl;
     } catch (error) {
         console.log('error', error);
-        // Alert.alert('Something went wrong, please try again');
+        Alert.alert('Something went wrong, please try again');
     }
     // const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/black-t-shirt-sm.png`;
     //       // uploads file
@@ -57,7 +57,7 @@ export const getUrl = async (response) => {
         return url;
     } catch (error) {
         console.log('error', error);
-        // Alert.alert('Something went wrong, please try again');
+        Alert.alert('Something went wrong, please try again');
     }
-}
+};
 

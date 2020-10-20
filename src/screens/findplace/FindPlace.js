@@ -63,7 +63,7 @@ const FindPlaceScreen = (props) => {
             // unsubscribe sidebarEventListener
             sidebarEventListener.remove();
             screenEventListener.remove();
-        }
+        };
     }, [menuBtn, dispatch]);
 
     const placesLoadedHandler = () => {
@@ -88,7 +88,7 @@ const FindPlaceScreen = (props) => {
                 {
                     inputRange: [0, 1],
                     outputRange: [12, 1],
-                })
+                }),
         }],
     }}>
         <TouchableOpacity onPress={() => placesSearchHandler()}>
@@ -160,35 +160,35 @@ const styles = StyleSheet.create({
 
 export default FindPlaceScreen;
 
-async function getMapIcon() {
-    try {
-        const source = await Icon.getImageSource('md-map', 30);
-        FindPlaceScreen.options = {
-            topBar: {
-                title: {
-                    text: 'Find Place',
-                    color: 'white',
-                },
-                background: {
-                    color: '#4d089a',
-                },
-            },
-            bottomTab: {
-                text: 'Find Place',
-                icon: source[0],
-                // iconColor: '#FF1493',
-                // textColor: '#000',
-                selectedIcon: source[0],
-                selectedTextColor: '#FF1493',
-                selectedIconColor: '#FF1493',
-                fontFamily: 'Comfortaa-Regular',
-            },
-        };
-    } catch (error) {
-        console.warn('error encounter');
+// async function getMapIcon() {
+//     try {
+//         const source = await Icon.getImageSource('md-map', 30);
+//         FindPlaceScreen.options = {
+//             topBar: {
+//                 title: {
+//                     text: 'Find Place',
+//                     color: 'white',
+//                 },
+//                 background: {
+//                     color: '#4d089a',
+//                 },
+//             },
+//             bottomTab: {
+//                 text: 'Find Place',
+//                 icon: source[0],
+//                 // iconColor: '#FF1493',
+//                 // textColor: '#000',
+//                 selectedIcon: source[0],
+//                 selectedTextColor: '#FF1493',
+//                 selectedIconColor: '#FF1493',
+//                 fontFamily: 'Comfortaa-Regular',
+//             },
+//         };
+//     } catch (error) {
+//         console.warn('error encounter');
 
-    }
-}
+//     }
+// }
 Promise.all([
     Icon.getImageSource(Platform.OS === 'android' ? 'md-map' : 'ios-map', 30),
     Icon.getImageSource(Platform.OS === 'android' ? 'md-menu' : 'ios-menu', 30),

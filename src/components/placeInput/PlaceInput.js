@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
 import {
-    StyleSheet, View, TouchableWithoutFeedback, Keyboard, Text,
-    ActivityIndicator
+    StyleSheet, View, TouchableWithoutFeedback, Keyboard,
+    ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { addPlace, deletePlace, selectPlace, } from '../../../src/store/actions/index';
+import { addPlace, deletePlace, selectPlace } from '../../../src/store/actions/index';
 import validate from '../../lib/validation';
 import PlaceImage from '../../../src/assets/theater.jpeg';
 import PickImage from '../../../src/components/pickImage/PickImage';
@@ -94,9 +94,9 @@ class PlaceInput extends Component {
                     ...prevState.controls,
                     placeName: { value: '', valid: false },
                     location: { value: '', valid: false },
-                    image: { value: null, valid: false }
-                }
-            }
+                    image: { value: null, valid: false },
+                },
+            };
         });
         // { controls: { placeName: { value: '', valid: false } } }
         Keyboard.dismiss();

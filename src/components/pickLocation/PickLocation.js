@@ -18,7 +18,7 @@ class PickLocation extends Component {
             locationChosen: false,
         };
 
-    };
+    }
     handlePickLocation = (event) => {
         if (Platform.OS === 'ios') {
             // your code using Geolocation and asking for authorisation with

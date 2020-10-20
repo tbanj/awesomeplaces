@@ -24,6 +24,6 @@ export const sortedData = (sampleData) => {
         return nextDay - currentDay;
     });
 
-}
+};
 
 

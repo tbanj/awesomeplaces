@@ -2,20 +2,19 @@
 import React, { Component } from 'react';
 import {
     View, StyleSheet, ImageBackground, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback,
-    Keyboard, Alert
+    Keyboard, ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Navigation } from 'react-native-navigation';
+// import { Navigation } from 'react-native-navigation';
 // import SettingScreen from './maintabs/Setting';
-import startMainTabs from './maintabs/startMainTabs';
+// import startMainTabs from './maintabs/startMainTabs';
 import DefaultInputRef from '../components/UI/defaultInputRef/DefaultInputRef';
 import HeadingText from '../components/UI/headingText/HeadingText';
 import MainText from '../components/UI/mainText/MainText';
 import background from '../../src/assets/background.jpg';
 import ButtonWithBg from '../components/UI/buttonWithBg/ButtonWithBg';
 import validate from '../lib/validation';
-import { tryAuth } from '../store/actions/auth';
-import { ActivityIndicator } from 'react-native';
+import { tryAuth, authAutoSignIn } from '../store/actions/auth';
 
 // import DefaultButton from '../components/UI/defaultButton/DefaultButton';
 
@@ -41,6 +40,10 @@ class AuthScreen extends Component {
         Dimensions.addEventListener('change', (dims) => this.updateStyles());
 
         this.textInput = {};
+    }
+
+    componentDidMount() {
+        this.props.onAutoSignIn();
     }
 
 
@@ -340,7 +343,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return { onTryAuth: (authData, authMode) => dispatch(tryAuth(authData, authMode)) };
+    return {
+        onTryAuth: (authData, authMode) => dispatch(tryAuth(authData, authMode)),
+        onAutoSignIn: () => dispatch(authAutoSignIn())
+    };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
 
