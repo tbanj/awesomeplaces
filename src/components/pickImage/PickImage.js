@@ -17,12 +17,7 @@ class PickImage extends Component {
 
     }
 
-    componentDidMount() {
-        // this.initiateAuth();
-    }
-    componentWillUnmount() {
-        // console.log('i destroy the auth state');
-    }
+
 
     handleImagePicked = () => {
         /*  incase you dont want to store the data from Gallery or camera 

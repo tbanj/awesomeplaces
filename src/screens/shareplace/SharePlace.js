@@ -8,7 +8,7 @@ import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { addPlace } from '../../store/actions/index';
+import { addPlace, getPlaces } from '../../store/actions/index';
 import PlaceInput from '../../components/placeInput/PlaceInput';
 import startMainTabs from '../maintabs/startMainTabs';
 import DefaultInput from '../../components/UI/defaultInput/DefaultInput';
@@ -17,6 +17,7 @@ import ButtonWithBg from '../../components/UI/buttonWithBg/ButtonWithBg';
 import DefaultTouchable from '../../components/UI/defaultTouch/DefaultTouchable';
 import ImagePlaceholder from '../../../src/assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
+
 
 const SharePlaceScreen = (props) => {
     const [imagePicker, setImagePicker] = useState(null);
@@ -30,12 +31,16 @@ const SharePlaceScreen = (props) => {
 
     const { places } = useSelector(state => ({
         places: state.places.places,
+
     }));
 
     const dispatch = useDispatch();
-    const placeAddedHandler = (data) => { dispatch(addPlace(data)); };
+    const placeAddedHandler = (data) => {
+        dispatch(addPlace(data));
+        // await dispatch(getPlaces());
+    };
 
-
+    // const submitButton = ''
     useEffect(() => {
         // Subscribe
         auth().signInAnonymously();

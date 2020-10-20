@@ -30,7 +30,6 @@ class PickLocation extends Component {
             latitude: coords.latitude,
             longitude: coords.longitude,
         });
-        console.log('latitude', coords.latitude, 'longitude', coords.longitude);
         this.setState(prevState => {
             return {
                 focusedLocation: {
