@@ -127,7 +127,7 @@ export const getPlaces = () => {
             // }, 3000);
             return;
         }
-        dispatch(authSetToken(token));
+        // dispatch(authSetToken(token));
         fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
             .then(res => res.json())
             .then(parsedRes => {

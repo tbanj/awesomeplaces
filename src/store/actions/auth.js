@@ -108,7 +108,11 @@ export const authAutoSignIn = () => {
                 console.log(err);
                 Alert.alert('Failed to fetch token');
             })
-            .then(token => Navigation.setRoot(startMainTabs))
+            .then(token => {
+                console.log('token signin', token);
+                Navigation.setRoot(startMainTabs);
+
+            })
             ;
     };
 };
