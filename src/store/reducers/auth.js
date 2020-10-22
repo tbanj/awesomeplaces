@@ -3,7 +3,7 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SET_TOKEN } from '../actions/actionTypes';
 
 const initialState = {
-    token: null,
+    token: { token: null, expiredDate: null },
     isLogin: false,
 };
 

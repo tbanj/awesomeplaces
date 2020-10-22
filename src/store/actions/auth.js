@@ -4,7 +4,7 @@ import { Navigation } from 'react-native-navigation';
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SET_TOKEN } from './actionTypes';
 import { uiStartLoading, uiStopLoading } from './ui';
 import startMainTabs from '../../screens/maintabs/startMainTabs';
-import { getData, storeData } from '../../lib/asyncStorage';
+import { getData, getObjData, storeData, storeObjData, clearStorage } from '../../lib/asyncStorage';
 
 
 export const tryAuth = (authData, authMode) => {
@@ -37,7 +37,7 @@ export const tryAuth = (authData, authMode) => {
                 else {
                     console.log('parsedRes auth', parsedRes.idToken);
                     // await Promise.resolve(storeData('mp:auth:token', parsedRes.idToken));
-                    dispatch(authStoreToken(parsedRes.idToken));
+                    dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn));
                     // dispatch(authLogin());
                     Navigation.setRoot(startMainTabs);
                 }
@@ -71,12 +71,21 @@ export const authSetToken = (token) => {
     };
 };
 
-export const authStoreToken = (token) => {
+export const authStoreToken = (token, expiresIn) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            const deriveToken = storeData('mp:auth:token', token);
-            if (!deriveToken) { dispatch(authSetToken(token)); }
-            else { resolve(deriveToken); }
+            const expiredDate = new Date().getTime() + expiresIn * 1000;
+            console.log('expiredDate', new Date(expiredDate));
+            const deriveToken = storeObjData('mp:auth:token', { token, expiredDate: expiredDate + '' });
+
+            if (!deriveToken) {
+                reject();
+                return;
+            }
+            else {
+                dispatch(authSetToken({ token, expiredDate: expiredDate + '' }));
+                resolve(deriveToken);
+            }
         });
     };
 };
@@ -86,14 +95,35 @@ export const authGetToken = () => {
     return (dispatch, getState) => {
         return new Promise((resolve, reject) => {
             const token = getState().auth.token;
-            if (!token) {
-                getData('mp:auth:token')
-                    .then(tokenParse => {
-                        dispatch(authSetToken(tokenParse))
-                        resolve(tokenParse);
+            console.log('from state', token);
+            if (!token.token) {
+                getObjData('mp:auth:token')
+                    .then(parseData => {
+                        console.log('parseData', parseData);
+                        const parsedExpiryDate = new Date(parseInt(parseData.expiredDate, 10));
+                        const now = new Date();
+                        console.log('parsedExpiryDate', parsedExpiryDate);
+                        console.log('now', now);
+                        if (!parseData.token) {
+                            reject();
+                            return;
+                        }
+                        // dispatch(authSetToken(parseData));
+                        // resolve(parseData);
+                        if (parsedExpiryDate > now) {
+                            dispatch(authSetToken(parseData));
+                            resolve(parseData);
+                        } else {
+                            console.log('am here');
+                            dispatch(authClearStorage('mp:auth:token'))
+                            reject();
+                        }
                     }
                     )
-                    .catch(error => reject('unable to fetch error encounter'));
+                    .catch(error => {
+
+                        reject('unable to fetch error encounter')
+                    });
             }
             else { resolve(token); }
             return token;
@@ -104,16 +134,21 @@ export const authGetToken = () => {
 export const authAutoSignIn = () => {
     return dispatch => {
         dispatch(authGetToken())
+
+            .then(token => {
+                console.log('token signin', token.token);
+                Navigation.setRoot(startMainTabs);
+            })
             .catch(err => {
                 console.log(err);
                 Alert.alert('Failed to fetch token');
             })
-            .then(token => {
-                console.log('token signin', token);
-                Navigation.setRoot(startMainTabs);
-
-            })
             ;
     };
 };
+
+export const authClearStorage = (key) => {
+    return key;
+}
+
 

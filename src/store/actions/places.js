@@ -7,7 +7,7 @@ import { sortedData } from '../../lib/extra';
 import { DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, SET_PLACES } from './actionTypes';
 import { authSetToken } from './auth';
 import { uiStartLoading, uiStopLoading } from './ui';
-import { getData } from '../../lib/asyncStorage';
+import { getData, getObjData } from '../../lib/asyncStorage';
 
 // export const addPlace = (placeName, location, image) => {
 //     return {
@@ -117,8 +117,9 @@ export const getPlaces = () => {
         // const token = getState().auth.token;
         // console.log('token', token);
 
-        const token = await Promise.resolve(getData('mp:auth:token'));
-        if (!token) {
+        const token = await Promise.resolve(getObjData('mp:auth:token'));
+        console.log('get token', token);
+        if (!token.token) {
             Alert.alert('No valid token found, will redirect you to Login');
             // setTimeout(() => {
             //     Navigation.setRoot({
@@ -128,7 +129,7 @@ export const getPlaces = () => {
             return;
         }
         // dispatch(authSetToken(token));
-        fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
+        fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token.token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
             .then(res => res.json())
             .then(parsedRes => {
                 const places = [];
@@ -173,12 +174,12 @@ export const setPlaces = places => {
 export const deletePlace = (key) => {
     return async (dispatch) => {
         dispatch(uiStartLoading);
-        const token = await Promise.resolve(getData('mp:auth:token'));
-        if (!token) {
+        const token = await Promise.resolve(getObjData('mp:auth:token'));
+        if (!token.token) {
             Alert.alert('No valid token found');
             return;
         }
-        fetch(`https://majaloc.firebaseio.com/places/${key}.json&auth=${token}`,
+        fetch(`https://majaloc.firebaseio.com/places/${key}.json&auth=${token.token}`,
             {
                 method: 'DELETE',
                 headers: {

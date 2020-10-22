@@ -37,3 +37,7 @@ export const getObjData = async (key) => {
     // error reading value
   }
 };
+
+export const clearStorage = (data) => {
+  AsyncStorage.removeItem(data);
+};
