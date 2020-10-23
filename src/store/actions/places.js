@@ -4,7 +4,7 @@ import { Navigation } from 'react-native-navigation';
 import { uploadFileToFireBase } from '../../lib/storage';
 import { sortedData } from '../../lib/extra';
 /* eslint-disable prettier/prettier */
-import { DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, SET_PLACES } from './actionTypes';
+import { AUTH_SET_TOKEN, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, SET_PLACES } from './actionTypes';
 import { authSetToken } from './auth';
 import { uiStartLoading, uiStopLoading } from './ui';
 import { getData, getObjData } from '../../lib/asyncStorage';
@@ -41,7 +41,6 @@ export const addPlace = (placeName, location, image) => {
             body: JSON.stringify(placeData),
         })
             .then(res => res.json()).then(parsedRes => {
-                console.log('parsedRes', parsedRes);
                 dispatch(getPlaces());
                 dispatch(uiStopLoading());
             })
@@ -114,20 +113,37 @@ export const addPlace = (placeName, location, image) => {
 export const getPlaces = () => {
     return async (dispatch, getState) => {
         // to get data store in state use getState
-        // const token = getState().auth.token;
-        // console.log('token', token);
-
-        const token = await Promise.resolve(getObjData('mp:auth:token'));
-        console.log('get token', token);
-        if (!token.token) {
-            Alert.alert('No valid token found, will redirect you to Login');
-            // setTimeout(() => {
-            //     Navigation.setRoot({
-            //         root: { component: { name: 'AuthScreen' } },
-            //     });
-            // }, 3000);
-            return;
+        let token = null;
+        const getToken = getState().auth.token;
+        if (!getToken.token) {
+            token = await Promise.resolve(getObjData('mp:auth:token'));
+            if (token.token) {
+                console.log('you are here');
+                dispatch({
+                    type: AUTH_SET_TOKEN,
+                    token: token,
+                });
+            }
+            else {
+                console.log('dont come here');
+                Alert.alert('No valid token found, will redirect you to Login');
+                return;
+            }
         }
+        if (getToken.token) {
+            token = getToken;
+        }
+
+        // console.log('get token', token);
+        // if (!token.token) {
+        //     Alert.alert('No valid token found, will redirect you to Login');
+        //     // setTimeout(() => {
+        //     //     Navigation.setRoot({
+        //     //         root: { component: { name: 'AuthScreen' } },
+        //     //     });
+        //     // }, 3000);
+        //     return;
+        // }
         // dispatch(authSetToken(token));
         fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token.token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
             .then(res => res.json())
@@ -135,10 +151,8 @@ export const getPlaces = () => {
                 const places = [];
 
                 if ('error' in parsedRes) {
-                    // console.log('parsedRes', Object.keys(parsedRes));
                     dispatch(setPlaces(places));
                 } else {
-                    console.log('parsedRes', parsedRes);
 
                     for (let key in parsedRes) {
                         places.push({
@@ -151,8 +165,6 @@ export const getPlaces = () => {
                         });
                     }
                     const descendData = sortedData(places);
-                    console.log('descendData', descendData);
-
                     dispatch(setPlaces(descendData));
                 }
 
@@ -189,7 +201,6 @@ export const deletePlace = (key) => {
             .then(res => res.json())
             .then(parsedRes => {
                 dispatch(uiStopLoading);
-                console.log('Delete', parsedRes);
             })
             .catch(error => {
                 console.log(error);

@@ -1,17 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { Alert } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SET_TOKEN } from './actionTypes';
+import { AUTH_LOGIN, AUTH_REMOVE_TOKEN, AUTH_SET_TOKEN } from './actionTypes';
 import { uiStartLoading, uiStopLoading } from './ui';
 import startMainTabs from '../../screens/maintabs/startMainTabs';
 import { getData, getObjData, storeData, storeObjData, clearStorage } from '../../lib/asyncStorage';
 
-
+const apiKey = 'AIzaSyAmtanoUXSYtXhr0JeU1do4V_6kWTNWRwE';
 export const tryAuth = (authData, authMode) => {
 
     return dispatch => {
         dispatch(uiStartLoading);
-        const apiKey = 'AIzaSyAmtanoUXSYtXhr0JeU1do4V_6kWTNWRwE';
+
         let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
         if (authMode === 'login') {
             url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
@@ -35,11 +35,11 @@ export const tryAuth = (authData, authMode) => {
                     Alert.alert('Authentication, email or password not correct');
                 }
                 else {
-                    console.log('parsedRes auth', parsedRes.idToken);
                     // await Promise.resolve(storeData('mp:auth:token', parsedRes.idToken));
-                    dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn));
+
                     // dispatch(authLogin());
                     Navigation.setRoot(startMainTabs);
+                    dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn, parsedRes.refreshToken));
                 }
             })
             .catch(err => {
@@ -58,25 +58,34 @@ export const authLogin = () => {
 };
 
 export const authLogout = () => {
-    return {
-        type: AUTH_LOGOUT,
-    };
+    return async (dispatch) => {
+
+        dispatch(authClearStorage('mp:auth:token'));
+        const logSuccess = await dispatch(authClearStorage('mp:auth:refreshToken'));
+        if (logSuccess) {
+            console.log('logSuccess');
+            Navigation.setRoot({
+                root: { component: { name: 'AuthScreen' } },
+            });
+            dispatch(authRemoveToken())
+        }
+    }
 };
 
 export const authSetToken = (token) => {
-    console.log('authSetToken action', token);
+    console.log('set', token);
     return {
         type: AUTH_SET_TOKEN,
-        token,
+        token: token,
     };
 };
 
-export const authStoreToken = (token, expiresIn) => {
+export const authStoreToken = (token, expiresIn, refreshToken) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            const expiredDate = new Date().getTime() + expiresIn * 1000;
-            console.log('expiredDate', new Date(expiredDate));
+            const expiredDate = new Date().getTime() + 20 * 1000;
             const deriveToken = storeObjData('mp:auth:token', { token, expiredDate: expiredDate + '' });
+            storeData('mp:auth:refreshToken', refreshToken);
 
             if (!deriveToken) {
                 reject();
@@ -93,40 +102,60 @@ export const authStoreToken = (token, expiresIn) => {
 
 export const authGetToken = () => {
     return (dispatch, getState) => {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const token = getState().auth.token;
-            console.log('from state', token);
             if (!token.token) {
-                getObjData('mp:auth:token')
-                    .then(parseData => {
-                        console.log('parseData', parseData);
+
+
+                try {
+                    const parseData = await getObjData('mp:auth:token');
+                    if (parseData) {
                         const parsedExpiryDate = new Date(parseInt(parseData.expiredDate, 10));
                         const now = new Date();
-                        console.log('parsedExpiryDate', parsedExpiryDate);
-                        console.log('now', now);
                         if (!parseData.token) {
                             reject();
                             return;
                         }
-                        // dispatch(authSetToken(parseData));
-                        // resolve(parseData);
                         if (parsedExpiryDate > now) {
                             dispatch(authSetToken(parseData));
                             resolve(parseData);
-                        } else {
-                            console.log('am here');
-                            dispatch(authClearStorage('mp:auth:token'))
-                            reject();
+                            return;
                         }
-                    }
-                    )
-                    .catch(error => {
+                        else {
+                            const setRefresh = await getData('mp:auth:refreshToken');
+                            if (setRefresh) {
+                                const response = await fetch(`https://securetoken.googleapis.com/v1/token?key=${apiKey}`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                    body: 'grant_type=refresh_token&refresh_token=' + setRefresh,
+                                });
+                                const res = await response.json();
+                                if (res.id_token) {
+                                    await dispatch(authStoreToken(res.id_token, res.expires_in, res.refresh_token));
+                                    // return { token: res.id_token, expiredDate: res.expires_in };
+                                    resolve({ token: res.id_token, expiredDate: res.expires_in });
+                                }
 
-                        reject('unable to fetch error encounter')
-                    });
+                            } else {
+                                reject('no refresh token derive');
+                                return;
+                            }
+                        }
+                        return parseData;
+                    }
+
+                } catch (error) {
+                    reject('no token found');
+                    dispatch(authClearStorage('mp:auth:token'));
+                    dispatch(authClearStorage('mp:auth:refreshToken'));
+                }
+
             }
-            else { resolve(token); }
-            return token;
+            else {
+                resolve(token);
+                // return;
+            }
+            // return token;
         });
     }
 }
@@ -136,8 +165,11 @@ export const authAutoSignIn = () => {
         dispatch(authGetToken())
 
             .then(token => {
-                console.log('token signin', token.token);
-                Navigation.setRoot(startMainTabs);
+                console.log('is there token ', token);
+                if (token) {
+
+                    Navigation.setRoot(startMainTabs);
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -148,7 +180,33 @@ export const authAutoSignIn = () => {
 };
 
 export const authClearStorage = (key) => {
-    return key;
+    return async (dispatch) => {
+        return await clearStorage(key);
+    }
 }
+
+export const authRemoveToken = () => {
+    return {
+        type: AUTH_REMOVE_TOKEN,
+    };
+};
+
+export const authRetrieveToken = () => {
+    return async dispatch => {
+        // try {
+        //     const obtainToken = await getObjData('mp:auth:token');
+        //     console.log('obtainToken ', obtainToken);
+        //     // dispatch(authSetToken(obtainToken));
+        // } catch (error) {
+
+        // }
+        const obtainToken = await getObjData('mp:auth:token');
+        console.log('obtainToken ', obtainToken);
+    };
+};
+
+
+
+
 
 

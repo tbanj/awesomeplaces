@@ -43,7 +43,11 @@ class AuthScreen extends Component {
     }
 
     componentDidMount() {
-        this.props.onAutoSignIn();
+        this.checkLoginState();
+    }
+
+    checkLoginState = async () => {
+        await this.props.onAutoSignIn();
     }
 
 
@@ -345,7 +349,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onTryAuth: (authData, authMode) => dispatch(tryAuth(authData, authMode)),
-        onAutoSignIn: () => dispatch(authAutoSignIn())
+        onAutoSignIn: () => dispatch(authAutoSignIn()),
+
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);

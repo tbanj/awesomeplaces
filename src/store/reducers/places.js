@@ -13,7 +13,6 @@ const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_PLACES:
-            console.log('action.places', action.places);
             return {
                 ...state,
                 places: action.places,

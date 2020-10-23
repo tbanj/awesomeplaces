@@ -1,8 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity, Platform, Alert } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { connect } from 'react-redux';
+import { authRetrieveToken } from '../../store/actions/index';
+// import { authLogout } from '../../store/actions/index';
 import startMainTabs from '../maintabs/startMainTabs';
 // import SettingScreen from './maintabs/Setting';
 class MenuScreen extends Component {
@@ -26,11 +29,6 @@ class MenuScreen extends Component {
         // });
     }
 
-
-    componentDidMount() {
-        // this.navigationEventListener = Navigation.events().bindComponent(this);
-
-    }
 
 
 
@@ -60,23 +58,28 @@ class MenuScreen extends Component {
         // startMainTabs();
     }
 
-    componentWillUnmount() {
-        // Not mandatory
-        // if (this.navigationEventListener) {
-        //     this.navigationEventListener.remove();
-        // }
-    }
+    // componentWillUnmount() {
+    //     // Not mandatory
+    //     // if (this.navigationEventListener) {
+    //     //     this.navigationEventListener.remove();
+    //     // }
+    // }
     render() {
         return (
             // <View> <Text>Auth Screenl</Text> </View>
             // <View style={styles.root}>
             //     <Text>Menu Screen</Text>
             // </View>  logout from AntDesign
+            // this.props.onLogout
             <View style={[styles.container, { width: Dimensions.get('window').width * 0.8 }]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    Alert.alert('logout');
+                    // console.log('signout', this.props.onLogout);
+                    this.props.onLogout;
+                }}>
                     <View style={styles.drawItem}>
                         <Icon style={styles.drawItemIcon} name={'logout'} size={30} color="#aaa" />
-                        <Text>Menu Screen</Text>
+                        <Text>Logout</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -126,4 +129,19 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MenuScreen;
+const mapStateToProps = (state) => {
+    return {
+        token: state.auth.token,
+        places: state.places.places
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogout: () => { dispatch(authRetrieveToken()); },
+
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuScreen);

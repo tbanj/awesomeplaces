@@ -34,10 +34,19 @@ export const getObjData = async (key) => {
     const jsonValue = await AsyncStorage.getItem(`@storage_${key}`);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
-    // error reading value
+    console.log('obj cannot retrieve from store');
   }
 };
 
-export const clearStorage = (data) => {
-  AsyncStorage.removeItem(data);
+export const clearStorage = async (data) => {
+  try {
+    const value = await AsyncStorage.removeItem(`@storage_${data}`);
+    if (value !== null) {
+      // value previously stored
+      console.log('key delete successful', value);
+      return value;
+    }
+  } catch (error) {
+    console.log('async key not deleted');
+  }
 };

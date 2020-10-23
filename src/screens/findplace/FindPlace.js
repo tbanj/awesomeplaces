@@ -26,6 +26,11 @@ const FindPlaceScreen = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
         // Keyboard.dismiss();
+        // if (!token.token) {
+        //     console.log('token.token', token);
+        //     dispatch(authRetrieveToken());
+        // }
+        // dispatch(authRetrieveToken());
         dispatch(getPlaces());
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
 
