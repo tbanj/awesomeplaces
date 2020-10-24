@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Alert } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { AUTH_LOGIN, AUTH_REMOVE_TOKEN, AUTH_SET_TOKEN } from './actionTypes';
+import auth from '@react-native-firebase/auth';
+import { AUTH_GREETING_STATE, AUTH_LOGIN, AUTH_REMOVE_TOKEN, AUTH_SET_TOKEN } from './actionTypes';
 import { uiStartLoading, uiStopLoading } from './ui';
 import startMainTabs from '../../screens/maintabs/startMainTabs';
 import { getData, getObjData, storeData, storeObjData, clearStorage } from '../../lib/asyncStorage';
@@ -38,6 +39,8 @@ export const tryAuth = (authData, authMode) => {
                     // await Promise.resolve(storeData('mp:auth:token', parsedRes.idToken));
 
                     // dispatch(authLogin());
+                    const user = await auth();
+                    console.log('user', user);
                     Navigation.setRoot(startMainTabs);
                     dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn, parsedRes.refreshToken));
                 }
@@ -58,18 +61,14 @@ export const authLogin = () => {
 };
 
 export const authLogout = () => {
-    return async (dispatch) => {
-
+    return async (dispatch, getState) => {
+        dispatch(authRemoveToken());
         dispatch(authClearStorage('mp:auth:token'));
-        const logSuccess = await dispatch(authClearStorage('mp:auth:refreshToken'));
-        if (logSuccess) {
-            console.log('logSuccess');
-            Navigation.setRoot({
-                root: { component: { name: 'AuthScreen' } },
-            });
-            dispatch(authRemoveToken())
-        }
-    }
+        dispatch(authClearStorage('mp:auth:refreshToken'));
+        Navigation.setRoot({
+            root: { component: { name: 'AuthScreen' } },
+        });
+    };
 };
 
 export const authSetToken = (token) => {
@@ -83,7 +82,7 @@ export const authSetToken = (token) => {
 export const authStoreToken = (token, expiresIn, refreshToken) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            const expiredDate = new Date().getTime() + 20 * 1000;
+            const expiredDate = new Date().getTime() + expiresIn * 1000;
             const deriveToken = storeObjData('mp:auth:token', { token, expiredDate: expiredDate + '' });
             storeData('mp:auth:refreshToken', refreshToken);
 
@@ -104,10 +103,12 @@ export const authGetToken = () => {
     return (dispatch, getState) => {
         return new Promise(async (resolve, reject) => {
             const token = getState().auth.token;
-            if (!token.token) {
 
 
-                try {
+
+            try {
+                if (token.token === null) {
+
                     const parseData = await getObjData('mp:auth:token');
                     if (parseData) {
                         const parsedExpiryDate = new Date(parseInt(parseData.expiredDate, 10));
@@ -121,7 +122,7 @@ export const authGetToken = () => {
                             resolve(parseData);
                             return;
                         }
-                        else {
+                        else if (parsedExpiryDate < now) {
                             const setRefresh = await getData('mp:auth:refreshToken');
                             if (setRefresh) {
                                 const response = await fetch(`https://securetoken.googleapis.com/v1/token?key=${apiKey}`, {
@@ -143,47 +144,49 @@ export const authGetToken = () => {
                         }
                         return parseData;
                     }
-
-                } catch (error) {
-                    reject('no token found');
-                    dispatch(authClearStorage('mp:auth:token'));
-                    dispatch(authClearStorage('mp:auth:refreshToken'));
                 }
 
+
+                else {
+                    resolve(token);
+                    // return;
+                }
+
+            } catch (error) {
+                reject('no token found');
+                dispatch(authClearStorage('mp:auth:token'));
+                dispatch(authClearStorage('mp:auth:refreshToken'));
             }
-            else {
-                resolve(token);
-                // return;
-            }
+
+
+
+
+
             // return token;
         });
-    }
-}
+    };
+};
 
 export const authAutoSignIn = () => {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(authGetToken())
 
             .then(token => {
-                console.log('is there token ', token);
+                console.log('you are here oooo', token);
                 if (token) {
-
+                    console.log('is there token ', token);
                     Navigation.setRoot(startMainTabs);
                 }
-            })
-            .catch(err => {
-                console.log(err);
-                Alert.alert('Failed to fetch token');
-            })
-            ;
+            });
+
     };
 };
 
 export const authClearStorage = (key) => {
     return async (dispatch) => {
         return await clearStorage(key);
-    }
-}
+    };
+};
 
 export const authRemoveToken = () => {
     return {
@@ -193,17 +196,21 @@ export const authRemoveToken = () => {
 
 export const authRetrieveToken = () => {
     return async dispatch => {
-        // try {
-        //     const obtainToken = await getObjData('mp:auth:token');
-        //     console.log('obtainToken ', obtainToken);
-        //     // dispatch(authSetToken(obtainToken));
-        // } catch (error) {
-
-        // }
-        const obtainToken = await getObjData('mp:auth:token');
-        console.log('obtainToken ', obtainToken);
+        try {
+            await getObjData('mp:auth:token');
+        } catch (error) {
+            console.log('error encounter');
+        }
     };
 };
+
+export const authGreetingState = () => {
+    return {
+        type: AUTH_GREETING_STATE,
+        greetingState: true,
+    };
+};
+
 
 
 

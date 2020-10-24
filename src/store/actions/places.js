@@ -1,22 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { Alert } from 'react-native';
-import { Navigation } from 'react-native-navigation';
 import { uploadFileToFireBase } from '../../lib/storage';
 import { sortedData } from '../../lib/extra';
 /* eslint-disable prettier/prettier */
 import { AUTH_SET_TOKEN, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, SET_PLACES } from './actionTypes';
-import { authSetToken } from './auth';
 import { uiStartLoading, uiStopLoading } from './ui';
-import { getData, getObjData } from '../../lib/asyncStorage';
+import { getObjData } from '../../lib/asyncStorage';
 
-// export const addPlace = (placeName, location, image) => {
-//     return {
-//         type: ADD_PLACE,
-//         placeName: placeName,
-//         location: location,
-//         image: image,
-//     };
-// };
 
 // https://majaloc.firebaseio.com/
 /* JSON.stringify() ..is use to convert javascript object to object that can be store on server
@@ -24,38 +14,36 @@ import { getData, getObjData } from '../../lib/asyncStorage';
 
 export const addPlace = (placeName, location, image) => {
     return async (dispatch) => {
-        dispatch(uiStartLoading());
-        const imgUrl = await Promise.resolve(uploadFileToFireBase(image.totalData));
-        delete image.totalData;
-        const placeData = {
-            name: placeName.placeName,
-            location: location,
-            image: imgUrl,
-            timeStamp: Date.now(),
-            createdDate: new Date().toISOString(),
-            updatedDate: new Date().toISOString(),
-        };
+        try {
+            dispatch(uiStartLoading());
+            const imgUrl = await Promise.resolve(uploadFileToFireBase(image.totalData));
+            delete image.totalData;
+            const placeData = {
+                name: placeName.placeName,
+                location: location,
+                image: imgUrl,
+                timeStamp: Date.now(),
+                createdDate: new Date().toISOString(),
+                updatedDate: new Date().toISOString(),
+            };
 
-        fetch('https://majaloc.firebaseio.com/places.json', {
-            method: 'POST',
-            body: JSON.stringify(placeData),
-        })
-            .then(res => res.json()).then(parsedRes => {
-                dispatch(getPlaces());
-                dispatch(uiStopLoading());
+            fetch('https://majaloc.firebaseio.com/places.json', {
+                method: 'POST',
+                body: JSON.stringify(placeData),
             })
-            .catch(err => {
-                console.log(err);
-                Alert.alert('Something went wrong, please try again');
-                dispatch(uiStopLoading());
-            });
+                .then(res => res.json()).then(parsedRes => {
+                    dispatch(getPlaces());
+                    dispatch(uiStopLoading());
+                })
+                .catch(err => {
+                    console.log(err);
+                    Alert.alert('Something went wrong, please try again');
+                    dispatch(uiStopLoading());
+                });
 
-        // dispatch({
-        //     type: ADD_PLACE,
-        //     placeName: placeName,
-        //     location: location,
-        //     image: image,
-        // });
+        } catch (error) {
+            console.log('network error');
+        }
     };
 };
 // export const addPlace = (placeName, location, image) => {
@@ -112,67 +100,60 @@ export const addPlace = (placeName, location, image) => {
 
 export const getPlaces = () => {
     return async (dispatch, getState) => {
-        // to get data store in state use getState
-        let token = null;
-        const getToken = getState().auth.token;
-        if (!getToken.token) {
-            token = await Promise.resolve(getObjData('mp:auth:token'));
-            if (token.token) {
-                console.log('you are here');
-                dispatch({
-                    type: AUTH_SET_TOKEN,
-                    token: token,
-                });
-            }
-            else {
-                console.log('dont come here');
-                Alert.alert('No valid token found, will redirect you to Login');
-                return;
-            }
-        }
-        if (getToken.token) {
-            token = getToken;
-        }
-
-        // console.log('get token', token);
-        // if (!token.token) {
-        //     Alert.alert('No valid token found, will redirect you to Login');
-        //     // setTimeout(() => {
-        //     //     Navigation.setRoot({
-        //     //         root: { component: { name: 'AuthScreen' } },
-        //     //     });
-        //     // }, 3000);
-        //     return;
-        // }
-        // dispatch(authSetToken(token));
-        fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token.token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
-            .then(res => res.json())
-            .then(parsedRes => {
-                const places = [];
-
-                if ('error' in parsedRes) {
-                    dispatch(setPlaces(places));
-                } else {
-
-                    for (let key in parsedRes) {
-                        places.push({
-                            ...parsedRes[key],
-                            image: {
-                                uri: parsedRes[key].image,
-                                flex: 1,
-                            },
-                            key: key,
-                        });
-                    }
-                    const descendData = sortedData(places);
-                    dispatch(setPlaces(descendData));
+        try {
+            // to get data store in state use getState
+            let token = null;
+            const getToken = getState().auth.token;
+            if (getToken.token === null) {
+                token = await Promise.resolve(getObjData('mp:auth:token'));
+                if (token.token) {
+                    console.log('you are here');
+                    dispatch({
+                        type: AUTH_SET_TOKEN,
+                        token: token,
+                    });
                 }
+                else {
+                    console.log('dont come here');
+                    Alert.alert('No valid token found, will redirect you to Login');
+                    return;
+                }
+            }
+            if (getToken.token) {
+                token = getToken;
+            }
 
-            })
-            .catch(err => {
-                Alert.alert('Something went wrong, Hi');
-                console.log(err);
-            });
+            fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token.token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
+                .then(res => res.json())
+                .then(parsedRes => {
+                    const places = [];
+
+                    if ('error' in parsedRes) {
+                        dispatch(setPlaces(places));
+                    } else {
+
+                        for (let key in parsedRes) {
+                            places.push({
+                                ...parsedRes[key],
+                                image: {
+                                    uri: parsedRes[key].image,
+                                    flex: 1,
+                                },
+                                key: key,
+                            });
+                        }
+                        const descendData = sortedData(places);
+                        dispatch(setPlaces(descendData));
+                    }
+
+                })
+                .catch(err => {
+                    Alert.alert('Something went wrong, try again');
+                    console.log(err);
+                });
+        } catch (error) {
+            console.log('no token found');
+        }
     };
 };
 

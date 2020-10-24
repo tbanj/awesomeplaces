@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 // import PlaceImage from '../../../src/assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
@@ -17,7 +18,14 @@ class PickImage extends Component {
 
     }
 
+    componentDidMount() {
+        // this.authenticateUser();
+    }
 
+    authenticateUser = async () => {
+        const user = await auth().currentUser;
+        console.log('user', user);
+    }
 
     handleImagePicked = () => {
         /*  incase you dont want to store the data from Gallery or camera

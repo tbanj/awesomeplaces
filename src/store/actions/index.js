@@ -5,6 +5,6 @@ export {
 } from './places';
 export {
     tryAuth, authGetToken, authAutoSignIn, authLogout, authRetrieveToken,
-    authSetToken,
+    authSetToken, authGreetingState,
 } from './auth';
 export { uiStartLoading, uiStopLoading } from './ui';

@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity, Platform, Alert } from 'react-native';
-import { Navigation } from 'react-native-navigation';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+// import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { connect } from 'react-redux';
-import { authRetrieveToken } from '../../store/actions/index';
+import { authGreetingState, authLogout } from '../../store/actions/auth';
 // import { authLogout } from '../../store/actions/index';
-import startMainTabs from '../maintabs/startMainTabs';
+// import startMainTabs from '../maintabs/startMainTabs';
 // import SettingScreen from './maintabs/Setting';
 class MenuScreen extends Component {
     constructor(props) {
@@ -70,12 +70,23 @@ class MenuScreen extends Component {
             // <View style={styles.root}>
             //     <Text>Menu Screen</Text>
             // </View>  logout from AntDesign
-            // this.props.onLogout
+
             <View style={[styles.container, { width: Dimensions.get('window').width * 0.8 }]}>
-                <TouchableOpacity onPress={() => {
-                    Alert.alert('logout');
-                    // console.log('signout', this.props.onLogout);
-                    this.props.onLogout;
+                <TouchableOpacity onPress={async () => {
+                    // this.props.onLogout()
+                    //     .then(() => {
+                    //         console.log(this.props.token);
+                    //         Alert.alert('logout');
+                    //     });
+                    await this.props.onLogout();
+                    // console.log('out', this.props.token);
+                    // if (this.props.token.token) {
+                    //     console.log('in', this.props.token);
+                    // }
+                    // if (!this.props.token.token) {
+                    //     console.log(this.props.token);
+                    //     Alert.alert('logout');
+                    // }
                 }}>
                     <View style={styles.drawItem}>
                         <Icon style={styles.drawItemIcon} name={'logout'} size={30} color="#aaa" />
@@ -104,9 +115,9 @@ MenuScreen.options = {
     sideMenu: {
         left: {
             visible: false,
-            enabled: false
-        }
-    }
+            enabled: false,
+        },
+    },
 };
 
 const styles = StyleSheet.create({
@@ -132,14 +143,15 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         token: state.auth.token,
-        places: state.places.places
+        places: state.places.places,
+        greetingState: state.auth.greetingState,
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        onLogout: () => { dispatch(authRetrieveToken()); },
-
+        onLogout: () => { dispatch(authLogout()); },
+        onGreeting: () => dispatch(authGreetingState()),
 
     };
 };

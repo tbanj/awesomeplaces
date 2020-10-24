@@ -41,14 +41,16 @@ class AuthScreen extends Component {
 
         this.textInput = {};
     }
+    checkLoginState = async () => {
+
+        await this.props.onAutoSignIn();
+    }
 
     componentDidMount() {
         this.checkLoginState();
     }
 
-    checkLoginState = async () => {
-        await this.props.onAutoSignIn();
-    }
+
 
 
     focusNextTextInput = (id) => {
@@ -342,7 +344,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         isLoading: state.ui.isLoading,
-        isLogin: state.auth.isLogin,
     };
 };
 

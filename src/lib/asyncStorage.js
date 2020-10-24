@@ -26,6 +26,7 @@ export const getData = async (key) => {
     }
   } catch (e) {
     // error reading value
+    console.log('jdjj here');
   }
 };
 
@@ -41,12 +42,12 @@ export const getObjData = async (key) => {
 export const clearStorage = async (data) => {
   try {
     const value = await AsyncStorage.removeItem(`@storage_${data}`);
-    if (value !== null) {
-      // value previously stored
-      console.log('key delete successful', value);
-      return value;
-    }
+    console.log('delete', value);
+    // if (value !== null) {
+    //   console.log('key delete successful', value);
+    //   return value;
+    // }
   } catch (error) {
-    console.log('async key not deleted');
+    console.log('async key not available');
   }
 };
