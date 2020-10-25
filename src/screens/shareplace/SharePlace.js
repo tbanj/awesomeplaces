@@ -5,10 +5,10 @@ import {
     Platform, KeyboardAvoidingView,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { addPlace } from '../../store/actions/index';
+import { addPlace, startAddPlace } from '../../store/actions/index';
 import PlaceInput from '../../components/placeInput/PlaceInput';
 import startMainTabs from '../maintabs/startMainTabs';
 // import DefaultInput from '../../components/UI/defaultInput/DefaultInput';
@@ -34,16 +34,29 @@ const SharePlaceScreen = (props) => {
     // }));
 
     const dispatch = useDispatch();
+
+    const { placeAddedState } = useSelector(state => {
+        return { placeAddedState: state.places.placeAdded };
+    });
+
     const placeAddedHandler = (data) => {
         dispatch(addPlace(data));
+        console.log('outside', placeAddedState);
+        if (placeAddedState) {
+            console.log('this is truc added place', placeAddedState);
+
+        }
+        // dispatch(startAddPlace());
         // await dispatch(getPlaces());
     };
+
 
     // const submitButton = ''
     useEffect(() => {
         // Subscribe
         // auth().signInAnonymously();
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
+
 
             if (componentName === 'awesome-places.MenuScreen') {
                 setMenuBtn(true);

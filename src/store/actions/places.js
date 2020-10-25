@@ -3,9 +3,10 @@ import { Alert } from 'react-native';
 import { uploadFileToFireBase } from '../../lib/storage';
 import { sortedData } from '../../lib/extra';
 /* eslint-disable prettier/prettier */
-import { AUTH_SET_TOKEN, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, SET_PLACES } from './actionTypes';
+import { AUTH_SET_TOKEN, DELETE_PLACE, DESELECT_PLACE, PLACE_ADDED, SELECT_PLACE, SET_PLACES, START_ADD_PLACE } from './actionTypes';
 import { uiStartLoading, uiStopLoading } from './ui';
 import { getObjData } from '../../lib/asyncStorage';
+import { Navigation } from 'react-native-navigation';
 
 
 // https://majaloc.firebaseio.com/
@@ -13,10 +14,13 @@ import { getObjData } from '../../lib/asyncStorage';
     JSON.parse()   is use to convert server object to javascript object*/
 
 export const addPlace = (placeName, location, image) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
+            const token = getState().auth.token;
+            console.log(token, 'kkkk');
             dispatch(uiStartLoading());
             const imgUrl = await Promise.resolve(uploadFileToFireBase(image.totalData));
+            console.log('imgUrl', imgUrl);
             delete image.totalData;
             const placeData = {
                 name: placeName.placeName,
@@ -27,13 +31,30 @@ export const addPlace = (placeName, location, image) => {
                 updatedDate: new Date().toISOString(),
             };
 
-            fetch('https://majaloc.firebaseio.com/places.json', {
+            fetch(`https://majaloc.firebaseio.com/places.json?auth=${token.token}`, {
                 method: 'POST',
                 body: JSON.stringify(placeData),
             })
                 .then(res => res.json()).then(parsedRes => {
+                    console.log('stored data', parsedRes);
                     dispatch(getPlaces());
                     dispatch(uiStopLoading());
+                    // Navigation.mergeOptions('BOTTOM_TABS_LAYOUT', {
+                    //     bottomTabs: {
+                    //       currentTabIndex: 0
+                    //     }
+                    //   });
+                    dispatch(placeAdded());
+                    const checkAddState = getState().places.placeAdded;
+                    console.log('checkAddState', checkAddState);
+                    if (checkAddState) {
+                        Navigation.mergeOptions('BOTTOM_TABS_MAJAPLACE', {
+                            bottomTabs: {
+                                currentTabIndex: 0,
+                            },
+                        });
+                    }
+                    dispatch(startAddPlace());
                 })
                 .catch(err => {
                     console.log(err);
@@ -104,7 +125,7 @@ export const getPlaces = () => {
             // to get data store in state use getState
             let token = null;
             const getToken = getState().auth.token;
-            if (getToken.token === null) {
+            if (getToken.token === null || new Date(parseInt(getToken.expiredDate, 10)) <= new Date()) {
                 token = await Promise.resolve(getObjData('mp:auth:token'));
                 if (token.token) {
                     console.log('you are here');
@@ -211,3 +232,18 @@ export const deselectPlace = (key) => {
         placeName: key,
     };
 };
+
+export const placeAdded = () => {
+    return {
+        type: PLACE_ADDED,
+    };
+};
+
+export const startAddPlace = () => {
+    return {
+        type: START_ADD_PLACE,
+    };
+};
+
+
+

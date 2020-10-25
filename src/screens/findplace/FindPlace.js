@@ -4,6 +4,7 @@ import { View, Text, Platform, TouchableOpacity, StyleSheet, Animated } from 're
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 
 import PlaceList from '../../components/placeList/PlaceList';
 import { getPlaces } from '../../store/actions/index';
@@ -11,26 +12,27 @@ import startMainTabs from '../maintabs/startMainTabs';
 
 
 const FindPlaceScreen = (props) => {
+    const dispatch = useDispatch();
+    const [placesLoaded, setPlacesLoaded] = useState(false);
+    const [removeAnim] = useState(new Animated.Value(1));
+    const [placesAnim] = useState(new Animated.Value(0));
     const [menuBtn, setMenuBtn] = useState(true);
     const { places } = useSelector(state => ({
         places: state.places.places,
     }));
+    const [user, setUser] = useState();
 
-    // if (condition) {
 
-    // }
-
-    const [placesLoaded, setPlacesLoaded] = useState(false);
-    const [removeAnim] = useState(new Animated.Value(1));
-    const [placesAnim] = useState(new Animated.Value(0));
-    const dispatch = useDispatch();
     useEffect(() => {
+        let subscribeState = true;
         // Keyboard.dismiss();
         // if (!token.token) {
         //     console.log('token.token', token);
         //     dispatch(authRetrieveToken());
         // }
         // dispatch(authRetrieveToken());
+        // const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        if (subscribeState) { auth().onAuthStateChanged(onAuthStateChanged); }
         dispatch(getPlaces());
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
 
@@ -69,12 +71,16 @@ const FindPlaceScreen = (props) => {
         });
 
 
+        function onAuthStateChanged(data) {
+            setUser(data);
+        }
         return () => {
             // unsubscribe sidebarEventListener
             sidebarEventListener.remove();
             screenEventListener.remove();
+            subscribeState = false;
         };
-    }, [menuBtn, dispatch]);
+    }, [menuBtn, dispatch, user]);
 
     const placesLoadedHandler = () => {
         Animated.timing(placesAnim, {

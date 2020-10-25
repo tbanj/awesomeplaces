@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 export {
     addPlace, deletePlace, deselectPlace, selectPlace, setPlaces,
-    getPlaces,
+    getPlaces, startAddPlace, placeAdded
 } from './places';
 export {
     tryAuth, authGetToken, authAutoSignIn, authLogout, authRetrieveToken,

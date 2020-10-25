@@ -19,6 +19,21 @@ class PickLocation extends Component {
         };
 
     }
+
+    reset = () => {
+        console.log('reseted');
+        this.setState({
+            focusedLocation: {
+                // 37.7900352, -122.4013726,
+                //    6.4939597, 3.3529198,
+                latitude: 37.7900352,
+                longitude: -122.4013726,
+                latitudeDelta: 0.0122,
+                longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
+            },
+            locationChosen: false,
+        });
+    }
     handlePickLocation = (event) => {
         if (Platform.OS === 'ios') {
             // your code using Geolocation and asking for authorisation with
@@ -78,6 +93,7 @@ class PickLocation extends Component {
                 <MapView style={[styles.mapHeight, styles.bw]}
                     provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : null}
                     initialRegion={this.state.focusedLocation}
+                    region={!this.state.locationChosen ? this.state.focusedLocation : null}
                     onPress={this.handlePickLocation}
                     ref={refr => { this.map = refr; }} >
                     {marker}

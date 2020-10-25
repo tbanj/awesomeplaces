@@ -16,8 +16,6 @@ export const tryAuth = (authData, authMode) => {
         let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
         if (authMode === 'login') {
             url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
-
-
         }
         fetch(url,
             {
@@ -38,9 +36,21 @@ export const tryAuth = (authData, authMode) => {
                 else {
                     // await Promise.resolve(storeData('mp:auth:token', parsedRes.idToken));
 
-                    // dispatch(authLogin());
-                    const user = await auth();
-                    console.log('user', user);
+
+                    auth()
+                        .signInWithEmailAndPassword(authData.email, authData.password)
+                        .then(() => {
+                            console.log('User account created & signed in!');
+                        })
+                        .catch(error => {
+                            if (error.code === 'auth/email-already-in-use') {
+                                console.log('That email address is already in use!');
+                            }
+                            if (error.code === 'auth/invalid-email') {
+                                console.log('That email address is invalid!');
+                            }
+                            console.error(error);
+                        });
                     Navigation.setRoot(startMainTabs);
                     dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn, parsedRes.refreshToken));
                 }
@@ -82,7 +92,7 @@ export const authSetToken = (token) => {
 export const authStoreToken = (token, expiresIn, refreshToken) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            const expiredDate = new Date().getTime() + expiresIn * 1000;
+            const expiredDate = new Date().getTime() + 20 * 1000;
             const deriveToken = storeObjData('mp:auth:token', { token, expiredDate: expiredDate + '' });
             storeData('mp:auth:refreshToken', refreshToken);
 
@@ -102,12 +112,9 @@ export const authStoreToken = (token, expiresIn, refreshToken) => {
 export const authGetToken = () => {
     return (dispatch, getState) => {
         return new Promise(async (resolve, reject) => {
-            const token = getState().auth.token;
-
-
-
             try {
-                if (token.token === null) {
+                const token = getState().auth.token;
+                if (token.token === null || new Date(parseInt(token.expiredDate, 10)) <= new Date()) {
 
                     const parseData = await getObjData('mp:auth:token');
                     if (parseData) {
@@ -175,7 +182,12 @@ export const authAutoSignIn = () => {
                 console.log('you are here oooo', token);
                 if (token) {
                     console.log('is there token ', token);
-                    Navigation.setRoot(startMainTabs);
+                    // Navigation.setRoot(startMainTabs);
+                    Navigation.mergeOptions('BOTTOM_TABS_MAJAPLACE', {
+                        bottomTabs: {
+                            currentTabIndex: 0,
+                        },
+                    });
                 }
             });
 
