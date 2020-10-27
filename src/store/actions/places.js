@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Alert } from 'react-native';
-import { uploadFileToFireBase } from '../../lib/storage';
+import { deleteFile, uploadFileToFireBase } from '../../lib/storage';
 import { sortedData } from '../../lib/extra';
 /* eslint-disable prettier/prettier */
 import { AUTH_SET_TOKEN, DELETE_PLACE, DESELECT_PLACE, PLACE_ADDED, SELECT_PLACE, SET_PLACES, START_ADD_PLACE } from './actionTypes';
@@ -25,17 +25,23 @@ export const addPlace = (placeName, location, image) => {
             const placeData = {
                 name: placeName.placeName,
                 location: location,
-                image: imgUrl,
+                image: imgUrl.url,
                 timeStamp: Date.now(),
                 createdDate: new Date().toISOString(),
                 updatedDate: new Date().toISOString(),
+                fileName: imgUrl.fileNm,
             };
 
             fetch(`https://majaloc.firebaseio.com/places.json?auth=${token.token}`, {
                 method: 'POST',
                 body: JSON.stringify(placeData),
             })
-                .then(res => res.json()).then(parsedRes => {
+                .then(res => {
+                    if (res.ok) {
+                        console.log('res.ok new', res.ok);
+                        return res.json();
+                    } else { throw new Error('network error'); }
+                }).then(parsedRes => {
                     console.log('stored data', parsedRes);
                     dispatch(getPlaces());
                     dispatch(uiStopLoading());
@@ -45,16 +51,20 @@ export const addPlace = (placeName, location, image) => {
                     //     }
                     //   });
                     dispatch(placeAdded());
-                    const checkAddState = getState().places.placeAdded;
+                    let checkAddState = getState().places.placeAdded;
                     console.log('checkAddState', checkAddState);
                     if (checkAddState) {
+                        dispatch(startAddPlace());
+                        let checkAddStat = getState().places.placeAdded;
+                        console.log('checkAddState bottom', checkAddStat);
                         Navigation.mergeOptions('BOTTOM_TABS_MAJAPLACE', {
                             bottomTabs: {
                                 currentTabIndex: 0,
                             },
                         });
+
                     }
-                    dispatch(startAddPlace());
+
                 })
                 .catch(err => {
                     console.log(err);
@@ -145,12 +155,18 @@ export const getPlaces = () => {
             }
 
             fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token.token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
-                .then(res => res.json())
+                .then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    } else { throw new Error('network error'); }
+                })
                 .then(parsedRes => {
+                    console.log('no one parsedRes', parsedRes);
                     const places = [];
-
+                    if (parsedRes === null) { dispatch(setPlaces(places)); return; }
                     if ('error' in parsedRes) {
                         dispatch(setPlaces(places));
+                        return;
                     } else {
 
                         for (let key in parsedRes) {
@@ -169,7 +185,7 @@ export const getPlaces = () => {
 
                 })
                 .catch(err => {
-                    Alert.alert('Something went wrong, try again');
+                    // Alert.alert('Something went wrong, try again');
                     console.log(err);
                 });
         } catch (error) {
@@ -185,7 +201,7 @@ export const setPlaces = places => {
     };
 };
 
-export const deletePlace = (key) => {
+export const deletePlace = (key, fileName) => {
     return async (dispatch) => {
         dispatch(uiStartLoading);
         const token = await Promise.resolve(getObjData('mp:auth:token'));
@@ -193,16 +209,28 @@ export const deletePlace = (key) => {
             Alert.alert('No valid token found');
             return;
         }
-        fetch(`https://majaloc.firebaseio.com/places/${key}.json&auth=${token.token}`,
+        console.log('key hhh fileName', fileName);
+        fetch(`https://majaloc.firebaseio.com/places/${key}.json?auth=${token.token}`,
             {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
                 },
             })
-            .then(res => res.json())
-            .then(parsedRes => {
-                dispatch(uiStopLoading);
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else { throw new Error('network error'); }
+            })
+            .then(async (parsedRes) => {
+
+                try {
+                    await Promise.resolve(deleteFile(fileName));
+                    console.log('parsedRes', parsedRes, 'delete successful');
+                    dispatch(uiStopLoading);
+                } catch (error) {
+                    console.log('unable to delete ');
+                }
             })
             .catch(error => {
                 console.log(error);

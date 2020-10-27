@@ -2,16 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppleMusicUsageDescription</key>
-	<string></string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>would like to use your microphone (for videos)</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>would like to save photos to your photo gallery</string>
-	<key>NSCameraUsageDescription</key>
-	<string>would like to use your camera</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>would like access to your photo gallery to change your profile picture</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -47,10 +37,20 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>would like to use your camera</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Lets share a place!</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location for custom service</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>would like to use your microphone (for videos)</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>would like to save photos to your photo gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>would like access to your photo gallery to change your profile picture</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

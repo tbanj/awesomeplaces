@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import DefaultInputRef from '../components/UI/defaultInputRef/DefaultInputRef';
 import HeadingText from '../components/UI/headingText/HeadingText';
 import MainText from '../components/UI/mainText/MainText';
-import background from '../../src/assets/background.jpg';
+import background from '../../assets/background.jpg';
 import ButtonWithBg from '../components/UI/buttonWithBg/ButtonWithBg';
 import validate from '../lib/validation';
 import { tryAuth, authAutoSignIn } from '../store/actions/auth';
@@ -41,12 +41,11 @@ class AuthScreen extends Component {
 
         this.textInput = {};
     }
-    checkLoginState = async () => {
-
-        await this.props.onAutoSignIn();
-    }
+    checkLoginState = async () => { await this.props.onAutoSignIn(); }
 
     componentDidMount() {
+        // for splash screen
+        // RNBootSplash.show({ duration: 250 }); // fade
         this.checkLoginState();
     }
 

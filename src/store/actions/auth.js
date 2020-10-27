@@ -27,16 +27,17 @@ export const tryAuth = (authData, authMode) => {
                     returnSecureToken: true,
                 }),
             })
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else { throw new Error('network error'); }
+            })
             .then(async (parsedRes) => {
                 dispatch(uiStopLoading);
                 if (!parsedRes.idToken) {
                     Alert.alert('Authentication, email or password not correct');
                 }
                 else {
-                    // await Promise.resolve(storeData('mp:auth:token', parsedRes.idToken));
-
-
                     auth()
                         .signInWithEmailAndPassword(authData.email, authData.password)
                         .then(() => {
@@ -92,7 +93,7 @@ export const authSetToken = (token) => {
 export const authStoreToken = (token, expiresIn, refreshToken) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            const expiredDate = new Date().getTime() + 20 * 1000;
+            const expiredDate = new Date().getTime() + expiresIn * 1000;
             const deriveToken = storeObjData('mp:auth:token', { token, expiredDate: expiredDate + '' });
             storeData('mp:auth:refreshToken', refreshToken);
 
@@ -182,12 +183,19 @@ export const authAutoSignIn = () => {
                 console.log('you are here oooo', token);
                 if (token) {
                     console.log('is there token ', token);
-                    // Navigation.setRoot(startMainTabs);
-                    Navigation.mergeOptions('BOTTOM_TABS_MAJAPLACE', {
-                        bottomTabs: {
-                            currentTabIndex: 0,
-                        },
-                    });
+                    Navigation.setRoot(startMainTabs);
+                    // Navigation.push('findPlace', {
+                    //     component: {
+                    //       name: 'awesome-places.Find Place',
+                    //       options: { // Optional options object to configure the screen
+                    //         topBar: {
+                    //           title: {
+                    //             text: 'Settings' // Set the TopBar title of the new Screen
+                    //           }
+                    //         }
+                    //       }
+                    //     }
+                    //   });
                 }
             });
 

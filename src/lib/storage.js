@@ -52,12 +52,32 @@ export const getUrl = async (response) => {
     }
     try {
         const url = await storage()
-            .ref(Platform.OS === 'android' ? `majaplace/${response.fileName}` : `majaplace/${iosFileName}`)
+            .ref(Platform.OS === 'android' ? `majaplace/${response.fileName}/` : `majaplace/${iosFileName}/`)
             .getDownloadURL();
-        return url;
+        const fileNm = Platform.OS === 'android' ? response.fileName : iosFileName;
+        console.log('response.fileName', fileNm);
+        const data = { url, fileNm }
+        return data;
     } catch (error) {
         console.log('error', error);
         Alert.alert('Something went wrong, please try again');
     }
 };
+
+
+export async function deleteFile(file) {
+    // Deletes the file from the bucket
+    console.log('delete file', file);
+    try {
+        const deletedData = await storage().ref(`majaplace/${file}`).delete();
+        // await storage.bucket(bucketName).file(filename).delete();
+        console.log(`gs://majaloc.appspot.com/majaplace/${file} deleted.`);
+        console.log(`gs://majaloc.appspot.com/majaplace/${file} deleted.`);
+        console.log('deletedData', deletedData);
+    } catch (error) {
+        console.log('delete unsuccessful');
+    }
+}
+
+//   deleteFile().catch(console.error);
 

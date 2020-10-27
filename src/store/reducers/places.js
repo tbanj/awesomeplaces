@@ -32,6 +32,7 @@ const reducer = (state = initialState, action) => {
                         uri: action.image.uri,
                         flex: 1,
                     },
+                    fileName: action.image.fileName,
                 }],
             };
 

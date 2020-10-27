@@ -73,6 +73,7 @@ const FindPlaceScreen = (props) => {
 
         function onAuthStateChanged(data) {
             setUser(data);
+            console.log('user nn', user);
         }
         return () => {
             // unsubscribe sidebarEventListener

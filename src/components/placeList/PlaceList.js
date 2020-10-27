@@ -5,6 +5,7 @@ import ListItem from '../listItem/ListItem';
 // const ListItem = lazy(() => import('../listItem/ListItem'));
 const PlaceList = (props) => {
     // console.log() only work with browser to see this visit http://localhost:8081/debugger-ui/
+    console.log('props.places', props.places[0]);
     return (
         <FlatList
             data={props.places}

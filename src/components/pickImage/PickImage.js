@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
-// import PlaceImage from '../../../src/assets/theater.jpeg';
+// import PlaceImage from '../../../assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import ImagePicker from 'react-native-image-picker';

@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux';
 import { addPlace, deletePlace, selectPlace } from '../../../src/store/actions/index';
 import validate from '../../lib/validation';
-import PlaceImage from '../../../src/assets/theater.jpeg';
+import PlaceImage from '../../../assets/theater.jpeg';
 import PickImage from '../../../src/components/pickImage/PickImage';
 import ButtonWithBg from '../UI/buttonWithBg/ButtonWithBg';
 import DefaultInput from '../UI/defaultInput/DefaultInput';
@@ -229,7 +229,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onAddPlace: (name, location, image) => dispatch(addPlace(name, location, image)),
-        onDeletePlace: (key) => dispatch(deletePlace(key)),
+        onDeletePlace: (key, fileName) => dispatch(deletePlace(key, fileName)),
         onSelectedPlace: (key) => dispatch(selectPlace(key)),
         onDeselectPlace: (name) => dispatch(addPlace(name)),
     };

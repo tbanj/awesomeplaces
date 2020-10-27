@@ -15,7 +15,7 @@ import startMainTabs from '../maintabs/startMainTabs';
 import TextHeading from '../../components/UI/headingText/HeadingText';
 // import ButtonWithBg from '../../components/UI/buttonWithBg/ButtonWithBg';
 // import DefaultTouchable from '../../components/UI/defaultTouch/DefaultTouchable';
-// import ImagePlaceholder from '../../../src/assets/home.png';
+// import ImagePlaceholder from '../../../assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
 
 
