@@ -1,82 +1,34 @@
 /* eslint-disable prettier/prettier */
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity, Platform } from 'react-native';
-import { Navigation } from 'react-native-navigation';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+// import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/AntDesign';
-import startMainTabs from '../maintabs/startMainTabs';
+import { connect } from 'react-redux';
+import { authGreetingState, authLogout } from '../../store/actions/auth';
+// import { authLogout } from '../../store/actions/index';
+// import startMainTabs from '../maintabs/startMainTabs';
 // import SettingScreen from './maintabs/Setting';
 class MenuScreen extends Component {
     constructor(props) {
 
         super(props);
-        // Navigation.events().bindComponent(this);
-        // Navigation.events().bindComponent(this);
-        // this.navigationEventListener = Navigation.events().bindComponent(this);
-        // Navigation.events().bindComponent(this);
-        // Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-        //     // if (buttonId === 'sideDrawer_findPlace') {
-        //     //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-        //     //         sideMenu: {
-        //     //             left: {
-        //     //                 visible: false
-        //     //             },
-        //     //         },
-        //     //     });
-        //     // }
-        // });
     }
-
-
-    componentDidMount() {
-        // this.navigationEventListener = Navigation.events().bindComponent(this);
-
-    }
-
-
-
-    // navigationEventListener = (({ componentId, componentName, passProps }) => {
-    //     console.log('dddd', componentId, componentName, passProps);
-    // });
-
-    // CommandListener = ((name, params) => {
-    //     console.warn('how are you');
-
-    // })
-
-
-
-
-    // registerComponentDidAppearListener({ componentId, componentName, passProps }) {
-    //     console.warn('sideMenu bbb', componentId, componentName, passProps);
-
-    // }
-
-    // navigationButtonPressed({ buttonId }) {
-    //     console.warn('button');
-    // }
 
     loginHandler = () => {
         //  initialiaze next screen
         // startMainTabs();
     }
 
-    componentWillUnmount() {
-        // Not mandatory
-        // if (this.navigationEventListener) {
-        //     this.navigationEventListener.remove();
-        // }
-    }
     render() {
         return (
-            // <View> <Text>Auth Screenl</Text> </View>
-            // <View style={styles.root}>
-            //     <Text>Menu Screen</Text>
-            // </View>  logout from AntDesign
+
             <View style={[styles.container, { width: Dimensions.get('window').width * 0.8 }]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={async () => {
+                    await this.props.onLogout();
+                }}>
                     <View style={styles.drawItem}>
                         <Icon style={styles.drawItemIcon} name={'logout'} size={30} color="#aaa" />
-                        <Text>Menu Screen</Text>
+                        <Text>Logout</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -101,9 +53,9 @@ MenuScreen.options = {
     sideMenu: {
         left: {
             visible: false,
-            enabled: false
-        }
-    }
+            enabled: false,
+        },
+    },
 };
 
 const styles = StyleSheet.create({
@@ -126,4 +78,20 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MenuScreen;
+const mapStateToProps = (state) => {
+    return {
+        token: state.auth.token,
+        places: state.places.places,
+        greetingState: state.auth.greetingState,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogout: () => { dispatch(authLogout()); },
+        onGreeting: () => dispatch(authGreetingState()),
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuScreen);

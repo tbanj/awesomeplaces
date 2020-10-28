@@ -2,11 +2,12 @@
 import React, { Component } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import PlaceImage from '../../../src/assets/theater.jpeg';
+import auth from '@react-native-firebase/auth';
+// import PlaceImage from '../../../assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import ImagePicker from 'react-native-image-picker';
-import { createStorageReferenceToFile, getUrl, uploadFileToFireBase } from '../../lib/storage';
+// import { createStorageReferenceToFile, getUrl, uploadFileToFireBase } from '../../lib/storage';
 
 class PickImage extends Component {
     state = {
@@ -17,14 +18,28 @@ class PickImage extends Component {
 
     }
 
+    componentDidMount() {
+        // this.authenticateUser();
+        const { imagePickerRef } = this.props;
+        imagePickerRef(this);
+    }
 
+    reset = () => {
+        this.setState({ imagePicker: null });
+    }
+
+    authenticateUser = async () => {
+        const user = await auth().currentUser;
+        if (user) {
+        }
+    }
 
     handleImagePicked = () => {
-        /*  incase you dont want to store the data from Gallery or camera 
+        /*  incase you dont want to store the data from Gallery or camera
         which is needed to be in base64 string include
        parameter {noData: true} which will help for better performance  */
         ImagePicker.showImagePicker({
-            title: 'Pick an Image',
+            title: 'Pick an Image', maxWidth: 800, maxHeight: 600,
         }, async (res) => {
             // check if user cancel the camera intent without taking pictures
             if (res.didCancel) {
@@ -39,10 +54,6 @@ class PickImage extends Component {
                 this.setState({ imagePicker: { uri: res.uri } });
                 // res.data the image is stored in form of strings
 
-                // console.log(
-                //     'My file storage reference is: ',
-                //     createStorageReferenceToFile(res)
-                // );
                 // Add this
 
                 this.props.onImagePicker({ uri: res.uri, base64: res.data, totalData: res });
@@ -52,17 +63,21 @@ class PickImage extends Component {
             }
         });
 
-        // this.setState({
-        //     imagePicker: PlaceImage,
-        // });
     };
+
+    componentWillUnmount() {
+        const { imagePickerRef } = this.props;
+        imagePickerRef(undefined);
+    }
     render() {
-        return (<View style={styles.container}>
+        return (<View style={styles.container} >
             <View style={[styles.placeholder, styles.mb]}>
-                {this.state.imagePicker !== null && <Image resizeMode="cover" source={this.state.imagePicker} style={styles.previewImage} />}
+                {this.state.imagePicker !== null && <Image resizeMode="cover"
+                    source={this.state.imagePicker} style={styles.previewImage}
+                    childRef={ref => (this.child = ref)} />}
 
             </View>
-            <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
+            <DefaultTouchable style={[styles.loginScreenButton, styles.mb]} childRef={ref => (this.child = ref)}
                 underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={this.handleImagePicked} />
         </View>);
     }

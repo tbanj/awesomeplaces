@@ -4,6 +4,7 @@ import { View, Text, Platform, TouchableOpacity, StyleSheet, Animated } from 're
 import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 
 import PlaceList from '../../components/placeList/PlaceList';
 import { getPlaces } from '../../store/actions/index';
@@ -11,16 +12,20 @@ import startMainTabs from '../maintabs/startMainTabs';
 
 
 const FindPlaceScreen = (props) => {
+    const dispatch = useDispatch();
+    const [placesLoaded, setPlacesLoaded] = useState(false);
+    const [removeAnim] = useState(new Animated.Value(1));
+    const [placesAnim] = useState(new Animated.Value(0));
     const [menuBtn, setMenuBtn] = useState(true);
     const { places } = useSelector(state => ({
         places: state.places.places,
     }));
-    const [placesLoaded, setPlacesLoaded] = useState(false);
-    const [removeAnim] = useState(new Animated.Value(1));
-    const [placesAnim] = useState(new Animated.Value(0));
-    const dispatch = useDispatch();
+    const [user, setUser] = useState();
+
+
     useEffect(() => {
-        // Keyboard.dismiss();
+        let subscribeState = true;
+        if (subscribeState) { auth().onAuthStateChanged(onAuthStateChanged); }
         dispatch(getPlaces());
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
 
@@ -59,12 +64,14 @@ const FindPlaceScreen = (props) => {
         });
 
 
+        function onAuthStateChanged(data) { setUser(data); }
         return () => {
             // unsubscribe sidebarEventListener
             sidebarEventListener.remove();
             screenEventListener.remove();
-        }
-    }, [menuBtn, dispatch]);
+            subscribeState = false;
+        };
+    }, [menuBtn, dispatch, user]);
 
     const placesLoadedHandler = () => {
         Animated.timing(placesAnim, {
@@ -88,7 +95,7 @@ const FindPlaceScreen = (props) => {
                 {
                     inputRange: [0, 1],
                     outputRange: [12, 1],
-                })
+                }),
         }],
     }}>
         <TouchableOpacity onPress={() => placesSearchHandler()}>
@@ -160,35 +167,35 @@ const styles = StyleSheet.create({
 
 export default FindPlaceScreen;
 
-async function getMapIcon() {
-    try {
-        const source = await Icon.getImageSource('md-map', 30);
-        FindPlaceScreen.options = {
-            topBar: {
-                title: {
-                    text: 'Find Place',
-                    color: 'white',
-                },
-                background: {
-                    color: '#4d089a',
-                },
-            },
-            bottomTab: {
-                text: 'Find Place',
-                icon: source[0],
-                // iconColor: '#FF1493',
-                // textColor: '#000',
-                selectedIcon: source[0],
-                selectedTextColor: '#FF1493',
-                selectedIconColor: '#FF1493',
-                fontFamily: 'Comfortaa-Regular',
-            },
-        };
-    } catch (error) {
-        console.warn('error encounter');
+// async function getMapIcon() {
+//     try {
+//         const source = await Icon.getImageSource('md-map', 30);
+//         FindPlaceScreen.options = {
+//             topBar: {
+//                 title: {
+//                     text: 'Find Place',
+//                     color: 'white',
+//                 },
+//                 background: {
+//                     color: '#4d089a',
+//                 },
+//             },
+//             bottomTab: {
+//                 text: 'Find Place',
+//                 icon: source[0],
+//                 // iconColor: '#FF1493',
+//                 // textColor: '#000',
+//                 selectedIcon: source[0],
+//                 selectedTextColor: '#FF1493',
+//                 selectedIconColor: '#FF1493',
+//                 fontFamily: 'Comfortaa-Regular',
+//             },
+//         };
+//     } catch (error) {
+//         console.warn('error encounter');
 
-    }
-}
+//     }
+// }
 Promise.all([
     Icon.getImageSource(Platform.OS === 'android' ? 'md-map' : 'ios-map', 30),
     Icon.getImageSource(Platform.OS === 'android' ? 'md-menu' : 'ios-menu', 30),

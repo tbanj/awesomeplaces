@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 const React = require('react');
 const Navigation = require('react-native-navigation');
-const { View, Text, StyleSheet } = require('react-native');
-import Icon from 'react-native-vector-icons/Ionicons';
-import PlaceImage from '../../assets/theater.jpeg';
+const { View, Text } = require('react-native');
+// import Icon from 'react-native-vector-icons/Ionicons';
+// import PlaceImage from '../../assets/theater.jpeg';
 
 
 class SideDrawer extends React.Component {
@@ -74,13 +74,13 @@ SideDrawer.options = {
     },
 };
 
-const styles = StyleSheet.create({
-    root: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'whitesmoke',
-    },
-});
+// const styles = StyleSheet.create({
+//     root: {
+//         flex: 1,
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         backgroundColor: 'whitesmoke',
+//     },
+// });
 export default SideDrawer;
 

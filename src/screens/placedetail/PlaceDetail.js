@@ -27,8 +27,8 @@ const PlaceDetail = (props) => {
         longitudeDelta: Dimensions.get('window').width / Dimensions.get('window').height * 0.0122,
     });
     // delete with key assigned to it
-    const deletePlaceHandler = (key) => {
-        dispatch(deletePlace(key));
+    const deletePlaceHandler = (key, fileName) => {
+        dispatch(deletePlace(key, fileName));
         // is use to return to previous component or route which takes us to this present component
         Navigation.pop(props.componentId);
     };
@@ -62,7 +62,7 @@ const PlaceDetail = (props) => {
                             <View>
 
                                 <TouchableHighlight
-                                    onPress={() => deletePlaceHandler(props.selectedPlace.key)}
+                                    onPress={() => deletePlaceHandler(props.selectedPlace.key, props.selectedPlace.fileName)}
                                 >
                                     <Text>
                                         <Icon name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'} size={40} color="red" />;

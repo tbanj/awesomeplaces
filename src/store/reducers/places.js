@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
 // reducers is just a function
 
-import { ADD_IMAGE, ADD_PLACE, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, SET_PLACES } from '../actions/actionTypes';
+import { ADD_PLACE, DELETE_PLACE, PLACE_ADDED, SELECT_PLACE, SET_PLACES, START_ADD_PLACE } from '../actions/actionTypes';
 const initialState = {
     places: [],
     selectedPlace: null,
+    placeAdded: false,
 };
 const reducer = (state = initialState, action) => {
     // if (action.placeName !== undefined) {
@@ -13,11 +14,10 @@ const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_PLACES:
-            console.log('action.places', action.places);
             return {
                 ...state,
                 places: action.places,
-            }
+            };
         case ADD_PLACE:
             return {
                 ...state,
@@ -32,6 +32,7 @@ const reducer = (state = initialState, action) => {
                         uri: action.image.uri,
                         flex: 1,
                     },
+                    fileName: action.image.fileName,
                 }],
             };
 
@@ -42,7 +43,16 @@ const reducer = (state = initialState, action) => {
                 // setPlaces(removeText),
                 // setModalVisible(false);
             };
-
+        case START_ADD_PLACE:
+            return {
+                ...state,
+                placeAdded: false,
+            };
+        case PLACE_ADDED:
+            return {
+                ...state,
+                placeAdded: true,
+            };
         case SELECT_PLACE:
             return {
                 ...state,

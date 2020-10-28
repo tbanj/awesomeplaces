@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* majaplaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* majaplaceTests.m */; };
+		080117B62547C02B00F682A0 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 080117B52547C02B00F682A0 /* BootSplash.storyboard */; };
+		080117B72547C02B00F682A0 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 080117B52547C02B00F682A0 /* BootSplash.storyboard */; };
 		08B715DF2532DA030005384E /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		08B715E12532DDF30005384E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08B715E02532DDF30005384E /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -47,6 +49,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* majaplaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = majaplaceTests.m; sourceTree = "<group>"; };
 		02491FD6C20D05ED443059AC /* Pods-majaplace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-majaplace.debug.xcconfig"; path = "Target Support Files/Pods-majaplace/Pods-majaplace.debug.xcconfig"; sourceTree = "<group>"; };
+		080117B52547C02B00F682A0 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = majaplace/BootSplash.storyboard; sourceTree = "<group>"; };
 		084DE8F92462E30C000A65AA /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		084DE8FA2462E30C000A65AA /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		084DE8FB2462E30D000A65AA /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				08B715E02532DDF30005384E /* GoogleService-Info.plist */,
+				080117B52547C02B00F682A0 /* BootSplash.storyboard */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -392,6 +396,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				080117B62547C02B00F682A0 /* BootSplash.storyboard in Resources */,
 				08B715DF2532DA030005384E /* main.jsbundle in Resources */,
 				08B715E12532DDF30005384E /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -404,6 +409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				080117B72547C02B00F682A0 /* BootSplash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

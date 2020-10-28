@@ -1,148 +1,136 @@
 /* eslint-disable prettier/prettier */
 import { Alert } from 'react-native';
-import { uploadFileToFireBase, getUrl } from '../../lib/storage';
-import { sortedData } from '../../lib/extra'
+import { deleteFile, uploadFileToFireBase } from '../../lib/storage';
+import { sortedData } from '../../lib/extra';
 /* eslint-disable prettier/prettier */
-import { ADD_PLACE, DELETE_PLACE, DESELECT_PLACE, SELECT_PLACE, ADD_IMAGE, SET_PLACES } from './actionTypes';
+import { AUTH_SET_TOKEN, DELETE_PLACE, DESELECT_PLACE, PLACE_ADDED, SELECT_PLACE, SET_PLACES, START_ADD_PLACE } from './actionTypes';
 import { uiStartLoading, uiStopLoading } from './ui';
+import { getObjData } from '../../lib/asyncStorage';
+import { Navigation } from 'react-native-navigation';
 
-// export const addPlace = (placeName, location, image) => {
-//     return {
-//         type: ADD_PLACE,
-//         placeName: placeName,
-//         location: location,
-//         image: image,
-//     };
-// };
 
 // https://majaloc.firebaseio.com/
 /* JSON.stringify() ..is use to convert javascript object to object that can be store on server
     JSON.parse()   is use to convert server object to javascript object*/
 
 export const addPlace = (placeName, location, image) => {
-    return async (dispatch) => {
-        dispatch(uiStartLoading());
-        const imgUrl = await Promise.resolve(uploadFileToFireBase(image.totalData));
-        delete image.totalData;
-        const placeData = {
-            name: placeName.placeName,
-            location: location,
-            image: imgUrl,
-            timeStamp: Date.now(),
-            createdDate: new Date().toISOString(),
-            updatedDate: new Date().toISOString(),
-        };
+    return async (dispatch, getState) => {
+        try {
+            const token = getState().auth.token;
+            dispatch(uiStartLoading());
+            const imgUrl = await Promise.resolve(uploadFileToFireBase(image.totalData));
+            delete image.totalData;
+            const placeData = {
+                name: placeName.placeName,
+                location: location,
+                image: imgUrl.url,
+                timeStamp: Date.now(),
+                createdDate: new Date().toISOString(),
+                updatedDate: new Date().toISOString(),
+                fileName: imgUrl.fileNm,
+            };
 
-        fetch('https://majaloc.firebaseio.com/places.json', {
-            method: 'POST',
-            body: JSON.stringify(placeData),
-        })
-            .catch(err => {
-                console.log(err);
-                Alert.alert('Something went wrong, please try again');
-                dispatch(uiStopLoading());
+            fetch(`https://majaloc.firebaseio.com/places.json?auth=${token.token}`, {
+                method: 'POST',
+                body: JSON.stringify(placeData),
             })
-            .then(res => res.json()).then(parsedRes => {
-                console.log('parsedRes', parsedRes);
-                dispatch(getPlaces());
-                dispatch(uiStopLoading());
+                .then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    } else { throw new Error('network error'); }
+                }).then(parsedRes => {
+                    dispatch(getPlaces());
+                    dispatch(uiStopLoading());
+                    // Navigation.mergeOptions('BOTTOM_TABS_LAYOUT', {
+                    //     bottomTabs: {
+                    //       currentTabIndex: 0
+                    //     }
+                    //   });
+                    dispatch(placeAdded());
+                    let checkAddState = getState().places.placeAdded;
+                    if (checkAddState) {
+                        dispatch(startAddPlace());
+                        Navigation.mergeOptions('BOTTOM_TABS_MAJAPLACE', {
+                            bottomTabs: {
+                                currentTabIndex: 0,
+                            },
+                        });
 
-            });
+                    }
 
-        // dispatch({
-        //     type: ADD_PLACE,
-        //     placeName: placeName,
-        //     location: location,
-        //     image: image,
-        // });
+                })
+                .catch(err => {
+                    console.log(err);
+                    Alert.alert('Something went wrong, please try again');
+                    dispatch(uiStopLoading());
+                });
+
+        } catch (error) {
+            console.log('network error');
+        }
     };
 };
-// export const addPlace = (placeName, location, image) => {
-
-//     return dispatch => {
-//         const placeData = {
-//             name: placeName.placeName,
-//             location: location,
-//         };
-
-//         Promise.resolve(uploadFileToFireBase(image.totalData));
-//         test of firebase console
-//         fetch('https://us-central1-majaloc.cloudfunctions.net/majaPlace', {
-//             method: 'POST',
-//             body: JSON.stringify({ name: 'Alabi Temitope Wahab' }),
-//         })
-//             .catch(err => console.log(err))
-//             .then(res => {
-//                 if (res) {
-//                     // console.log('res', res);
-//                     return res.json();
-//                 }
-//             })
-//             .then(parsedRes => console.log('parsedRes', parsedRes));
-
-//         for image upload
-//         fetch('https://us-central1-majaloc.cloudfunctions.net/storeImage', {
-//             method: 'POST',
-//             body: JSON.stringify({
-//                 image: image.base64,
-//             }),
-
-//         })
-//             .catch(err => console.log(err))
-//             .then(res => {
-//                 if (res) {
-//                     // console.log('res', res);
-//                     return res.json();
-//                 }
-//             })
-//             .then(parsedRes => console.log('parsedRes', parsedRes));
-// fetch('https://majaloc.firebaseio.com/places.json', {
-//     method: 'POST',
-//     body: JSON.stringify(placeData),
-// })
-//     .catch(err => console.log(err))
-//     .then(res => res.json()).then(parsedRes => {
-//         console.log(parsedRes);
-
-//     });
-//     };
-// };
 
 
 export const getPlaces = () => {
-    return dispatch => {
-        fetch('https://majaloc.firebaseio.com/places.json?orderBy="timeStamp"&limitToLast=50&print=pretty')
-            .catch(err => {
-                Alert.alert('Something went wrong, Hi');
-                console.log(err);
-            })
-            .then(res => res.json())
-            .then(parsedRes => {
-                const places = [];
-
-                if ('error' in parsedRes) {
-                    // console.log('parsedRes', Object.keys(parsedRes));
-                    dispatch(setPlaces(places));
-                } else {
-                    console.log('parsedRes', parsedRes);
-
-                    for (let key in parsedRes) {
-                        places.push({
-                            ...parsedRes[key],
-                            image: {
-                                uri: parsedRes[key].image,
-                                flex: 1,
-                            },
-                            key: key,
-                        });
-                    }
-                    const descendData = sortedData(places);
-                    console.log('descendData', descendData);
-
-                    dispatch(setPlaces(descendData));
+    return async (dispatch, getState) => {
+        try {
+            // to get data store in state use getState
+            let token = null;
+            const getToken = getState().auth.token;
+            if (getToken.token === null || new Date(parseInt(getToken.expiredDate, 10)) <= new Date()) {
+                token = await Promise.resolve(getObjData('mp:auth:token'));
+                if (token.token) {
+                    dispatch({
+                        type: AUTH_SET_TOKEN,
+                        token: token,
+                    });
                 }
+                else {
+                    Alert.alert('No valid token found, will redirect you to Login');
+                    return;
+                }
+            }
+            if (getToken.token) {
+                token = getToken;
+            }
 
-            });
+            fetch(`https://majaloc.firebaseio.com/places.json?&auth=${token.token}&orderBy="timeStamp"&limitToLast=50&print=pretty`)
+                .then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    } else { throw new Error('network error'); }
+                })
+                .then(parsedRes => {
+                    const places = [];
+                    if (parsedRes === null) { dispatch(setPlaces(places)); return; }
+                    if ('error' in parsedRes) {
+                        dispatch(setPlaces(places));
+                        return;
+                    } else {
+
+                        for (let key in parsedRes) {
+                            places.push({
+                                ...parsedRes[key],
+                                image: {
+                                    uri: parsedRes[key].image,
+                                    flex: 1,
+                                },
+                                key: key,
+                            });
+                        }
+                        const descendData = sortedData(places);
+                        dispatch(setPlaces(descendData));
+                    }
+
+                })
+                .catch(err => {
+                    // Alert.alert('Something went wrong, try again');
+                    console.log(err);
+                });
+        } catch (error) {
+            console.log('no token found');
+        }
     };
 };
 
@@ -150,29 +138,48 @@ export const setPlaces = places => {
     return {
         type: SET_PLACES,
         places: places,
-    }
+    };
 };
 
-export const deletePlace = (key) => {
-    return dispatch => {
-        fetch(`https://majaloc.firebaseio.com/places/${key}.json`,
+export const deletePlace = (key, fileName) => {
+    return async (dispatch) => {
+        dispatch(uiStartLoading);
+        const token = await Promise.resolve(getObjData('mp:auth:token'));
+        if (!token.token) {
+            Alert.alert('No valid token found');
+            return;
+        }
+        fetch(`https://majaloc.firebaseio.com/places/${key}.json?auth=${token.token}`,
             {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',
+                },
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else { throw new Error('network error'); }
+            })
+            .then(async (parsedRes) => {
+
+                try {
+                    await Promise.resolve(deleteFile(fileName));
+                    dispatch(uiStopLoading);
+                } catch (error) {
                 }
             })
             .catch(error => {
                 console.log(error);
                 Alert.alert('Something went wrong, please try again');
-            })
-            .then(res => res.json())
-            .then(parsedRes => console.log('Delete', parsedRes));
+
+                dispatch(uiStopLoading);
+            });
         dispatch({
             type: DELETE_PLACE,
             key: key,
-        })
-    }
+        });
+    };
 
 };
 
@@ -190,3 +197,18 @@ export const deselectPlace = (key) => {
         placeName: key,
     };
 };
+
+export const placeAdded = () => {
+    return {
+        type: PLACE_ADDED,
+    };
+};
+
+export const startAddPlace = () => {
+    return {
+        type: START_ADD_PLACE,
+    };
+};
+
+
+

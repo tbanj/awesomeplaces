@@ -1,26 +1,26 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
 import {
-    View, Text, ScrollView, StyleSheet,
-    Platform, Image, KeyboardAvoidingView,
+    View, ScrollView, StyleSheet,
+    Platform, KeyboardAvoidingView,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { useDispatch, useSelector } from 'react-redux';
-import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
+// import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { addPlace, getPlaces } from '../../store/actions/index';
+import { addPlace } from '../../store/actions/index';
 import PlaceInput from '../../components/placeInput/PlaceInput';
 import startMainTabs from '../maintabs/startMainTabs';
-import DefaultInput from '../../components/UI/defaultInput/DefaultInput';
+// import DefaultInput from '../../components/UI/defaultInput/DefaultInput';
 import TextHeading from '../../components/UI/headingText/HeadingText';
-import ButtonWithBg from '../../components/UI/buttonWithBg/ButtonWithBg';
-import DefaultTouchable from '../../components/UI/defaultTouch/DefaultTouchable';
-import ImagePlaceholder from '../../../src/assets/home.png';
+// import ButtonWithBg from '../../components/UI/buttonWithBg/ButtonWithBg';
+// import DefaultTouchable from '../../components/UI/defaultTouch/DefaultTouchable';
+// import ImagePlaceholder from '../../../assets/home.png';
 import MainText from '../../components/UI/mainText/MainText';
 
 
 const SharePlaceScreen = (props) => {
-    const [imagePicker, setImagePicker] = useState(null);
+    // const [imagePicker, setImagePicker] = useState(null);
     const [menuBtn, setMenuBtn] = useState(true);
     // want to listen to an event when navigator events occured
     // props.navigator.setOnNavigatorEvent(onNavigatorEvent);
@@ -29,22 +29,20 @@ const SharePlaceScreen = (props) => {
     //     console.warn('event', event);
     // };
 
-    const { places } = useSelector(state => ({
-        places: state.places.places,
-
-    }));
-
     const dispatch = useDispatch();
+
+
     const placeAddedHandler = (data) => {
         dispatch(addPlace(data));
-        // await dispatch(getPlaces());
     };
+
 
     // const submitButton = ''
     useEffect(() => {
         // Subscribe
-        auth().signInAnonymously();
+        // auth().signInAnonymously();
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
+
 
             if (componentName === 'awesome-places.MenuScreen') {
                 setMenuBtn(true);
@@ -90,12 +88,10 @@ const SharePlaceScreen = (props) => {
     }, [menuBtn]);
 
 
-    const handleImagePicked = () => {
-        if (places.length < 1) {
-            return;
-        }
-        setImagePicker(places[places.length - 1].image);
-    };
+    // const handleImagePicked = () => {
+    //     if (places.length < 1) { return; }
+    //     setImagePicker(places[places.length - 1].image);
+    // };
 
     return (
 

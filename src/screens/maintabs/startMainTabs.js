@@ -87,6 +87,7 @@ const mainRoot = {
             center: {
 
                 bottomTabs: {
+                    id: 'BOTTOM_TABS_MAJAPLACE',
                     children: [
                         {
                             stack: {
