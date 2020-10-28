@@ -17,7 +17,6 @@ const reducer = (state = initialState, action) => {
             };
 
         case AUTH_GREETING_STATE:
-            console.log('action.greetingState', action.greetingState);
             return {
                 ...state,
                 greetingState: action.greetingState,
@@ -30,7 +29,6 @@ const reducer = (state = initialState, action) => {
             };
 
         case AUTH_SET_TOKEN:
-            console.log('action.token', action.token);
             return {
                 ...state,
                 token: action.token,

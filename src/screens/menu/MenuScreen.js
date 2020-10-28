@@ -12,81 +12,19 @@ class MenuScreen extends Component {
     constructor(props) {
 
         super(props);
-        // Navigation.events().bindComponent(this);
-        // Navigation.events().bindComponent(this);
-        // this.navigationEventListener = Navigation.events().bindComponent(this);
-        // Navigation.events().bindComponent(this);
-        // Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-        //     // if (buttonId === 'sideDrawer_findPlace') {
-        //     //     Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-        //     //         sideMenu: {
-        //     //             left: {
-        //     //                 visible: false
-        //     //             },
-        //     //         },
-        //     //     });
-        //     // }
-        // });
     }
-
-
-
-
-    // navigationEventListener = (({ componentId, componentName, passProps }) => {
-    //     console.log('dddd', componentId, componentName, passProps);
-    // });
-
-    // CommandListener = ((name, params) => {
-    //     console.warn('how are you');
-
-    // })
-
-
-
-
-    // registerComponentDidAppearListener({ componentId, componentName, passProps }) {
-    //     console.warn('sideMenu bbb', componentId, componentName, passProps);
-
-    // }
-
-    // navigationButtonPressed({ buttonId }) {
-    //     console.warn('button');
-    // }
 
     loginHandler = () => {
         //  initialiaze next screen
         // startMainTabs();
     }
 
-    // componentWillUnmount() {
-    //     // Not mandatory
-    //     // if (this.navigationEventListener) {
-    //     //     this.navigationEventListener.remove();
-    //     // }
-    // }
     render() {
         return (
-            // <View> <Text>Auth Screenl</Text> </View>
-            // <View style={styles.root}>
-            //     <Text>Menu Screen</Text>
-            // </View>  logout from AntDesign
 
             <View style={[styles.container, { width: Dimensions.get('window').width * 0.8 }]}>
                 <TouchableOpacity onPress={async () => {
-                    // this.props.onLogout()
-                    //     .then(() => {
-                    //         console.log(this.props.token);
-                    //         Alert.alert('logout');
-                    //     });
                     await this.props.onLogout();
-                    // console.log('out', this.props.token);
-                    // if (this.props.token.token) {
-                    //     console.log('in', this.props.token);
-                    // }
-                    // if (!this.props.token.token) {
-                    //     console.log(this.props.token);
-                    //     Alert.alert('logout');
-                    // }
                 }}>
                     <View style={styles.drawItem}>
                         <Icon style={styles.drawItemIcon} name={'logout'} size={30} color="#aaa" />

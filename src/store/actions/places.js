@@ -17,10 +17,8 @@ export const addPlace = (placeName, location, image) => {
     return async (dispatch, getState) => {
         try {
             const token = getState().auth.token;
-            console.log(token, 'kkkk');
             dispatch(uiStartLoading());
             const imgUrl = await Promise.resolve(uploadFileToFireBase(image.totalData));
-            console.log('imgUrl', imgUrl);
             delete image.totalData;
             const placeData = {
                 name: placeName.placeName,
@@ -38,11 +36,9 @@ export const addPlace = (placeName, location, image) => {
             })
                 .then(res => {
                     if (res.ok) {
-                        console.log('res.ok new', res.ok);
                         return res.json();
                     } else { throw new Error('network error'); }
                 }).then(parsedRes => {
-                    console.log('stored data', parsedRes);
                     dispatch(getPlaces());
                     dispatch(uiStopLoading());
                     // Navigation.mergeOptions('BOTTOM_TABS_LAYOUT', {
@@ -52,11 +48,8 @@ export const addPlace = (placeName, location, image) => {
                     //   });
                     dispatch(placeAdded());
                     let checkAddState = getState().places.placeAdded;
-                    console.log('checkAddState', checkAddState);
                     if (checkAddState) {
                         dispatch(startAddPlace());
-                        let checkAddStat = getState().places.placeAdded;
-                        console.log('checkAddState bottom', checkAddStat);
                         Navigation.mergeOptions('BOTTOM_TABS_MAJAPLACE', {
                             bottomTabs: {
                                 currentTabIndex: 0,
@@ -77,56 +70,6 @@ export const addPlace = (placeName, location, image) => {
         }
     };
 };
-// export const addPlace = (placeName, location, image) => {
-
-//     return dispatch => {
-//         const placeData = {
-//             name: placeName.placeName,
-//             location: location,
-//         };
-
-//         Promise.resolve(uploadFileToFireBase(image.totalData));
-//         test of firebase console
-//         fetch('https://us-central1-majaloc.cloudfunctions.net/majaPlace', {
-//             method: 'POST',
-//             body: JSON.stringify({ name: 'Alabi Temitope Wahab' }),
-//         })
-//             .catch(err => console.log(err))
-//             .then(res => {
-//                 if (res) {
-//                     // console.log('res', res);
-//                     return res.json();
-//                 }
-//             })
-//             .then(parsedRes => console.log('parsedRes', parsedRes));
-
-//         for image upload
-//         fetch('https://us-central1-majaloc.cloudfunctions.net/storeImage', {
-//             method: 'POST',
-//             body: JSON.stringify({
-//                 image: image.base64,
-//             }),
-
-//         })
-//             .catch(err => console.log(err))
-//             .then(res => {
-//                 if (res) {
-//                     // console.log('res', res);
-//                     return res.json();
-//                 }
-//             })
-//             .then(parsedRes => console.log('parsedRes', parsedRes));
-// fetch('https://majaloc.firebaseio.com/places.json', {
-//     method: 'POST',
-//     body: JSON.stringify(placeData),
-// })
-//     .catch(err => console.log(err))
-//     .then(res => res.json()).then(parsedRes => {
-//         console.log(parsedRes);
-
-//     });
-//     };
-// };
 
 
 export const getPlaces = () => {
@@ -138,14 +81,12 @@ export const getPlaces = () => {
             if (getToken.token === null || new Date(parseInt(getToken.expiredDate, 10)) <= new Date()) {
                 token = await Promise.resolve(getObjData('mp:auth:token'));
                 if (token.token) {
-                    console.log('you are here');
                     dispatch({
                         type: AUTH_SET_TOKEN,
                         token: token,
                     });
                 }
                 else {
-                    console.log('dont come here');
                     Alert.alert('No valid token found, will redirect you to Login');
                     return;
                 }
@@ -161,7 +102,6 @@ export const getPlaces = () => {
                     } else { throw new Error('network error'); }
                 })
                 .then(parsedRes => {
-                    console.log('no one parsedRes', parsedRes);
                     const places = [];
                     if (parsedRes === null) { dispatch(setPlaces(places)); return; }
                     if ('error' in parsedRes) {
@@ -209,7 +149,6 @@ export const deletePlace = (key, fileName) => {
             Alert.alert('No valid token found');
             return;
         }
-        console.log('key hhh fileName', fileName);
         fetch(`https://majaloc.firebaseio.com/places/${key}.json?auth=${token.token}`,
             {
                 method: 'DELETE',
@@ -226,10 +165,8 @@ export const deletePlace = (key, fileName) => {
 
                 try {
                     await Promise.resolve(deleteFile(fileName));
-                    console.log('parsedRes', parsedRes, 'delete successful');
                     dispatch(uiStopLoading);
                 } catch (error) {
-                    console.log('unable to delete ');
                 }
             })
             .catch(error => {

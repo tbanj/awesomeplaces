@@ -25,13 +25,6 @@ const FindPlaceScreen = (props) => {
 
     useEffect(() => {
         let subscribeState = true;
-        // Keyboard.dismiss();
-        // if (!token.token) {
-        //     console.log('token.token', token);
-        //     dispatch(authRetrieveToken());
-        // }
-        // dispatch(authRetrieveToken());
-        // const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         if (subscribeState) { auth().onAuthStateChanged(onAuthStateChanged); }
         dispatch(getPlaces());
         const screenEventListener = Navigation.events().registerComponentDidDisappearListener(({ componentId, componentName }) => {
@@ -71,10 +64,7 @@ const FindPlaceScreen = (props) => {
         });
 
 
-        function onAuthStateChanged(data) {
-            setUser(data);
-            console.log('user nn', user);
-        }
+        function onAuthStateChanged(data) { setUser(data); }
         return () => {
             // unsubscribe sidebarEventListener
             sidebarEventListener.remove();

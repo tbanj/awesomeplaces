@@ -11,7 +11,6 @@ import PlaceImage from '../../../assets/theater.jpeg';
 import PickImage from '../../../src/components/pickImage/PickImage';
 import ButtonWithBg from '../UI/buttonWithBg/ButtonWithBg';
 import DefaultInput from '../UI/defaultInput/DefaultInput';
-// import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import PickLocation from '../pickLocation/PickLocation';
 class PlaceInput extends Component {
     constructor(props) {

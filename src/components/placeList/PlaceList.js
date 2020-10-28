@@ -1,11 +1,9 @@
 /* eslint-disable prettier/prettier */
-import React, { Suspense, lazy } from 'react';
-import { FlatList, View, ScrollView, Text } from 'react-native';
+import React from 'react';
+import { FlatList } from 'react-native';
 import ListItem from '../listItem/ListItem';
-// const ListItem = lazy(() => import('../listItem/ListItem'));
 const PlaceList = (props) => {
     // console.log() only work with browser to see this visit http://localhost:8081/debugger-ui/
-    console.log('props.places', props.places[0]);
     return (
         <FlatList
             data={props.places}
@@ -21,7 +19,7 @@ const PlaceList = (props) => {
             }}
         />
     );
-}
+};
 
 // <ListItem
 //         placeName={place}

@@ -25,13 +25,13 @@ class PickImage extends Component {
     }
 
     reset = () => {
-        console.log('pick image cleared');
         this.setState({ imagePicker: null });
     }
 
     authenticateUser = async () => {
         const user = await auth().currentUser;
-        console.log('user', user);
+        if (user) {
+        }
     }
 
     handleImagePicked = () => {
@@ -54,10 +54,6 @@ class PickImage extends Component {
                 this.setState({ imagePicker: { uri: res.uri } });
                 // res.data the image is stored in form of strings
 
-                // console.log(
-                //     'My file storage reference is: ',
-                //     createStorageReferenceToFile(res)
-                // );
                 // Add this
 
                 this.props.onImagePicker({ uri: res.uri, base64: res.data, totalData: res });
@@ -67,10 +63,6 @@ class PickImage extends Component {
             }
         });
 
-
-        // this.setState({
-        //     imagePicker: PlaceImage,
-        // });
     };
 
     componentWillUnmount() {

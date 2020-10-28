@@ -21,7 +21,6 @@ class PickLocation extends Component {
     }
 
     reset = () => {
-        console.log('reseted');
         this.setState({
             focusedLocation: {
                 // 37.7900352, -122.4013726,
@@ -64,6 +63,7 @@ class PickLocation extends Component {
             // your code using Geolocation and asking for authorisation with
             Geolocation.requestAuthorization();
         }
+        // watchPosition
         Geolocation.getCurrentPosition(pos => {
             const coordsEvent = {
                 nativeEvent: {
@@ -77,7 +77,7 @@ class PickLocation extends Component {
         },
             err => {
                 console.warn(err);
-                Alert.alert('Fetching Position failed, please pick one');
+                Alert.alert('Kindly on your location, through setting, then try again');
             });
 
     }

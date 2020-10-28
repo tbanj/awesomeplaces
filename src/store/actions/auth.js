@@ -8,6 +8,8 @@ import startMainTabs from '../../screens/maintabs/startMainTabs';
 import { getData, getObjData, storeData, storeObjData, clearStorage } from '../../lib/asyncStorage';
 
 const apiKey = 'AIzaSyAmtanoUXSYtXhr0JeU1do4V_6kWTNWRwE';
+
+
 export const tryAuth = (authData, authMode) => {
 
     return dispatch => {
@@ -28,6 +30,8 @@ export const tryAuth = (authData, authMode) => {
                 }),
             })
             .then(res => {
+
+                if (res.status === 400) { return res.json(); }
                 if (res.ok) {
                     return res.json();
                 } else { throw new Error('network error'); }
@@ -35,25 +39,26 @@ export const tryAuth = (authData, authMode) => {
             .then(async (parsedRes) => {
                 dispatch(uiStopLoading);
                 if (!parsedRes.idToken) {
-                    Alert.alert('Authentication, email or password not correct');
+                    Alert.alert('Authentication failed ' + parsedRes.error.message);
                 }
                 else {
                     auth()
                         .signInWithEmailAndPassword(authData.email, authData.password)
-                        .then(() => {
-                            console.log('User account created & signed in!');
+                        .then((data) => {
+
+                            if (data) {
+                                Navigation.setRoot(startMainTabs);
+                                dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn, parsedRes.refreshToken));
+                            }
                         })
                         .catch(error => {
-                            if (error.code === 'auth/email-already-in-use') {
-                                console.log('That email address is already in use!');
-                            }
-                            if (error.code === 'auth/invalid-email') {
-                                console.log('That email address is invalid!');
+                            if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                                // Alert.alert('Invalid email or password!');
                             }
                             console.error(error);
                         });
-                    Navigation.setRoot(startMainTabs);
-                    dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn, parsedRes.refreshToken));
+                    // Navigation.setRoot(startMainTabs);
+                    // dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn, parsedRes.refreshToken));
                 }
             })
             .catch(err => {
@@ -83,7 +88,6 @@ export const authLogout = () => {
 };
 
 export const authSetToken = (token) => {
-    console.log('set', token);
     return {
         type: AUTH_SET_TOKEN,
         token: token,
@@ -180,9 +184,7 @@ export const authAutoSignIn = () => {
         dispatch(authGetToken())
 
             .then(token => {
-                console.log('you are here oooo', token);
                 if (token) {
-                    console.log('is there token ', token);
                     Navigation.setRoot(startMainTabs);
                     // Navigation.push('findPlace', {
                     //     component: {
