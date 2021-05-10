@@ -1,4 +1,9 @@
 /* eslint-disable prettier/prettier */
+/* https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
