@@ -136,7 +136,6 @@ class PlaceInput extends Component {
 
         // ));
         // const checkObj = Object.keys(handleImageComponent);
-        // console.log('checkObj, $$typeof', handleImageComponent.$$typeof);
         return (
             <View style={styles.container}>
                 <PickImage onImagePicker={this.imagePickHandler} imagePickerRef={ref => { this.pickImage = ref; }}

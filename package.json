@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android-dev": "cd ./android && ./gradlew app:assembleDebug && ./gradlew installDebug",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -21,12 +22,12 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "jetifier": "^1.6.5",
     "react": "16.13.1",
-    "react-native": "0.63.4",
+    "react-native": "^0.64.1",
     "react-native-elements": "^2.0.0",
     "react-native-image-picker": "^2.3.4",
     "react-native-maps": "https://github.com/xDemon200/react-native-maps",
     "react-native-navigation": "^6.6.0",
-    "react-native-vector-icons": "^6.6.0",
+    "react-native-vector-icons": "^8.1.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"

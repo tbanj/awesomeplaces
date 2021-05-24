@@ -176,7 +176,7 @@ export default SharePlaceScreen;
 
 
 Promise.all([
-    Icon.getImageSource(Platform.OS === 'android' ? 'md-share-alt' : 'ios-share', 30),
+    Icon.getImageSource(Platform.OS === 'android' ? 'md-share' : 'ios-share', 30),
     Icon.getImageSource(Platform.OS === 'android' ? 'md-menu' : 'ios-menu', 30),
 ]).then(sources => {
     SharePlaceScreen.options = {

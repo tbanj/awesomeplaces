@@ -60,13 +60,13 @@ export const addPlace = (placeName, location, image) => {
 
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.warn(err);
                     Alert.alert('Something went wrong, please try again');
                     dispatch(uiStopLoading());
                 });
 
         } catch (error) {
-            console.log('network error');
+            console.warn('network error');
         }
     };
 };
@@ -126,10 +126,10 @@ export const getPlaces = () => {
                 })
                 .catch(err => {
                     // Alert.alert('Something went wrong, try again');
-                    console.log(err);
+                    console.warn(err);
                 });
         } catch (error) {
-            console.log('no token found');
+            console.warn('no token found');
         }
     };
 };
@@ -170,7 +170,7 @@ export const deletePlace = (key, fileName) => {
                 }
             })
             .catch(error => {
-                console.log(error);
+                console.warn(error);
                 Alert.alert('Something went wrong, please try again');
 
                 dispatch(uiStopLoading);

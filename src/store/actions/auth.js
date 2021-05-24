@@ -62,7 +62,7 @@ export const tryAuth = (authData, authMode) => {
                 }
             })
             .catch(err => {
-                console.log(err);
+                console.warn(err);
                 Alert.alert('Network issues, please retry');
                 dispatch(uiStopLoading);
             });
@@ -221,7 +221,7 @@ export const authRetrieveToken = () => {
         try {
             await getObjData('mp:auth:token');
         } catch (error) {
-            console.log('error encounter');
+            console.warn('error encounter');
         }
     };
 };

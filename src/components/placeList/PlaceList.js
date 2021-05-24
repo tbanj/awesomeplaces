@@ -3,7 +3,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import ListItem from '../listItem/ListItem';
 const PlaceList = (props) => {
-    // console.log() only work with browser to see this visit http://localhost:8081/debugger-ui/
+    // console.warn() only work with browser to see this visit http://localhost:8081/debugger-ui/
     return (
         <FlatList
             data={props.places}
