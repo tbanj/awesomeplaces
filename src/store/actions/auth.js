@@ -7,7 +7,7 @@ import { uiStartLoading, uiStopLoading } from './ui';
 import startMainTabs from '../../screens/maintabs/startMainTabs';
 import { getData, getObjData, storeData, storeObjData, clearStorage } from '../../lib/asyncStorage';
 
-const apiKey = 'AIzaSyAmtanoUXSYtXhr0JeU1do4V_6kWTNWRwE';
+const apiKey = 'apiKey';
 
 
 export const tryAuth = (authData, authMode) => {
