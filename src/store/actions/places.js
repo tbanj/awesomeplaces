@@ -125,7 +125,6 @@ export const getPlaces = () => {
 
                 })
                 .catch(err => {
-                    // Alert.alert('Something went wrong, try again');
                     console.warn(err);
                 });
         } catch (error) {

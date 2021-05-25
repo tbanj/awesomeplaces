@@ -5,7 +5,6 @@ class DashboardScreen extends Component {
     state = {}
     render() {
         return (
-            // <View> <Text>Auth Screenl</Text> </View>
             <View >
                 <Text>Dashboard Screen</Text>
             </View>

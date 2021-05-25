@@ -5,9 +5,6 @@ import {
     Keyboard, ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
-// import { Navigation } from 'react-native-navigation';
-// import SettingScreen from './maintabs/Setting';
-// import startMainTabs from './maintabs/startMainTabs';
 import DefaultInputRef from '../components/UI/defaultInputRef/DefaultInputRef';
 import HeadingText from '../components/UI/headingText/HeadingText';
 import MainText from '../components/UI/mainText/MainText';
@@ -15,15 +12,8 @@ import background from '../../assets/background.jpg';
 import ButtonWithBg from '../components/UI/buttonWithBg/ButtonWithBg';
 import validate from '../lib/validation';
 import { tryAuth, authAutoSignIn } from '../store/actions/auth';
-
-// import DefaultButton from '../components/UI/defaultButton/DefaultButton';
-
 class AuthScreen extends Component {
     state = {
-        // respStyles: {
-        //     pwdContainer: styles.portraitPwdContainer,
-        //     pwdWrapper: styles.portraitPwdWrapper,
-        // },
         authMode: 'login',
         keyboardState: false,
         viewMode: Dimensions.get('window').height > 500 ? 'portrait' : 'landscape',
@@ -56,10 +46,6 @@ class AuthScreen extends Component {
         this.textInput[id].focus();
     }
 
-    // initiateAuth = () => {
-    //     auth().signInAnonymously();
-    // };
-
     loginHandler = () => {
         const authData = {
             email: this.state.controls.email.value,
@@ -67,14 +53,7 @@ class AuthScreen extends Component {
         };
 
         this.props.onTryAuth(authData, this.state.authMode);
-        // setTimeout(() => {
-        //     this.initiateAuth();
-        //     if (this.props.isLogin) { Navigation.setRoot(startMainTabs); };
-        // }, 1000);
         Keyboard.dismiss();
-        // if (this.state.keyboardState) {
-
-        // }
     }
 
     switchAuthModeHandler = () => {
@@ -139,8 +118,6 @@ class AuthScreen extends Component {
                 disabled={!this.state.controls.email.valid || !this.state.controls.confirmPassword.valid
                     && this.state.authMode === 'signup' || !this.state.controls.password.valid}
                 onPress={() => this.loginHandler()}
-                // hhhddd
-                // ref={ref => { this.textInput.submitBtn = ref }}
                 underlayColor="#fff" text={'Submit'} styleText={styles.loginText} />
         );
         if (Dimensions.get('window').height > 500) {
@@ -177,10 +154,8 @@ class AuthScreen extends Component {
 
                             {/* to make a style override the other it has to be the parent of that view or textciew */}
                             {headingText}
-                            {/* <Button style={styles.buttonM} title="Switch to Login" /> */}
                             <ButtonWithBg color={'#29aaf4'} onPress={() => this.switchAuthModeHandler()} text={`Switch to ${this.state.authMode === 'login' ? 'Signup' : 'Login'}`} />
-                            {/* <DefaultTouchable style={styles.loginScreenButton}
-                            underlayColor="#fff" InnerText={'Switch to Login'} styleText={styles.loginText} /> */}
+
 
                             <View style={styles.inputContainer}>
                                 <DefaultInputRef
@@ -210,28 +185,23 @@ class AuthScreen extends Component {
                                             handleReturnType={'next'}
                                             placeholder="Password" style={styles.input}
                                             secureTextEntry /> : <DefaultInputRef
-                                                value={this.state.controls.password.value}
-                                                onChangeText={(val) => this.updateInputState('password', val)}
-                                                valid={this.state.controls.password.valid}
-                                                touched={this.state.controls.password.touched}
-                                                ref={ref => { this.textInput.userPass = ref; }}
-                                                handleFocus={this.state.controls.email.valid && this.state.controls.password.valid ?
-                                                    () => this.loginHandler() : Keyboard.dismiss}
-                                                handleReturnType={'done'}
+                                            value={this.state.controls.password.value}
+                                            onChangeText={(val) => this.updateInputState('password', val)}
+                                            valid={this.state.controls.password.valid}
+                                            touched={this.state.controls.password.touched}
+                                            ref={ref => { this.textInput.userPass = ref; }}
+                                            handleFocus={this.state.controls.email.valid && this.state.controls.password.valid ?
+                                                () => this.loginHandler() : Keyboard.dismiss}
+                                            handleReturnType={'done'}
 
-                                                placeholder="Password" style={styles.input}
-                                                handleBlur={true}
-                                                secureTextEntry />}
+                                            placeholder="Password" style={styles.input}
+                                            handleBlur={true}
+                                            secureTextEntry />}
                                     </View>
                                     {confirmPasswordControl}
                                 </View>
                             </View>
 
-
-                            {/* <Button title="Submit"
-                            onPress={() => {
-                                Navigation.setRoot(startMainTabs);
-                            }} /> */}
                             {submitBtn}
                         </KeyboardAvoidingView>
                     </TouchableWithoutFeedback>
@@ -268,10 +238,7 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center',
         flex: 1,
-        // width: '80%',
         alignItems: 'center',
-        // paddingLeft: 10,
-        // paddingRight: 10,
     },
     textHeading: {
         fontWeight: 'bold',
@@ -289,10 +256,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     buttonM: {
-        // padding: 15,
-        // backgroundColor: 'white',
-        // borderColor: 'red',
-        // color: 'white',
     },
     loginScreenButton: {
         marginRight: 40,

@@ -21,11 +21,4 @@ const PlaceList = (props) => {
     );
 };
 
-// <ListItem
-//         placeName={place}
-//         places={props.places}
-//         unit={index}
-//         onItemPressed={() => props.onItemSelected(index)}
-//     />
-
 export default PlaceList;

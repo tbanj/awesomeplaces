@@ -7,10 +7,6 @@ export const getData = async () => {
     ]).then(sourceData => {
 
         return [sourceData[0], sourceData[1]];
-        // always use unique where you need to assign id
-        // this.setState({ iconShare: sources[0] });
-        // this.setState({ iconMenu: sources[1] });
-
     }).catch(error => {
         console.error(error.message);
     });

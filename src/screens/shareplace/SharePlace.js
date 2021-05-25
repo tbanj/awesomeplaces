@@ -197,23 +197,14 @@ Promise.all([
             },
 
         },
-        // bottomTab: {
-        //     text: 'Share Place',
-        //     icon: sources[0],
-        // },
         bottomTab: {
             text: 'Share Place',
             icon: sources[0],
-            // iconColor: '#FF1493',
-            // textColor: '#000',
             selectedIcon: sources[0],
             selectedTextColor: '#FF1493',
             selectedIconColor: '#FF1493',
             fontFamily: 'Comfortaa-Regular',
         },
-        // bottomTabs: {
-        //     animate: true,
-        // },
     };
 }).catch(error => {
     console.error(error.message);

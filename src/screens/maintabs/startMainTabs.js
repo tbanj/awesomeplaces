@@ -1,69 +1,4 @@
 /* eslint-disable prettier/prettier */
-// for tabs only without sideMenu
-// const checkRoot = {
-//     root: {
-//         id: 'root',
-//         bottomTabs: {
-//             children: [
-//                 {
-//                     stack: {
-//                         id: 'tab-1',
-//                         children: [
-//                             {
-//                                 component: {
-//                                     name: 'awesome-places.Find Place',
-//                                 },
-//                             },
-//                         ],
-//                         options: {
-
-//                             bottomTab: {
-//                                 iconColor: '#FF1493',
-//                                 textColor: '#000',
-//                             },
-//                             bottomTabs: {
-//                                 animate: true,
-//                             },
-//                         },
-//                     },
-//                 },
-//                 {
-//                     stack: {
-//                         id: 'tab-2',
-//                         children: [
-//                             {
-//                                 component: {
-//                                     name: 'awesome-places.Share Place',
-//                                 },
-//                             },
-//                         ],
-//                         options: {
-//                             bottomTab: {
-//                                 iconColor: '#FF1493',
-//                                 textColor: '#000',
-//                             },
-//                             bottomTabs: {
-//                                 animate: true,
-//                             },
-//                             // bottomTab: {
-//                             //     animateBadge: true,
-//                             //     dotIndicator: {
-//                             //         animate: true, visible: true,
-//                             //     },
-//                             // },
-//                             // bottomTabs: {
-//                             //     animate: true,
-//                             // },
-//                         },
-//                     },
-//                 },
-//             ],
-
-//         },
-
-//     },
-// };
-
 // for bottom tabs with sideMenu
 const mainRoot = {
     root: {
@@ -100,15 +35,6 @@ const mainRoot = {
                                         },
                                     },
                                 ],
-                                // options: {
-                                //     bottomTab: {
-                                //         iconColor: '#FF1493',
-                                //         textColor: '#000',
-                                //     },
-                                //     bottomTabs: {
-                                //         animate: true,
-                                //     },
-                                // },
                             },
                         },
                         {
@@ -122,24 +48,6 @@ const mainRoot = {
                                         },
                                     },
                                 ],
-                                // options: {
-                                //     bottomTab: {
-                                //         iconColor: '#FF1493',
-                                //         textColor: '#000',
-                                //     },
-                                //     bottomTabs: {
-                                //         animate: true,
-                                //     },
-                                //     bottomTab: {
-                                //         animateBadge: true,
-                                //         dotIndicator: {
-                                //             animate: true, visible: true,
-                                //         },
-                                //     },
-                                //     bottomTabs: {
-                                //         animate: true,
-                                //     },
-                                // },
                             },
                         },
                     ],
