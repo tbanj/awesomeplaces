@@ -1,11 +1,14 @@
 /* eslint-disable prettier/prettier */
+/* https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import AuthScreen from './src/screens/Auth';
 import startMainTabs from './src/screens/maintabs/startMainTabs';
-// import DashboardScreen from './src/screens/maintabs/Dashboard';
-// import SideDrawer from './src/screens/sideDrawer/SideDrawer';
 import PlaceDetail from './src/screens/placedetail/PlaceDetail';
 import SharePlace from './src/screens/shareplace/SharePlace';
 import FindPlace from './src/screens/findplace/FindPlace';
@@ -45,18 +48,6 @@ Navigation.registerComponent('awesome-places.MenuScreen', () => (props) => (
         <MenuScreen {...props} />
     </Provider>
 ), () => MenuScreen);
-
-// registering sideDrawer without redux store
-// Navigation.registerComponent('awesome-places.SideDrawer',
-//     () => SideDrawer);
-
-// registering sideDrawer with redux store
-// Navigation.registerComponent('awesome-places.SideDrawer', () => (props) => (
-//     <Provider store={store}>
-//         <SideDrawer {...props} />
-//     </Provider>
-// ), () => SideDrawer);
-
 // Navigation.setRoot(startMainTabs);
 const loginRoot = {
     root: { component: { name: 'AuthScreen' } },
@@ -66,66 +57,6 @@ const loginRoot = {
 
 Navigation.events().registerAppLaunchedListener(async () => {
     Navigation.setRoot(loginRoot);
-    // Navigation.setRoot(startMainTabs);
-    // Navigation.setDefaultOptions({
-    //     bottomTab: {
-    //         selectedFontSize: 14,
-    //         selectedTextColor: 'blue',
-    //     },
-    // });
-
-    // Navigation.mergeOptions('root', {
-    //     bottomTab: {
-    //         animateBadge: true,
-    //         dotIndicator: {
-    //             animate: true, visible: true,
-    //         },
-    //     },
-    //     // bottomTabs: {
-    //     //     animate: true,
-    //     // },
-    // });
-
-    // startMainTabs.root.bottomTabs.children[0].stack.id,
-    Navigation.mergeOptions(startMainTabs.root.sideMenu.center.bottomTabs.children[0].stack.id, {
-        bottomTab: {
-            // iconColor: '#FF1493',
-            // textColor: 'red',
-            animateBadge: true,
-            dotIndicator: {
-                animate: true,
-                visible: true,
-            },
-        },
-        bottomTabs: {
-            animate: true,
-        },
-    });
-
-    Navigation.mergeOptions(startMainTabs.root.sideMenu.center.bottomTabs.children[1].stack.id, {
-
-        bottomTab: {
-            // textColor: 'red',
-            animateBadge: true,
-            dotIndicator: {
-                animate: true,
-                visible: true,
-            },
-        },
-        bottomTabs: {
-            animate: true,
-        },
-    });
-
-
-    Navigation.mergeOptions(startMainTabs.root.sideMenu.id, {
-
-        sideMenu: {
-            left: {
-                visible: true,
-            },
-        },
-    });
 
 });
 

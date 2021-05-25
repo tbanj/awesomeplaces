@@ -7,7 +7,7 @@ import { uiStartLoading, uiStopLoading } from './ui';
 import startMainTabs from '../../screens/maintabs/startMainTabs';
 import { getData, getObjData, storeData, storeObjData, clearStorage } from '../../lib/asyncStorage';
 
-const apiKey = 'AIzaSyAmtanoUXSYtXhr0JeU1do4V_6kWTNWRwE';
+const apiKey = 'apiKey';
 
 
 export const tryAuth = (authData, authMode) => {
@@ -57,12 +57,10 @@ export const tryAuth = (authData, authMode) => {
                             }
                             console.error(error);
                         });
-                    // Navigation.setRoot(startMainTabs);
-                    // dispatch(authStoreToken(parsedRes.idToken, parsedRes.expiresIn, parsedRes.refreshToken));
                 }
             })
             .catch(err => {
-                console.log(err);
+                console.warn(err);
                 Alert.alert('Network issues, please retry');
                 dispatch(uiStopLoading);
             });
@@ -145,7 +143,6 @@ export const authGetToken = () => {
                                 const res = await response.json();
                                 if (res.id_token) {
                                     await dispatch(authStoreToken(res.id_token, res.expires_in, res.refresh_token));
-                                    // return { token: res.id_token, expiredDate: res.expires_in };
                                     resolve({ token: res.id_token, expiredDate: res.expires_in });
                                 }
 
@@ -161,7 +158,6 @@ export const authGetToken = () => {
 
                 else {
                     resolve(token);
-                    // return;
                 }
 
             } catch (error) {
@@ -170,11 +166,6 @@ export const authGetToken = () => {
                 dispatch(authClearStorage('mp:auth:refreshToken'));
             }
 
-
-
-
-
-            // return token;
         });
     };
 };
@@ -186,18 +177,6 @@ export const authAutoSignIn = () => {
             .then(token => {
                 if (token) {
                     Navigation.setRoot(startMainTabs);
-                    // Navigation.push('findPlace', {
-                    //     component: {
-                    //       name: 'awesome-places.Find Place',
-                    //       options: { // Optional options object to configure the screen
-                    //         topBar: {
-                    //           title: {
-                    //             text: 'Settings' // Set the TopBar title of the new Screen
-                    //           }
-                    //         }
-                    //       }
-                    //     }
-                    //   });
                 }
             });
 
@@ -221,7 +200,7 @@ export const authRetrieveToken = () => {
         try {
             await getObjData('mp:auth:token');
         } catch (error) {
-            console.log('error encounter');
+            console.warn('error encounter');
         }
     };
 };

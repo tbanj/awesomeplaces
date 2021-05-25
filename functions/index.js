@@ -54,7 +54,7 @@ exports.storeImage = functions.https.onRequest((request, response) => {
         try {
             await fs.writeFileSync('tmp/uploaded-image.jpg', body.image, 'base64', (err) => {
                 if (err) {
-                    console.log(err);
+                    console.warn(err);
                     response.status(500).json({ error: err });
                 }
             });
@@ -77,7 +77,7 @@ exports.storeImage = functions.https.onRequest((request, response) => {
             });
 
         } catch (error) {
-            console.log('error encounter');
+            console.warn('error encounter');
             // if (req.filePath) {
             //     await removePath(req.filePath);
             // }

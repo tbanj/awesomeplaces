@@ -76,16 +76,7 @@ class PlaceInput extends Component {
         try {
             if (this.state.controls.placeName.value.trim() === '') { return; }
             //  in react-native to view debug make use of alert to display content u want to troubleshoot
-            // setPlaces([
-            //   ...places,
-            //   {
-            //     key: new Date().getTime() + '', name: placeName,
-            //     image: PlaceImage, remoteImage: {
-            //       uri: 'http://4.bp.blogspot.com/-TLR8ISV2qWo/TyUeVqg9xmI/AAAAAAAACOU/1rCZw9-uj50/s640/62589635.jpg',
-            //       width: 30, height: 30,
-            //     },
-            //   },
-            // ]);
+
             await this.props.onAddPlace({ ...this.props.places, placeName: this.state.controls.placeName.value, PlaceImage: PlaceImage },
                 this.state.controls.location.value, this.state.controls.image.value);
 
@@ -130,27 +121,10 @@ class PlaceInput extends Component {
             submitButton = <View style={styles.pt10}><ActivityIndicator color="#2196F3" /></View>;
         }
 
-        // const handleImageComponent = forwardRef(({ theme, ...rest }, ref) => (
-        //     <PickImage onImagePicker={this.imagePickHandler}
-        //         ref={refs => { this.imagePickHandle = refs; }} />
-
-        // ));
-        // const checkObj = Object.keys(handleImageComponent);
-        // console.log('checkObj, $$typeof', handleImageComponent.$$typeof);
         return (
             <View style={styles.container}>
                 <PickImage onImagePicker={this.imagePickHandler} imagePickerRef={ref => { this.pickImage = ref; }}
                 />
-                {/* {this.handleImageComponent} */}
-                {/* <View>{handleImageComponent}</View> */}
-                {/* {<View>{handleImageComponent.$$typeof}</View>} */}
-                {/* <View style={[styles.placeholder, styles.imgHeight, styles.mb]}>
-                    {this.state.controls.placeName.valid && <Image resizeMode="contain" source={this.state.controls.imagePicker} style={styles.previewImage} />}
-
-                </View>
-                <DefaultTouchable style={[styles.loginScreenButton, styles.mb]}
-                    underlayColor="#fff" InnerText={'Pick Image'} styleText={styles.loginText} onPress={this.handleImagePicked} /> */}
-
                 <PickLocation onLocationPick={this.locationPickHandler} ref={ref => { this.pickLocation = ref; }} />
                 <View style={styles.inputContainer} >
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -166,9 +140,6 @@ class PlaceInput extends Component {
                         />
 
                     </TouchableWithoutFeedback>
-                    {/* <DefaultTouchable style={styles.loginScreenButton} onPress={() => { this.placeSubmitHandler(); }}
-                        underlayColor="#fff" InnerText={'Share a Place'} styleText={styles.loginText} /> */}
-
                     {/* || !this.state.controls.location.valid */}
                     {submitButton}
                 </View>

@@ -225,16 +225,6 @@ Promise.all([
             selectedIconColor: '#FF1493',
             fontFamily: 'Comfortaa-Regular',
         },
-        // bottomTab: {
-        //     animateBadge: true,
-        //     text: 'Find Place',
-        //     icon: source,
-        //     dotIndicator: {
-        //         animate: true,
-        //         visible: true,
-        //     },
-        // },
-
     };
 });
 

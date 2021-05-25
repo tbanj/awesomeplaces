@@ -35,7 +35,7 @@ export const uploadFileToFireBase = async (imagePickerResponse) => {
         const textUrl = await getUrl(imagePickerResponse);
         return textUrl;
     } catch (error) {
-        console.log('error', error);
+        console.warn('error', error);
         Alert.alert('Something went wrong, please try again');
     }
     // const pathToFile = `${utils.FilePath.PICTURES_DIRECTORY}/black-t-shirt-sm.png`;
@@ -58,7 +58,7 @@ export const getUrl = async (response) => {
         const data = { url, fileNm };
         return data;
     } catch (error) {
-        console.log('error', error);
+        console.warn('error', error);
         Alert.alert('Something went wrong, please try again');
     }
 };
@@ -69,7 +69,7 @@ export async function deleteFile(file) {
     try {
         await storage().ref(`majaplace/${file}`).delete();
     } catch (error) {
-        console.log('delete unsuccessful');
+        console.warn('delete unsuccessful');
     }
 }
 

@@ -27,7 +27,6 @@ const ButtonWithBg = (props) => {
         </TouchableHighlight>);
 
 };
-// onSubmitEditing={Keyboard.dismiss} blurOnSubmit={true}
 
 const styles = StyleSheet.create({
     button: {

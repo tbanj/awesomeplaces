@@ -12,7 +12,6 @@ const ListItem = (props) => {
                 <Image
                     resizeMode="contain" source={props.placeImage} style={styled.placeImage} />
                 <Text>{props.placeName} </Text>
-                {/* <Image source={props.reImage} style={styled.reImage} /> */}
             </View>
         </TouchableOpacity>
     );

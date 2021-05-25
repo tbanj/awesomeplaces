@@ -8,8 +8,6 @@ class PickLocation extends Component {
         super(props);
         this.state = {
             focusedLocation: {
-                // 37.7900352, -122.4013726,
-                //    6.4939597, 3.3529198,
                 latitude: 37.7900352,
                 longitude: -122.4013726,
                 latitudeDelta: 0.0122,
@@ -23,8 +21,6 @@ class PickLocation extends Component {
     reset = () => {
         this.setState({
             focusedLocation: {
-                // 37.7900352, -122.4013726,
-                //    6.4939597, 3.3529198,
                 latitude: 37.7900352,
                 longitude: -122.4013726,
                 latitudeDelta: 0.0122,

@@ -26,7 +26,7 @@ export const getData = async (key) => {
     }
   } catch (e) {
     // error reading value
-    console.log('error encounter');
+    console.warn('error encounter');
   }
 };
 
@@ -35,15 +35,14 @@ export const getObjData = async (key) => {
     const jsonValue = await AsyncStorage.getItem(`@storage_${key}`);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
-    console.log('obj cannot be retrieve from store');
+    console.warn('obj cannot be retrieve from store');
   }
 };
 
 export const clearStorage = async (data) => {
   try {
-    const value = await AsyncStorage.removeItem(`@storage_${data}`);
-    console.log('delete', value);
+    await AsyncStorage.removeItem(`@storage_${data}`);
   } catch (error) {
-    console.log('async key not available');
+    console.warn('async key not available');
   }
 };

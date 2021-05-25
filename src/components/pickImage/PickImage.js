@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 import { Alert, Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import auth from '@react-native-firebase/auth';
-// import PlaceImage from '../../../assets/theater.jpeg';
 import { addPlace } from '../../../src/store/actions/index';
 import DefaultTouchable from '../UI/defaultTouch/DefaultTouchable';
 import ImagePicker from 'react-native-image-picker';
-// import { createStorageReferenceToFile, getUrl, uploadFileToFireBase } from '../../lib/storage';
 
 class PickImage extends Component {
     state = {
@@ -53,13 +51,8 @@ class PickImage extends Component {
 
                 this.setState({ imagePicker: { uri: res.uri } });
                 // res.data the image is stored in form of strings
-
                 // Add this
-
                 this.props.onImagePicker({ uri: res.uri, base64: res.data, totalData: res });
-
-
-
             }
         });
 

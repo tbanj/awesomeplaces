@@ -2,22 +2,9 @@
 const React = require('react');
 const Navigation = require('react-native-navigation');
 const { View, Text } = require('react-native');
-// import Icon from 'react-native-vector-icons/Ionicons';
-// import PlaceImage from '../../assets/theater.jpeg';
 
 
 class SideDrawer extends React.Component {
-
-    // async getMapIcon() {
-    //     try {
-    //         const source = await Icon.getImageSource('md-map', 30);
-    //         console.warn('source', source);
-
-    //     } catch (error) {
-    //         console.warn('error encounter');
-    //     }
-    // }
-    // getMapIcon()
 
     static options() {
         return {

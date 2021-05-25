@@ -176,7 +176,7 @@ export default SharePlaceScreen;
 
 
 Promise.all([
-    Icon.getImageSource(Platform.OS === 'android' ? 'md-share-alt' : 'ios-share', 30),
+    Icon.getImageSource(Platform.OS === 'android' ? 'md-share' : 'ios-share', 30),
     Icon.getImageSource(Platform.OS === 'android' ? 'md-menu' : 'ios-menu', 30),
 ]).then(sources => {
     SharePlaceScreen.options = {
@@ -197,23 +197,14 @@ Promise.all([
             },
 
         },
-        // bottomTab: {
-        //     text: 'Share Place',
-        //     icon: sources[0],
-        // },
         bottomTab: {
             text: 'Share Place',
             icon: sources[0],
-            // iconColor: '#FF1493',
-            // textColor: '#000',
             selectedIcon: sources[0],
             selectedTextColor: '#FF1493',
             selectedIconColor: '#FF1493',
             fontFamily: 'Comfortaa-Regular',
         },
-        // bottomTabs: {
-        //     animate: true,
-        // },
     };
 }).catch(error => {
     console.error(error.message);
